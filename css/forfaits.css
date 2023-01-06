@@ -92,12 +92,25 @@ body {
     width: 180px;
 }
 
-.input-form-gauche p,
-.input-form-milieu p,
-.input-form-droite p {
+.input-form-gauche label,
+.input-form-milieu label,
+.input-form-droite label {
     position: relative;
-    left: 5px;
-    top: 5px;
+    left: 10px;
+    top: 15px;
+}
+
+
+.input-form-gauche label:hover,
+.input-form-milieu label:hover,
+.input-form-droite label:hover {
+    cursor: pointer;
+    scale: 1.05;
+}
+
+input[type="radio"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 

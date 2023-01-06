@@ -32,52 +32,53 @@
             <div class="d-flex">
                 <div class="form-gauche">
                     <div class="d-flex input-form-gauche">
-                        <input type="radio" name="typePermis">
-                        <p>Permis B</p>
+                        <input class="form-check-input" id="Permis-B" type="radio" name="typePermis" value="20">
+                        <label for="Permis-B">Permis B</label>
                     </div>
                     <div class="d-flex input-form-gauche">
-                        <input type="radio" name="typePermis">
-                        <p>Permis B accompagné</p>
+                        <input class="form-check-input" id="Permis-B-accompagné" type="radio" name="typePermis" value="20">
+                        <label for="Permis-B-accompagné">Permis B accompagné</label>
                     </div>
                     <div class="d-flex input-form-gauche">
-                        <input type="radio" name="typePermis">
-                        <p>Permis B acceléré</p>
+                        <input class="form-check-input" id="Permis-B-acceléré" type="radio" name="typePermis" value="20">
+                        <label for="Permis-B-acceléré">Permis B acceléré</label>
                     </div>
-                    <!-- <div class="hr"></div> -->
                 </div>
                 <div class="form-milieu">
                     <div class="d-flex input-form-milieu">
-                        <input type="radio" name="typeBoite">
-                        <p>Boite automatique</p>
+                        <input class="form-check-input" id="Boite-automatique" type="radio" name="typeBoite" value="20">
+                        <label for="Boite-automatique">Boite automatique</label>
                     </div>
                     <div class="d-flex input-form-milieu">
-                        <input type="radio" name="typeBoite">
-                        <p>Boite manuelle</p>
+                        <input class="form-check-input" id="Boite-manuelle" type="radio" name="typeBoite" value="20">
+                        <label for="Boite-manuelle">Boite manuelle</label>
                     </div>
                 </div>
                 <div class="form-droite">
                     <div class="d-flex input-form-droite">
-                        <input type="radio" name="nbCours">
-                        <p>20</p>
+                        <input class="form-check-input" id="20" type="radio" name="nbCours" value="20">
+                        <label for="20">20</label>
                     </div>
                     <div class="d-flex input-form-droite">
-                        <input type="radio" name="nbCours">
-                        <p>25</p>
+                        <input class="form-check-input" id="25" type="radio" name="nbCours" value="5">
+                        <label for="25">25</label>
                     </div>
                     <div class="d-flex input-form-droite">
-                        <input type="radio" name="nbCours">
-                        <p>30</p>
+                        <input class="form-check-input" id="30" type="radio" name="nbCours" value="10">
+                        <label for="30">30</label>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="btn-sinscrire">
-            <p>235€</p>
+            <p id="Montant-Display"></p>
             <button id="validate-form-forfaits">S'inscrire</button>
         </div>
     </div>
 
+    <?php require_once('./views/_footer.php') ?>
+    <script src="./Js/forfaits.js"></script>
 </body>
 
 </html>

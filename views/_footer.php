@@ -19,7 +19,7 @@
 
     footer {
         width: 100%;
-        height: 300px;
+        height: 150px;
         background-color: #333333;
         display: flex;
         font-family: 'Karla', sans-serif;
