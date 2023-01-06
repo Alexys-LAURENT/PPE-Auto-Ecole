@@ -44,41 +44,47 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         }
     }
 
-    if (isset($_POST['Register']) && $_POST['mdp'] != "" && $_POST['email'] != '' && $_POST['nom'] != '' && $_POST['prenom'] != '' && $_POST['date'] != '' && $_POST['ville'] != '' && $_POST['adr'] != '' && $_POST['cp'] != '' && $_POST['tel'] != '' && $_POST['sexe'] != '') {
+    if (isset($_POST['Register'])) {
 
-
-        $tab = array(
-            "nom" => $_POST['nom'],
-            "prenom" => $_POST['prenom'],
-            "email" => $_POST['email'],
-            "adr" => $_POST['adr'],
-            "ville" => $_POST['ville'],
-            "cp" => $_POST['cp'],
-            "tel" => $_POST['tel'],
-            "date" => $_POST['date'],
-            "mdp" => $_POST['mdp'],
-            "sexe" => $_POST['sexe']
-        );
-
-        // //Hachage avec un grain de sel
-        // $unControleur->setTable("grainSel");
-        // $resultat = $unControleur->selectAll();
-        // $nb = $resultat[0]['nb'];
-        // $mdp = sha1($mdp . $nb);
-
-
-
-        $unUser = $unControleur->Register($tab);
-        if ($unUser == null) {
-            echo "<div class='col-md-3 alert alert-danger'>Problème technique, réessayer plus tard</div>";
+        if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['adr']) || empty($_POST['ville']) || empty($_POST['cp']) || empty($_POST['tel']) || empty($_POST['date']) || empty($_POST['mdp']) || empty($_POST['sexe'])) {
+            echo "<div class='col-md-3 alert alert-danger'>Veuillez remplir tous les champs <span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+            <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+          </svg> </span> </div>";
         } else {
-            $_SESSION['email'] = $unUser['email_e'];
-            $_SESSION['nom'] = $unUser['nom_e'];
-            $_SESSION['prenom'] = $unUser['prenom_e'];
-            $_SESSION['id_e'] = $unUser['id_e'];
+
+            $tab = array(
+                "nom" => $_POST['nom'],
+                "prenom" => $_POST['prenom'],
+                "email" => $_POST['email'],
+                "adr" => $_POST['adr'],
+                "ville" => $_POST['ville'],
+                "cp" => $_POST['cp'],
+                "tel" => $_POST['tel'],
+                "date" => $_POST['date'],
+                "mdp" => $_POST['mdp'],
+                "sexe" => $_POST['sexe']
+            );
+
+            // //Hachage avec un grain de sel
+            // $unControleur->setTable("grainSel");
+            // $resultat = $unControleur->selectAll();
+            // $nb = $resultat[0]['nb'];
+            // $mdp = sha1($mdp . $nb);
 
 
-            header("Location: index.php?page=0");
+
+            $unUser = $unControleur->Register($tab);
+            if ($unUser == null) {
+                echo "<div class='col-md-3 alert alert-danger'>Problème technique, réessayer plus tard</div>";
+            } else {
+                $_SESSION['email'] = $unUser['email_e'];
+                $_SESSION['nom'] = $unUser['nom_e'];
+                $_SESSION['prenom'] = $unUser['prenom_e'];
+                $_SESSION['id_e'] = $unUser['id_e'];
+
+
+                header("Location: index.php?page=0");
+            }
         }
     }
 
