@@ -1,8 +1,3 @@
-<?php
-require_once("controller/config_bdd.php");
-require_once("controller/controleur.class.php");
-$unControleur = new Controleur($serveur, $bdd, $user, $mdp);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +6,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
-    <title>PPE SLAM JV 23</title>
+    <title>Accueil</title>
 </head>
 
 <body>

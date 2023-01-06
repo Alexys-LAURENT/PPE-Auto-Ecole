@@ -102,17 +102,17 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         case '1':
             require_once("CPF.php");
             break;
-
+        case '3':
+            require_once('FAQ.php');
+            break;
         case '9':
             require_once("login.php");
             break;
-
         case '10':
             session_destroy();
             unset($_SESSION);
             header("location: index.php?page=0");
             break;
-
         default:
             require_once("erreur_404.php");
             break;
@@ -125,6 +125,11 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
 </body>
 
 </html>
+<style>
+    .bg-green {
+        background-color: #2B8C52;
+    }
+</style>
 <script src="./Js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

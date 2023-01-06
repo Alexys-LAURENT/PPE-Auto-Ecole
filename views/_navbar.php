@@ -22,7 +22,7 @@
                         A propos de nous</a>
                 </li>
                 <li class="nav-item-p nav-item ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="index.php?page=3">
                         FAQ</a>
                 </li>
                 <?php
