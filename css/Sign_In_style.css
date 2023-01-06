@@ -18,6 +18,13 @@ p {
     font-weight: 500;
 }
 
+.back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 999999999999;
+}
+
 .change {
     background-color: #2B8C52;
 }
