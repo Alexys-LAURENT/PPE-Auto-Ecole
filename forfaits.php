@@ -31,21 +31,44 @@
             </div>
             <div class="d-flex">
                 <div class="form-gauche">
-                    <div class="d-flex">
+                    <div class="d-flex input-form-gauche">
                         <input type="radio" name="typePermis">
                         <p>Permis B</p>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex input-form-gauche">
                         <input type="radio" name="typePermis">
                         <p>Permis B accompagné</p>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex input-form-gauche">
                         <input type="radio" name="typePermis">
                         <p>Permis B acceléré</p>
                     </div>
+                    <!-- <div class="hr"></div> -->
                 </div>
-                <div class="form-milieu"></div>
-                <div class="form-droite"></div>
+                <div class="form-milieu">
+                    <div class="d-flex input-form-milieu">
+                        <input type="radio" name="typeBoite">
+                        <p>Boite automatique</p>
+                    </div>
+                    <div class="d-flex input-form-milieu">
+                        <input type="radio" name="typeBoite">
+                        <p>Boite manuelle</p>
+                    </div>
+                </div>
+                <div class="form-droite">
+                    <div class="d-flex input-form-droite">
+                        <input type="radio" name="nbCours">
+                        <p>20</p>
+                    </div>
+                    <div class="d-flex input-form-droite">
+                        <input type="radio" name="nbCours">
+                        <p>25</p>
+                    </div>
+                    <div class="d-flex input-form-droite">
+                        <input type="radio" name="nbCours">
+                        <p>30</p>
+                    </div>
+                </div>
             </div>
         </div>
 
