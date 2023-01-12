@@ -13,6 +13,7 @@
     <?php
     require_once("./views/_navbar.php");
     ?>
+
     <div class="banner mb-5">
         <div class="container-xs">
             <h1 class="slogan py-5 text-center">Du permis voiture à moto!</h1>
