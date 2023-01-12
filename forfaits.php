@@ -1,6 +1,6 @@
     <?php
     if (isset($_POST['Submit-PermisB'])) {
-        if (!isset($unUser)) {
+        if (!isset($_SESSION['email'])) {
             header("location: index.php?page=9");
         } else {
             echo "good";
