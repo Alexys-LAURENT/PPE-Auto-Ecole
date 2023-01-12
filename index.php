@@ -100,7 +100,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             require_once("Accueil.php");
             break;
         case '1':
-            require_once("CPF.php");
+            require_once("forfaits.php");
             break;
         case '3':
             require_once('FAQ.php');
