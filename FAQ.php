@@ -14,7 +14,6 @@
     require_once("./views/_navbar.php");
     ?>
     <div class="banner">
-        <div class="duzhdzoihdz">ihzdozidzipjdz <br> odijqzoidjqzoijd </div>
     </div>
 
     <main>
@@ -76,7 +75,7 @@
     .banner {
         background-color: #2B8C52;
         width: 100%;
-        min-height: 60vh;
+        height: 100px;
     }
 
     .bg-grey {
