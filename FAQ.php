@@ -17,8 +17,8 @@
         <div class="duzhdzoihdz">ihzdozidzipjdz <br> odijqzoidjqzoijd </div>
     </div>
 
-    <main class="my-5">
-        <div class="container bg-grey p-4 rounded-3">
+    <main>
+        <div class="container bg-grey p-4">
             <div class="col-md-12 mx-auto">
                 <div class="bg-green rounded-top p-3 text-center text-white">
                     <div class="titre">
@@ -28,23 +28,33 @@
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question1()">
                     Question 1
                 </div>
-                <div id="question1" class="quest quest-close">QUEUGZDOUHZODHZLDUOHZD</div>
+                <div id="question1" class="bg-white quest quest-close">
+                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question2()">
                     Question 2
                 </div>
-                <div id="question2" class="quest quest-close">QUEUGZDOUHZODHZLDUOHZD</div>
+                <div id="question2" class="bg-white quest quest-close">
+                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question3()">
                     Question 3
                 </div>
-                <div id="question3" class="quest quest-close">QUEUGZDOUHZODHZLDUOHZD</div>
+                <div id="question3" class="bg-white quest quest-close">
+                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question4()">
                     Question 4
                 </div>
-                <div id="question4" class="quest quest-close">QUEUGZDOUHZODHZLDUOHZD</div>
+                <div id="question4" class="bg-white quest quest-close">
+                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question5()">
                     Question 5
                 </div>
-                <div id="question5" class="quest quest-close">QUEUGZDOUHZODHZLDUOHZD</div>
+                <div id="question5" class="bg-white quest quest-close">
+                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                </div>
             </div>
         </div>
     </main>
@@ -70,7 +80,7 @@
     }
 
     .bg-grey {
-        background-color: #e9e9e9;
+        background-color: #F2F2F2;
     }
 
     .titre {
@@ -81,7 +91,7 @@
     .question {
         font-size: 1.20rem;
         font-weight: 700;
-        border-bottom: 0.5px solid black !important;
+        border-top: 0.5px solid black !important;
     }
 
     .quest {
