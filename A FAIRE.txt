@@ -1,0 +1,3 @@
+alter TABLE eleve ADD id_formation int;
+ALTER TABLE eleve ADD CONSTRAINT FK_FORMATION FOREIGN KEY (id_formation) REFERENCES formule(id_f);
+ALTER TABLE formule ADD nb_heures float(4,2);
