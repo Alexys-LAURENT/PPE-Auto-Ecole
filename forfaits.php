@@ -1,9 +1,10 @@
     <?php
     if (isset($_POST['Submit-PermisB'])) {
         if (!isset($_SESSION['email'])) {
+            $_SESSION['redirection'] = "index.php?page=1";
             header("location: index.php?page=9");
         } else {
-            echo "good";
+            //faire un truc
         }
     }
 
