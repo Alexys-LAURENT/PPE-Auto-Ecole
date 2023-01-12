@@ -42,7 +42,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             $_SESSION['formation'] = $formation;
 
             if (isset($_SESSION['redirection'])) {
-                header("Location : " . $_SESSION['redirection']);
+                header("Location: index.php?page=1");
                 unset($_SESSION['redirection']);
             } else {
                 header("Location: index.php?page=0");
