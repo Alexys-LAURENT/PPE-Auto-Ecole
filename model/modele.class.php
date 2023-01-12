@@ -38,6 +38,22 @@ class Modele
         }
     }
 
+    public function selectWhere($table, $colonne, $valeur)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from " . $table . " where " . $colonne . "=:valeur;";
+            $donnees = array(
+                ":valeur" => $valeur
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetch();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
     public function Register($tab)
     {
         if ($this->unPDO != null) {

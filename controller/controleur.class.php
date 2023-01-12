@@ -21,6 +21,11 @@ class Controleur
         return $this->unModele->verifConnection($email, $mdp);
     }
 
+    public function selectWhere($table, $colonne, $valeur)
+    {
+        return $this->unModele->selectWhere($table, $colonne, $valeur);
+    }
+
     public function Register($tab)
     {
         return $this->unModele->Register($tab);
