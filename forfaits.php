@@ -1,4 +1,8 @@
     <?php
+    // if (isset($_SESSION['totalPermisB'])) {
+    var_dump($_SESSION['total_PermisB']);
+    // }
+
     if (isset($_POST['Submit-PermisB'])) {
         if (!isset($_SESSION['email'])) { //Si pas connecté, redirect login/register
             $_SESSION['redirection'] = "index.php?page=1"; // on set une variable de session qui est un lien de redirection

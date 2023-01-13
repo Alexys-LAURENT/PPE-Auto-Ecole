@@ -7,6 +7,7 @@ let ChampGauche = 0;
 let ChampMilieu = 0;
 let ChampDroite = 0;
 Montant_Display.innerHTML = "0€";
+sendDataPermisB();
 
 for (let i = 0; i < nbCours.length; i++) {
     nbCours[i].addEventListener('change', function () {
@@ -67,6 +68,7 @@ for (let i = 0; i < typePermis.length; i++) {
             ChampGauche = 899;
         }
         Calculer();
+        sendDataPermisB();
     });
 }
 
@@ -169,3 +171,14 @@ function Display_Code() {
     document.getElementById("validate-Code").style.display = "flex";
 }
 
+function sendDataPermisB() {
+    var total_PermisB = parseInt(ChampGauche) + parseInt(ChampMilieu) + parseInt(ChampDroite);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "script.php", true);
+
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.send("total_PermisB=" + total_PermisB);
+}
