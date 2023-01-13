@@ -49,6 +49,5 @@ document.getElementById('submit').addEventListener('click', function () {
         }, 5000);
 
 
-        // alert('Votre commande a bien été prise en compte');
     }
 });

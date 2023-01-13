@@ -1,6 +1,6 @@
     <?php
     // if (isset($_SESSION['totalPermisB'])) {
-    var_dump($_SESSION['total_PermisB']);
+    // var_dump($_SESSION['total_PermisB']);
     // }
 
     if (isset($_POST['Submit-PermisB'])) {

@@ -4,9 +4,6 @@ if (!isset($_SESSION['email'])) {
     header("Location: index.php?page=0");
 }
 
-// if (isset($_POST['submitPurchase']) && isset($_POST['nom']) && isset($_POST['num']) && isset($_POST['dateExpi']) && isset($_POST['cvv'])) {
-//     header('Location: index.php?page=2');
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +33,11 @@ if (!isset($_SESSION['email'])) {
                         <img class="mastercard" src="./images/mastercard.png" width="50px" alt="">
                     </div>
                     <h2>Montant du paiement</h2>
-                    <p id="montant">XXX €</p>
+                    <p id="montant"><?php if ($_SESSION['total_PermisB'] != 0) {
+                                        echo $_SESSION['total_PermisB'];
+                                    } else {
+                                        header("Location: index.php?page=0");
+                                    } ?>€</p>
 
                     <label for="">Nom sur la carte :</label>
                     <input type="text" name="nom" id="inputNom">

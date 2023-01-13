@@ -27,6 +27,7 @@ for (let i = 0; i < nbCours.length; i++) {
             ChampDroite = 460;
         }
         Calculer();
+        sendDataPermisB();
     });
 }
 
@@ -45,6 +46,7 @@ for (let i = 0; i < typeBoite.length; i++) {
             ChampMilieu = 0;
         }
         Calculer();
+        sendDataPermisB();
     });
 }
 
