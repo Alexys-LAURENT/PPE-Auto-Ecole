@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+    header("Location: index.php?page=0");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,25 +30,27 @@
                 <p id="montant">XXX €</p>
 
                 <label for="">Nom sur la carte :</label>
-                <input type="text" name="nom" id="nom">
+                <input type="text" name="nom" id="inputNom">
 
 
 
                 <label for="">Numéro de carte :</label>
-                <input type="text" name="num" id="num">
+                <input type="text" name="num" id="inputNum">
 
                 <div class="d-flex-label">
                     <label for="">Date d'éxpiration</label>
-                    <label for="">CCV</label>
+                    <label for="">CVV</label>
                 </div>
                 <div class="d-flex input">
-                    <input type="text" placeholder="MM/YY">
-                    <input type="number" maxlength="3">
+                    <input type="text" placeholder="MM/YY" id="inputDate">
+                    <input type="number" maxlength="3" id="inputCVV">
                 </div>
-                <button type="submit">payer</button>
+                <button type="submit" id="submit">payer</button>
             </div>
         </div>
     </div>
+
+    <script src="./Js/purchase.js"></script>
 </body>
 
 </html>
