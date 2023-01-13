@@ -29,12 +29,16 @@
                 <div class="card-top col-md-5 py-4">
                     <h3 class="fw-bold">Formation Permis B</h3>
                     <small class="text-muted">à partir de 599€</small><br>
-                    <button class="py-3 mt-2 px-3 fw-bold">VOIR LES OFFRES</button>
+                    <a href="index.php?page=1">
+                        <button class="py-3 mt-2 px-3 fw-bold">VOIR LES OFFRES</button>
+                    </a>
                 </div>
                 <div class="card-top col-md-5 py-4">
                     <h3 class="fw-bold">Formation Permis A</h3>
                     <small class="text-muted">à partir de 243€</small><br>
-                    <button class="py-3 mt-2 px-3 fw-bold">VOIR LES OFFRES</button>
+                    <a href="index.php?page=1&type=A">
+                        <button class="py-3 mt-2 px-3 fw-bold">VOIR LES OFFRES</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -125,7 +129,9 @@
                                 <h3 class="title">Formation Permis B</h3>
                                 <p class="text-muted fs-4">à partir de 599€</p>
                                 <div class="boutton">
-                                    <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
+                                    <a href="index.php?page=1">
+                                        <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +140,9 @@
                                 <h3 class="title">Formation Permis A</h3>
                                 <p class="text-muted fs-4">à partir de 243€</p>
                                 <div class="boutton">
-                                    <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
+                                    <a href="index.php?page=1&type=A">
+                                        <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +151,9 @@
                                 <h3 class="title">Formation Code</h3>
                                 <p class="text-muted fs-4">à partir de 10€</p>
                                 <div class="boutton">
-                                    <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
+                                    <a href="index.php?page=1&type=code">
+                                        <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

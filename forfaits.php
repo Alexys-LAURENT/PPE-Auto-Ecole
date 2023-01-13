@@ -148,9 +148,6 @@
 
 
 
-
-
-
             <!-- PERMIS A -->
             <div class="form" id="form-PermisA">
                 <div class="form-title">
@@ -300,3 +297,15 @@
     </body>
 
     </html>
+
+    <?php
+
+    if (isset($_GET['type']) && $_GET['type'] == "A") {
+        echo "<script>Display_PermisA()</script>";
+    }
+
+    if (isset($_GET['type']) && $_GET['type'] == "code") {
+        echo "<script>Display_Code()</script>";
+    }
+
+    ?>
