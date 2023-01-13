@@ -40,6 +40,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             $_SESSION['prenom'] = $unUser['prenom_e'];
             $_SESSION['id_e'] = $unUser['id_e'];
             $_SESSION['formation'] = $formation;
+            $_SESSION['heures'] = $heures;
 
             if (isset($_SESSION['redirection'])) {
                 header("Location: index.php?page=1");
