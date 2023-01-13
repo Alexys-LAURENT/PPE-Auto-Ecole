@@ -7,8 +7,6 @@ if (isset($_POST['mois'])) {
     $mois = date('m');
 }
 
-var_dump($_POST);
-
 //retirer toute les heures dont la checkbox est cochée
 if (isset($_POST['RetirerHeure'])) {
     $unControleur->setTable("planning");
