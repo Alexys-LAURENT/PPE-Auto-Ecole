@@ -16,10 +16,10 @@
     <div class="banner">
     </div>
 
-    <main>
+    <main class="">
         <div class="container bg-grey p-4">
             <div class="col-md-12 mx-auto">
-                <div class="bg-green rounded-top p-3 text-center text-white">
+                <div class="bg-gradient-green rounded-top p-3 text-center text-light">
                     <div class="titre">
                         FOIRE AUX QUESTIONS
                     </div>
@@ -79,12 +79,16 @@
     }
 
     .bg-grey {
-        background-color: #F2F2F2;
+        background-color: #f3f4f6;
     }
 
     .titre {
         font-size: 1.80rem;
         font-weight: 800;
+    }
+
+    .bg-gradient-green {
+        background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
     }
 
     .question {

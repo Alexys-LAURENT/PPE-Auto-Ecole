@@ -9,11 +9,14 @@ if (isset($_POST['mois'])) {
 
 //retirer toute les heures dont la checkbox est cochée
 if (isset($_POST['RetirerHeure'])) {
-    $unControleur->setTable("planning");
     foreach ($_POST['heureSupp'] as $uneHeure) {
+        $unControleur->setTable("planning");
         $tab = array(
             "id_cc" => $uneHeure
         );
+        $unControleur->delete($tab);
+
+        $unControleur->setTable("cours_conduite");
         $unControleur->delete($tab);
     }
 }
@@ -34,7 +37,12 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
     $unControleur->setTable("planning");
 
     $datehd = new DateTime($_POST['datehd'] . " " . $_POST['heurehd']);
-    $datehf = new DateTime($_POST['datehd'] . " " . $_POST['heurehf']);
+    //set $heureFin to $datehd + $_POST['heurehf']
+    $heureFin = $datehd->format('H:i:s');
+    //ajoute 1h30 à $heureFin
+    $heureFin = date('H:i:s', strtotime($heureFin . ' + ' . $_POST['heurehf'] . ' minutes'));
+
+    $datehf = new DateTime($_POST['datehd'] . " " . $heureFin);
 
     $datehd = $datehd->format('Y-m-d H:i:s');
     $datehf = $datehf->format('Y-m-d H:i:s');
@@ -96,10 +104,10 @@ $heuresEffectuees = floor($heuresEffectuees);
     require_once("./views/_navbar.php");
     ?>
 
-    <main class="py-5">
+    <main class="py-5 bg-back">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-xl-5 p-3 shadow rounded-4 text-center text-white my-2">
+                <div class="col-xl-5 p-3 border rounded-3 text-center text-white my-2 bg-white">
                     <div class="row mx-auto my-3">
                         <div class="col-8">
                             <h5 class="text-start text-dark">Ma formation : <?php echo $_SESSION['formation']['nom_f'] ?></h5>
@@ -110,7 +118,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                     </div>
                     <div class="row mx-auto">
                         <div class="col-6">
-                            <div class="p-2 my-2 shadow rounded">
+                            <div class="p-2 my-2">
                                 <h4 class="text-dark">Bienvenue <?php echo $_SESSION['nom'] . " " . $_SESSION['prenom'] ?></h4>
                             </div>
                         </div>
@@ -136,17 +144,38 @@ $heuresEffectuees = floor($heuresEffectuees);
                                                 <div class="row">
                                                     <div class="col-12 my-2">
                                                         <label for="datehd">Date</label>
-                                                        <input type="date" name="datehd" id="datehd" class="form-control">
+                                                        <input type="date" name="datehd" id="datehd" class="form-control" required min="<?php echo date('Y-m-d') ?>">
                                                     </div>
                                                 </div>
                                                 <div class="row my-2">
                                                     <div class="col-6">
                                                         <label for="heurehd">Heure de début</label>
-                                                        <input type="time" name="heurehd" id="heurehd" class="form-control" min="08:00" max="18:00">
+                                                        <select name="heurehd" id="heurehd" class="form-select pointer">
+                                                            <option value="09:00:00">09:00</option>
+                                                            <option value="09:30:00">09:30</option>
+                                                            <option value="10:00:00">10:00</option>
+                                                            <option value="10:30:00">10:30</option>
+                                                            <option value="11:00:00">11:00</option>
+                                                            <option value="14:00:00">14:00</option>
+                                                            <option value="14:30:00">14:30</option>
+                                                            <option value="15:00:00">15:00</option>
+                                                            <option value="15:30:00">15:30</option>
+                                                            <option value="16:00:00">16:00</option>
+                                                            <option value="16:30:00">16:30</option>
+                                                            <option value="17:00:00">17:00</option>
+                                                            <option value="17:30:00">17:30</option>
+                                                            <option value="18:00:00">18:00</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-6">
-                                                        <label for="heurehf">Heure de fin</label>
-                                                        <input type="time" name="heurehf" id="heurehf" class="form-control">
+                                                        <label for="heurehf">Durée</label>
+                                                        <select name="heurehf" id="heurehf" class="form-select pointer">
+                                                            <option value="60">1h</option>
+                                                            <option value="90">1h30</option>
+                                                            <option value="120">2h</option>
+                                                            <option value="150">2h30</option>
+                                                            <option value="180">3h</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                         </div>
@@ -216,11 +245,11 @@ $heuresEffectuees = floor($heuresEffectuees);
                     </div>
                     <div class="row mx-auto">
                         <div class="col-12">
-                            <div class="p-3 bg-green shadow rounded">Résumé des heures passés et à venir</div>
+                            <div class="p-3 bg-green shadow rounded">Accéder à mon quiz</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-5 p-3 shadow rounded-4 my-2">
+                <div class="col-xl-5 p-3 border rounded-3 my-2 bg-white">
                     <div class="row mx-auto">
                         <div class="col-1 my-auto">
                             <div class="border border-dark rounded text-center pointer" onclick="changeMonth(-1);document.getElementById('filtreMois').submit();">
@@ -273,10 +302,51 @@ $heuresEffectuees = floor($heuresEffectuees);
                             </h5>
                             </form>
                         </div>
-                        <div class="col-4 text-end text-green">
-                            <h5 id="AffTout">
+                        <div class="col-4 text-center text-green">
+                            <!-- Button trigger modal -->
+                            <button id="AffTout" type="button" class="rounded border-0 bg-green text-white col-12" data-bs-toggle="modal" data-bs-target="#modalToutesLesHeures">
                                 Afficher tout
-                            </h5>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade text-black" id="modalToutesLesHeures" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Toutes les heures</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Heure de début</th>
+                                                        <th scope="col">Heure de fin</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($toutesLesHeures as $heure) {
+                                                        $dateSup = date("d/m/Y", strtotime($heure['datehd']));
+                                                        $heureDebSup = date("H:i", strtotime($heure['datehd']));
+                                                        $heureFinSup = date("H:i", strtotime($heure['datehf']));
+                                                        echo "<tr>";
+                                                        echo "<td>" . $dateSup . "</td>";
+                                                        echo "<td>" . $heureDebSup . "</td>";
+                                                        echo "<td>" . $heureFinSup . "</td>";
+                                                        echo "</tr>";
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row mx-auto max-height overflow-auto">
@@ -302,17 +372,17 @@ $heuresEffectuees = floor($heuresEffectuees);
                             <div class='col-12 p-3'>
                                 <div class='row'>
                                     <div class='col-2'>
-                                        <div class='col-auto text-center bg-green rounded-4'>
-                                            <div class='text-white'> $jour </div>
-                                            <div class='text-white'> $jour_chiffres </div>
-                                            <div class='text-white'> $moisHeure </div>
+                                        <div class='col-auto text-center bg-green rounded-4 d-flex flex-column justify-content-center'>
+                                            <p class='p-0 m-0 text-white'><small> $jour </small></p>
+                                            <p class='p-0 m-0 text-white'> $jour_chiffres </p>
+                                            <p class='p-0 m-0 text-white'> $moisHeure </p>
                                         </div>
                                     </div>
                                     <div class='col-10 my-auto'>
                                         <div class='row'>
-                                            <div class='col-12 shadow rounded'>
-                                                <h5 class='text-start text-dark'> Session de conduite </h5>
-                                                <h6 class='text-start text-dark'> $dureeHeure.$dureeMinute" . "h</h6>
+                                            <div class='col-12 bg-grey rounded'>
+                                                <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite </h5>
+                                                <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
                                             </div>
                                         </div>
                                     </div>  
@@ -324,7 +394,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                         if (empty($heures)) {
                             echo "
                             <div class='col-12 p-3 text-center mt-5'>
-                            <h5> Aucune heure de conduite ce mois ci 😪 </h5>
+                            <h5> Aucune heure de conduite pour ce mois 😪 </h5>
                             </div>
                             ";
                         }
@@ -355,6 +425,14 @@ $heuresEffectuees = floor($heuresEffectuees);
 
     .text-green {
         color: #2B8C52;
+    }
+
+    .bg-back {
+        background-color: #f9f9f9;
+    }
+
+    .bg-grey {
+        background-color: #F4F4F4;
     }
 
     #mois {
