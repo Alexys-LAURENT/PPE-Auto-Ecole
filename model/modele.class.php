@@ -126,7 +126,7 @@ class Modele
     public function selectAllHeuresEffectuees($table, $valeur)
     {
         if ($this->unPDO != null) {
-            $requete = "select datehd, datehf from " . $table . " where id_e=:valeur and datehf < curdate();";
+            $requete = "select datehd, datehf from " . $table . " where id_e=:valeur and datehf < CURRENT_TIMESTAMP();";
             $donnees = array(
                 ":valeur" => $valeur,
             );
