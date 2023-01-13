@@ -287,7 +287,6 @@ $heuresEffectuees = floor($heuresEffectuees);
                         <div class="col-3">
                             <h5>
                                 <select name="annee" id="annee" class="form-select pointer">
-                                    <option value="2021" <?php if ($annee == 2020) echo "selected" ?>>2020</option>
                                     <option value="2021" <?php if ($annee == 2021) echo "selected" ?>>2021</option>
                                     <option value="2022" <?php if ($annee == 2022) echo "selected" ?>>2022</option>
                                     <option value="2023" <?php if ($annee == 2023) echo "selected" ?>>2023</option>
