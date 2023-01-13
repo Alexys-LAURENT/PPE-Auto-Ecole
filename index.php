@@ -16,7 +16,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
     <title>Val'auto</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 
     <?php
