@@ -189,7 +189,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                                                     <tbody>
                                                         <?php
                                                         foreach ($toutesLesHeures as $heure) {
-                                                            if ($heure['datehd'] >= date("Y-m-d H:i:s")) {
+                                                            if ($heure['datehd'] > date("Y-m-d H:i:s")) {
                                                                 $dateSup = date("d/m/Y", strtotime($heure['datehd']));
                                                                 $heureDebSup = date("H:i", strtotime($heure['datehd']));
                                                                 $heureFinSup = date("H:i", strtotime($heure['datehf']));
