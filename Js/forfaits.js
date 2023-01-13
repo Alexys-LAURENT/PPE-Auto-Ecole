@@ -1,3 +1,4 @@
+// PERMIS B
 const nbCours = document.getElementsByName('nbCours');
 const typeBoite = document.getElementsByName('typeBoite');
 const typePermis = document.getElementsByName('typePermis');
@@ -9,15 +10,39 @@ Montant_Display.innerHTML = "0€";
 
 for (let i = 0; i < nbCours.length; i++) {
     nbCours[i].addEventListener('change', function () {
-        ChampDroite = nbCours[i].value;
+        nbCours[i].value == 0 ? ChampDroite = 0 : null;
+        nbCours[i].value == 150 ? ChampDroite = 150 : null;
+        nbCours[i].value == 460 ? ChampDroite = 460 : null;
+
+        if (i == 0 && nbCours[i].checked && nbCours[i].value != 0) { // Si le bouton est coché et que la valeur est différente de 0 alors on met la valeur à 0
+            ChampDroite = 0;
+        }
+
+        if (i == 1 && nbCours[i].checked && nbCours[i].value != 150) {
+            ChampDroite = 150;
+        }
+
+        if (i == 2 && nbCours[i].checked && nbCours[i].value != 460) {
+            ChampDroite = 460;
+        }
         Calculer();
-        console.log(ChampDroite);
     });
 }
 
 for (let i = 0; i < typeBoite.length; i++) {
     typeBoite[i].addEventListener('change', function () {
-        ChampMilieu = typeBoite[i].value;
+
+        typeBoite[i].value == 0 ? ChampMilieu = 0 : null;
+        typeBoite[i].value == 300 ? ChampMilieu = 300 : null;
+
+
+        if (i == 0 && typeBoite[i].checked && typeBoite[i].value != 300) {
+            ChampMilieu = 300;
+        }
+
+        if (i == 1 && typeBoite[i].checked && typeBoite[i].value != 0) {
+            ChampMilieu = 0;
+        }
         Calculer();
     });
 }
@@ -25,26 +50,58 @@ for (let i = 0; i < typeBoite.length; i++) {
 
 for (let i = 0; i < typePermis.length; i++) {
     typePermis[i].addEventListener('change', function () {
-        ChampGauche = typePermis[i].value;
+
+        typePermis[i].value == 599 ? ChampGauche = 599 : null;
+        typePermis[i].value == 739 ? ChampGauche = 739 : null;
+        typePermis[i].value == 899 ? ChampGauche = 899 : null;
+
+        if (i == 0 && typePermis[i].checked && typePermis[i].value != 599) { // Si le bouton est coché et que la valeur est différente de 599 alors on met la valeur à 599
+            ChampGauche = 599;
+        }
+
+        if (i == 1 && typePermis[i].checked && typePermis[i].value != 739) {
+            ChampGauche = 739;
+        }
+
+        if (i == 2 && typePermis[i].checked && typePermis[i].value != 899) {
+            ChampGauche = 899;
+        }
         Calculer();
     });
 }
 
+
 function Calculer() {
-    Montant_Display.innerHTML = parseInt(ChampGauche) + parseInt(ChampMilieu) + parseInt(ChampDroite) + " €";
-    console.log(parseInt(ChampGauche) + parseInt(ChampMilieu) + parseInt(ChampDroite) + " €");
+    Montant_Display.innerHTML = parseInt(ChampGauche) + parseInt(ChampMilieu) + parseInt(ChampDroite) + " €"; // On affiche le montant total
 }
 
 
 
-
-
+// PERMIS A
 const typePermisA = document.getElementsByName('typePermisA');
 const Montant_Display2 = document.getElementById("Montant-Display2");
 Montant_Display2.innerHTML = "0€";
+let prix_PermisA = 0;
 for (let i = 0; i < typePermisA.length; i++) {
     typePermisA[i].addEventListener('change', function () {
-        Montant_Display2.innerHTML = parseInt(typePermisA[i].value) + " €";
+
+        typePermisA[i].value == 560 ? prix_PermisA = 560 : null;
+        typePermisA[i].value == 225 ? prix_PermisA = 225 : null;
+        typePermisA[i].value == 243 ? prix_PermisA = 243 : null;
+
+        if (i == 0 || i == 1 && typePermisA[i].checked && typePermisA[i].value != 560) {
+            prix_PermisA = 560;
+        }
+
+        if (i == 2 && typePermisA[i].checked && typePermisA[i].value != 225) {
+            prix_PermisA = 225;
+        }
+
+        if (i == 3 && typePermisA[i].checked && typePermisA[i].value != 243) {
+            prix_PermisA = 243;
+        }
+
+        Montant_Display2.innerHTML = prix_PermisA + " €";
     });
 }
 
@@ -52,13 +109,26 @@ for (let i = 0; i < typePermisA.length; i++) {
 
 
 
-
+// CODE
 const Code = document.getElementsByName('Code');
 const Montant_Display3 = document.getElementById("Montant-Display3");
 Montant_Display3.innerHTML = "0€";
+let prix_Code = 0;
 for (let i = 0; i < typePermisA.length; i++) {
     Code[i].addEventListener('change', function () {
-        Montant_Display3.innerHTML = parseInt(Code[i].value) + " €";
+
+        Code[i].value == 10 ? prix_PermisA = 10 : null;
+        Code[i].value == 30 ? prix_PermisA = 30 : null;
+
+        if (i == 0 && Code[i].checked && Code[i].value != 10) {
+            prix_Code = 10;
+        }
+
+        if (i == 1 && Code[i].checked && Code[i].value != 30) {
+            prix_Code = 30;
+        }
+
+        Montant_Display3.innerHTML = prix_Code + " €";
     });
 }
 
@@ -98,3 +168,4 @@ function Display_Code() {
     document.getElementById("validate-PermisA").style.display = "none";
     document.getElementById("validate-Code").style.display = "flex";
 }
+

@@ -1,10 +1,11 @@
     <?php
     if (isset($_POST['Submit-PermisB'])) {
-        if (!isset($_SESSION['email'])) {
-            $_SESSION['redirection'] = "index.php?page=1";
-            header("location: index.php?page=9");
+        if (!isset($_SESSION['email'])) { //Si pas connecté, redirect login/register
+            $_SESSION['redirection'] = "index.php?page=1"; // on set une variable de session qui est un lien de redirection
+            header("location: index.php?page=9"); // cette variable de session sera utiliser dans l'accueil puis "unset" pour revenir à cette page après inscription/connexion
         } else {
-            //faire un truc
+            $_SESSION['achat'] = true;
+            header("location: purchase.php");
         }
     }
 
@@ -35,6 +36,8 @@
             <div class="boutton" onclick="Display_Code()">Code</div>
         </div>
 
+
+        <!-- PERMIS B -->
         <div class="d-flex flex-column align-items-center">
             <div class="form" id="form-PermisB">
                 <form action="" method="post">
@@ -144,7 +147,7 @@
 
 
 
-
+            <!-- PERMIS A -->
             <div class="form" id="form-PermisA">
                 <div class="form-title">
                     <h1>Inscrivez vous au Permis A</h1>
@@ -227,7 +230,7 @@
 
 
 
-
+            <!-- CODE -->
             <div class="form" id="form-Code">
                 <div class="form-title">
                     <h1>Le code de la route</h1>
