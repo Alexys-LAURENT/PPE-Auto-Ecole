@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPF</title>
     <link rel="stylesheet" href="css/cpf.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -23,9 +22,11 @@
         </div>
         <div class="banner-second-row">
             <h2>Financez intégralement votre permis avec Val'Auto,<br> l'auto école agréée CPF</h2>
-            <div class="eligibilite">
-                <a href="">Vérifiez votre éligibilité</a>
-            </div>
+            <a href="https://www.moncompteformation.gouv.fr/espace-public/tout-savoir-sur-le-permis-de-conduire" class="text-decoration-none text-white mb-4">
+                <div class="eligibilite">
+                    Vérifiez votre éligibilité
+                </div>
+            </a>
         </div>
     </div>
     <div class="body">
@@ -62,7 +63,11 @@
                 <div class="contenu">
                     <h3>Passer votre permis pour 0€</h3>
                     <p>Dès que vous avez accepté sur le site du CPF notre proposition de formation, vous aurez immédiatement accès à notre plateforme. Vous pourrez révisez votre Code de la route ou réserver vos cours de conduite en ligne dans plus de 600 localités en France. Si vous avez besoin d’aide un coach suit en permanence l’avancée de votre formation.</p>
-                    <div class="sinscrire"><a href="">S'inscrire</a></div>
+                    <a class="text-decoration-none text-white" href="https://www.moncompteformation.gouv.fr/espace-public/tout-savoir-sur-le-permis-de-conduire">
+                        <div class="sinscrire">
+                            S'inscrire
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="notes">
@@ -101,11 +106,14 @@
             </div>
         </div>
         <div class="pre-footer">
-            <div class="packs"><a href="">Voir tous les packs CPF</a></div>
+            <a class="text-decoration-none text-white" href="https://www.moncompteformation.gouv.fr/espace-prive/html/#/formation/recherche">
+                <div class="packs">
+                    Voir tous les packs CPF
+                </div>
+            </a>
         </div>
         <?php require_once('./views/_footer.php') ?>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -86,6 +86,7 @@ const typePermisA = document.getElementsByName('typePermisA');
 const Montant_Display2 = document.getElementById("Montant-Display2");
 Montant_Display2.innerHTML = "0€";
 let prix_PermisA = 0;
+sendDataPermisA();
 for (let i = 0; i < typePermisA.length; i++) {
     typePermisA[i].addEventListener('change', function () {
 
@@ -106,6 +107,7 @@ for (let i = 0; i < typePermisA.length; i++) {
         }
 
         Montant_Display2.innerHTML = prix_PermisA + " €";
+        sendDataPermisA();
     });
 }
 
@@ -118,11 +120,12 @@ const Code = document.getElementsByName('Code');
 const Montant_Display3 = document.getElementById("Montant-Display3");
 Montant_Display3.innerHTML = "0€";
 let prix_Code = 0;
+sendDataCode();
 for (let i = 0; i < typePermisA.length; i++) {
     Code[i].addEventListener('change', function () {
 
-        Code[i].value == 10 ? prix_PermisA = 10 : null;
-        Code[i].value == 30 ? prix_PermisA = 30 : null;
+        Code[i].value == 10 ? prix_Code = 10 : null;
+        Code[i].value == 30 ? prix_Code = 30 : null;
 
         if (i == 0 && Code[i].checked && Code[i].value != 10) {
             prix_Code = 10;
@@ -133,6 +136,7 @@ for (let i = 0; i < typePermisA.length; i++) {
         }
 
         Montant_Display3.innerHTML = prix_Code + " €";
+        sendDataCode();
     });
 }
 
@@ -183,4 +187,28 @@ function sendDataPermisB() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.send("total_PermisB=" + total_PermisB);
+}
+
+function sendDataPermisA() {
+    var total_PermisA = prix_PermisA;
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "script.php", true);
+
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.send("total_PermisA=" + total_PermisA);
+}
+
+function sendDataCode() {
+    var total_Code = prix_Code;
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "script.php", true);
+
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.send("total_Code=" + total_Code);
 }

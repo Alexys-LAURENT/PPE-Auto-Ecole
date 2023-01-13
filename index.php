@@ -130,6 +130,12 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         case '3':
             require_once('FAQ.php');
             break;
+        case '7':
+            require_once('quiz.php');
+            break;
+        case '8':
+            require_once('CPF.php');
+            break;
         case '9':
             require_once("login.php");
             break;

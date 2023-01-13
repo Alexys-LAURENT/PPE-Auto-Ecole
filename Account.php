@@ -245,8 +245,12 @@ $heuresEffectuees = floor($heuresEffectuees);
                         </div>
                     </div>
                     <div class="row mx-auto">
-                        <div class="col-12">
-                            <div class="p-3 bg-green shadow rounded">Accéder à mon quiz</div>
+                        <div>
+                            <a href="index.php?page=7">
+                                <button type="button" class="rounded border-0 bg-green text-white col-12 p-3">
+                                    Demander une heure
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

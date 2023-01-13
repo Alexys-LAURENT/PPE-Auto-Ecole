@@ -4,6 +4,23 @@ if (!isset($_SESSION['email'])) {
     header("Location: index.php?page=0");
 }
 
+if (!$_SESSION['achat']) {
+    header("Location: index.php?page=0");
+}
+unset($_SESSION['achat']);
+
+if ($_GET['offre'] == "PermisB") {
+    $leprix = intval($_SESSION['total_PermisB'], 10);
+}
+
+if ($_GET['offre'] == "PermisA") {
+    $leprix = intval($_SESSION['total_PermisA'], 10);
+}
+
+if ($_GET['offre'] == "Code") {
+    $leprix = intval($_SESSION['total_Code'], 10);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,10 +50,11 @@ if (!isset($_SESSION['email'])) {
                         <img class="mastercard" src="./images/mastercard.png" width="50px" alt="">
                     </div>
                     <h2>Montant du paiement</h2>
-                    <p id="montant"><?php if ($_SESSION['total_PermisB'] != 0) {
-                                        echo $_SESSION['total_PermisB'];
+                    <p id="montant"><?php if ($leprix != 0) {
+                                        echo $leprix;
                                     } else {
-                                        header("Location: index.php?page=0");
+                                        // header("Location: index.php?page=4");
+                                        var_dump($_SESSION['total_PermisB']);
                                     } ?>€</p>
 
                     <label for="">Nom sur la carte :</label>
