@@ -38,6 +38,41 @@ class Modele
         }
     }
 
+    public function insert($tab)
+    {
+        if ($this->unPDO != null) {
+            $chaineChamps = array();
+            foreach ($tab as $cle => $valeur) {
+                $tabChamps[] = ":" . $cle;
+                $donnees[":" . $cle] = $valeur;
+            }
+            $chaineChamps = implode(",", $tabChamps);
+            $requete = "insert into " . $this->table . " values (" . $chaineChamps . ");";
+            $insert = $this->unPDO->prepare($requete);
+            $insert->execute($donnees);
+        }
+    }
+
+    public function delete($tab)
+    {
+        if ($this->unPDO != null) {
+            $chaineChamps = array();
+            foreach ($tab as $cle => $valeur) {
+                $tabChamps[] = $cle . "=:" . $cle;
+                $donnees[":" . $cle] = $valeur;
+            }
+            $chaineChamps = implode(" and ", $tabChamps);
+            $requete = "delete from " . $this->table . " where " . $chaineChamps . ";";
+            $delete = $this->unPDO->prepare($requete);
+            $delete->execute($donnees);
+        }
+    }
+
+    public function lastInsertId()
+    {
+        return $this->unPDO->lastInsertId();
+    }
+
     public function selectWhere($table, $colonne, $valeur)
     {
         if ($this->unPDO != null) {
@@ -48,6 +83,56 @@ class Modele
             $select = $this->unPDO->prepare($requete);
             $select->execute($donnees);
             $unUser = $select->fetch();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
+    public function selectAllHeures($table, $valeur, $mois, $annee)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from " . $table . " where id_e=:valeur and month(datehd)=:mois and year(datehd)=:annee;";
+            $donnees = array(
+                ":valeur" => $valeur,
+                ":mois" => $mois,
+                ":annee" => $annee
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetchAll();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
+    public function selectAllHeuresAll($table, $valeur)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from " . $table . " where id_e=:valeur order by datehd asc;";
+            $donnees = array(
+                ":valeur" => $valeur,
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetchAll();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
+    public function selectAllHeuresEffectuees($table, $valeur)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select datehd, datehf from " . $table . " where id_e=:valeur and datehf < curdate();";
+            $donnees = array(
+                ":valeur" => $valeur,
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetchAll();
             return $unUser;
         } else {
             return null;
