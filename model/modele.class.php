@@ -142,7 +142,7 @@ class Modele
     public function Register($tab)
     {
         if ($this->unPDO != null) {
-            $requete = "insert into eleve values (null, :nom, :prenom, :date, :ville, :adr, :email, :mdp, :tel, :cp, curdate(), :sexe);";
+            $requete = "insert into eleve values (null, :nom, :prenom, :date, :ville, :adr, :email, :mdp, :tel, :cp, curdate(), :sexe, null);";
             $donnees = array(
                 ":nom" => $tab['nom'],
                 ":prenom" => $tab['prenom'],

@@ -16,7 +16,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
     <title>Val'auto</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 
     <?php
@@ -115,8 +115,13 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             break;
         case '2':
             if ($_SESSION) {
-                require_once("Account.php");
-                break;
+                if (empty($_SESSION['formation'])) {
+                    $_SESSION['redirectFormation'] = true;
+                    header("location: index.php?page=0");
+                } else {
+                    require_once("Account.php");
+                    break;
+                }
             } else {
                 $_SESSION['redirect'] = true;
                 header("location: index.php?page=0");

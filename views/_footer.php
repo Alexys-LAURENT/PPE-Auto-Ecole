@@ -1,4 +1,4 @@
-<footer>
+<footer class="mt-auto">
     <div class="gauche">
         <p>114 rue pompom <br>
             Paris 17ème <br>
