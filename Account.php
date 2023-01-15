@@ -119,7 +119,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                     <div class="row mx-auto">
                         <div class="col-6">
                             <div class="p-2 my-2">
-                                <h4 class="text-dark">Bienvenue <?php echo $_SESSION['User']['nom'] . " " . $_SESSION['User']['prenom'] ?></h4>
+                                <h4 class="text-dark">Bienvenue <?php echo $_SESSION['User']['nom_e'] . " " . $_SESSION['User']['prenom_e'] ?></h4>
                             </div>
                         </div>
                     </div>

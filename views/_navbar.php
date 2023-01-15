@@ -26,7 +26,7 @@
                         FAQ</a>
                 </li>
                 <?php
-                if (isset($_SESSION['email'])) {
+                if (isset($_SESSION['User'])) {
                     echo '<li class="nav-item">
                     <div class="dropdown-center nav-link">
   <button class=" con btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
