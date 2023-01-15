@@ -13,8 +13,6 @@
     <?php
     require_once("./views/_navbar.php");
     ?>
-    <div class="banner">
-    </div>
 
     <main class="">
         <div class="container bg-grey p-4">
@@ -25,34 +23,93 @@
                     </div>
                 </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question1()">
-                    Question 1
+                    A quel âge peut-on s'inscrire à l'examen du permis de conduire?
                 </div>
                 <div id="question1" class="bg-white quest quest-close">
-                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                    <p class="p-3">
+                        Il faut être âgé de 17 ans au moins pour pouvoir déposer un dossier (ou 15 ans au moins si vous souhaitez préparer le permis dans le cadre de l'apprentissage anticipé à la conduite ou le BSR). Le candidat peut se présenter à l'examen pratique dés l'âge de 17 ans et demi. En cas de réussite il pourra conduire seul dés le premier jour de sa majorité.
+                    </p>
                 </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question2()">
-                    Question 2
+                    Quels sont les documents demandés pour l'inscription ?
                 </div>
                 <div id="question2" class="bg-white quest quest-close">
-                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                    <p class="p-3">
+                        Les documents peuvent varier selon les auto-écoles, mais en règle générale, voici la liste des documents que votre auto-école vous demandera pour ouvrir un dossier :
+                    </p>
+                    <ul>
+                        <li>photocopie de la carte nationale d’identité recto-verso</li>
+                        <li>2 photos d’identité pour le permis</li>
+                        <li>2 enveloppes timbrées avec vos nom et adresse</li>
+                        <li>Si vous êtes français et agé de 16 à 18 ans : 1 photocopie de l’attestation de recensement</li>
+                        <li>Si vous êtes français et âgé de 18 ans révolu à 25 ans non révolus, 1 photocopie du certificat de participation à la journée défense et citoyenneté (JDC) anciennement JAPD</li>
+                        <li>Si vous êtes né après 1987 et que vous passez le permis pour la première fois, 1 photocopie de l’ASSR2 ou de l’ASR</li>
+                    </ul>
+                    <p class="p-3">
+                        Pour se présenter à l'examen vous aurez besoin de :
+                    </p>
+                    <ul>
+                        <li>Le formulaire d'inscription Cerfa référence 02 n°14866*01 rempli. Ce formulaire permet de faire une demande de permis de conduire par inscription à l'examen ou avec attestation de formation</li>
+                        <li>Le formulaire Cerfa référence 60 n°14948*01. Ce formulaire de recueil complémentaire des données nécessaire à l'édition du titre de conduite au format de l'Union Européenne.</li>
+                    </ul>
+                    <p class="p-3">
+                        Si vous vous inscrivez en conduite accompagnée ou en conduite supervisée, la photocopie du permis de conduire de l’accompagnateur ainsi qu’un avenant de la compagnie d’assurance seront nécessaires
+                    </p>
                 </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question3()">
-                    Question 3
+                    A quel âge peut-on se présenter à l'examen du code ?
                 </div>
                 <div id="question3" class="bg-white quest quest-close">
-                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                    <p class="p-3">
+                        La présentation à l’examen est possible pour les personnes âgées de 15 ans.
+                    </p>
                 </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question4()">
-                    Question 4
+                    Combien de temps dure la formation ?
                 </div>
                 <div id="question4" class="bg-white quest quest-close">
-                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                    <p class="p-3">
+                        Pour le code de la route, il n’y a pas de minimum d’heures à réaliser. C’est un travail régulier qui vous permettra de réussir l’examen.
+                        L’entraînement peut s’effectuer dans l’auto-école ou bien à distance, avec des formations en ligne.
+                        Vous avancez à votre rythme. Pour la conduite, il faut un minimum 20h de conduite.
+                        Toutefois, il est rare que cela soit suffisant. En général, lors de votre évaluation, l’enseignant peut estimer le nombre d’heures nécessaire.
+                        Le candidat peut se présenter autant de fois que nécessaire à l’examen du code de la route.
+                        Pour la conduite, il peut se présenter un nombre de fois limité.
+                        S ‘il échoue à la cinquième présentation, il devra repasser l’épreuve théorique.
+                    </p>
                 </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question5()">
-                    Question 5
+                    Comment se déroulent les séances de code ?
                 </div>
                 <div id="question5" class="bg-white quest quest-close">
-                    <p class="p-3">QUEUGZDOUHZODHZLDUOHZD</p>
+                    <p class="p-3">
+                        Les séances de code ont lieu dans une salle de l’auto-école. L’élève dispose en général d’un boîtier qui lui permet de répondre directement aux questions proposées. Mais certaines auto-écoles ne possède pas ce dispositif, les réponses se font donc sur papier. Lors de l’examen, les élèves seront tous équipés d’un boîtier. Avant de commencer, l’usage du boîtier sera expliqué aux candidats.
+                        Il est très simple d’utilisation avec juste 6 touches.
+                    <ul>
+                        <li>4 pour les réponses : A, B, C, D</li>
+                        <li>1 touche pour valider sa réponse</li>
+                        <li>1 touche pour corriger éventuellement sa réponse avant de la valider</li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question6()">
+                    Comment le code est-il évalué ?
+                </div>
+                <div id="question6" class="bg-white quest quest-close">
+                    <p class="p-3">
+                        Pour obtenir l’examen du code de la route, le candidat doit répondre juste à au moins 35 questions sur 40.
+                        Le code en ligne est-il compris dans l’offre ou est-ce une option ?
+                        Combien de temps le code est-il valable ? Depuis 2015, le code, une fois obtenu est valable 5 ans.
+                    </p>
+                </div>
+                <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question7()">
+                    Est-il possible de faire des heures de conduite en même temps que le code ?
+                </div>
+                <div id="question7" class="bg-white quest quest-close">
+                    <p class="p-3">
+                        Oui, il est tout à fait possible de commencer les leçons de conduite en même temps que l'apprentissage du code de la route.
+                        Souvent l'auto-école recommande d'obtenir d'abord le code avant de commencer les leçons de conduite car il semblerait que se rythme soit plus rapide et moins onéreux.
+                    </p>
                 </div>
             </div>
         </div>
@@ -70,12 +127,6 @@
     html,
     body {
         font-family: 'Karla';
-    }
-
-    .banner {
-        background-color: #2B8C52;
-        width: 100%;
-        height: 100px;
     }
 
     .bg-grey {
@@ -108,110 +159,4 @@
     }
 </style>
 
-<script>
-    function Question1() {
-        var question1 = document.getElementById("question1");
-        if (question1.classList.contains("quest-close")) {
-            question1.classList.remove("quest-close");
-            question1.classList.add("quest-open");
-            question1.style.height = "100px";
-            document.getElementById("question2").classList.remove("quest-open");
-            document.getElementById("question2").classList.add("quest-close");
-            document.getElementById("question3").classList.remove("quest-open");
-            document.getElementById("question3").classList.add("quest-close");
-            document.getElementById("question4").classList.remove("quest-open");
-            document.getElementById("question4").classList.add("quest-close");
-            document.getElementById("question5").classList.remove("quest-open");
-            document.getElementById("question5").classList.add("quest-close");
-
-        } else {
-            question1.classList.remove("quest-open");
-            question1.classList.add("quest-close");
-            question1.style.height = "0";
-        }
-    }
-
-    function Question2() {
-        var question2 = document.getElementById("question2");
-        if (question2.classList.contains("quest-close")) {
-            question2.classList.remove("quest-close");
-            question2.classList.add("quest-open");
-            question2.style.height = "100px";
-            document.getElementById("question1").classList.remove("quest-open");
-            document.getElementById("question1").classList.add("quest-close");
-            document.getElementById("question3").classList.remove("quest-open");
-            document.getElementById("question3").classList.add("quest-close");
-            document.getElementById("question4").classList.remove("quest-open");
-            document.getElementById("question4").classList.add("quest-close");
-            document.getElementById("question5").classList.remove("quest-open");
-            document.getElementById("question5").classList.add("quest-close");
-        } else {
-            question2.classList.remove("quest-open");
-            question2.classList.add("quest-close");
-            question2.style.height = "0";
-        }
-    }
-
-    function Question3() {
-        var question3 = document.getElementById("question3");
-        if (question3.classList.contains("quest-close")) {
-            question3.classList.remove("quest-close");
-            question3.classList.add("quest-open");
-            question3.style.height = "100px";
-            document.getElementById("question1").classList.remove("quest-open");
-            document.getElementById("question1").classList.add("quest-close");
-            document.getElementById("question2").classList.remove("quest-open");
-            document.getElementById("question2").classList.add("quest-close");
-            document.getElementById("question4").classList.remove("quest-open");
-            document.getElementById("question4").classList.add("quest-close");
-            document.getElementById("question5").classList.remove("quest-open");
-            document.getElementById("question5").classList.add("quest-close");
-        } else {
-            question3.classList.remove("quest-open");
-            question3.classList.add("quest-close");
-            question3.style.height = "0";
-        }
-    }
-
-    function Question4() {
-        var question4 = document.getElementById("question4");
-        if (question4.classList.contains("quest-close")) {
-            question4.classList.remove("quest-close");
-            question4.classList.add("quest-open");
-            question4.style.height = "100px";
-            document.getElementById("question1").classList.remove("quest-open");
-            document.getElementById("question1").classList.add("quest-close");
-            document.getElementById("question2").classList.remove("quest-open");
-            document.getElementById("question2").classList.add("quest-close");
-            document.getElementById("question3").classList.remove("quest-open");
-            document.getElementById("question3").classList.add("quest-close");
-            document.getElementById("question5").classList.remove("quest-open");
-            document.getElementById("question5").classList.add("quest-close");
-        } else {
-            question4.classList.remove("quest-open");
-            question4.classList.add("quest-close");
-            question4.style.height = "0";
-        }
-    }
-
-    function Question5() {
-        var question5 = document.getElementById("question5");
-        if (question5.classList.contains("quest-close")) {
-            question5.classList.remove("quest-close");
-            question5.classList.add("quest-open");
-            question5.style.height = "100px";
-            document.getElementById("question1").classList.remove("quest-open");
-            document.getElementById("question1").classList.add("quest-close");
-            document.getElementById("question2").classList.remove("quest-open");
-            document.getElementById("question2").classList.add("quest-close");
-            document.getElementById("question3").classList.remove("quest-open");
-            document.getElementById("question3").classList.add("quest-close");
-            document.getElementById("question4").classList.remove("quest-open");
-            document.getElementById("question4").classList.add("quest-close");
-        } else {
-            question5.classList.remove("quest-open");
-            question5.classList.add("quest-close");
-            question5.style.height = "0";
-        }
-    }
-</script>
+<script src="./Js/FAQ.js"></script>
