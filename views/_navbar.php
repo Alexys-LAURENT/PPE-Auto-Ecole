@@ -33,6 +33,7 @@
     Mon compte
   </button>
   <ul class="dropdown-menu">
+  <li><a class="dropdown-item" href="index.php?page=6">Mon profil</a></li>
     <li><a class="dropdown-item" href="index.php?page=2">Accéder à mon espace</a></li>
     <li><a class="dropdown-item" href="index.php?page=10">Déconnexion</a></li>
   </ul>
