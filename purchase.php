@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['User'])) {
     header("Location: index.php?page=0");
 }
 
@@ -53,8 +53,7 @@ if ($_GET['offre'] == "Code") {
                     <p id="montant"><?php if ($leprix != 0) {
                                         echo $leprix;
                                     } else {
-                                        // header("Location: index.php?page=4");
-                                        var_dump($_SESSION['total_PermisB']);
+                                        header("Location: index.php?page=4");
                                     } ?>€</p>
 
                     <label for="">Nom sur la carte :</label>

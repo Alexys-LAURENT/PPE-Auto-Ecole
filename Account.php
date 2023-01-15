@@ -49,7 +49,7 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
 
     $tab = array(
         "id_cc" => $unControleur->lastInsertId(),
-        "id_e" => $_SESSION['id_e'],
+        "id_e" => $_SESSION['User']['id_e'],
         "id_m" => 1,
         "datehd" => $datehd,
         "datehf" => $datehf,
@@ -69,14 +69,14 @@ if (isset($_POST['annee'])) {
 }
 
 //récupère les heures pour le mois sélectionné dans planning
-$heures = $unControleur->selectAllHeures("planning", $_SESSION['id_e'], $mois, $annee);
+$heures = $unControleur->selectAllHeures("planning", $_SESSION['User']['id_e'], $mois, $annee);
 
-$toutesLesHeures = $unControleur->selectAllHeuresAll("planning", $_SESSION['id_e']);
+$toutesLesHeures = $unControleur->selectAllHeuresAll("planning", $_SESSION['User']['id_e']);
 
 
 //calcul des heures effectuées
 $heuresEffectuees = 0;
-foreach ($unControleur->selectAllHeuresEffectuees("planning", $_SESSION['id_e']) as $uneHeure) {
+foreach ($unControleur->selectAllHeuresEffectuees("planning", $_SESSION['User']['id_e']) as $uneHeure) {
     //time diff between $uneHeure['datehd'] and $uneHeure['datehf']
     $heuresEffectuees += (strtotime($uneHeure['datehf']) - strtotime($uneHeure['datehd'])) / 3600;
 }
@@ -119,7 +119,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                     <div class="row mx-auto">
                         <div class="col-6">
                             <div class="p-2 my-2">
-                                <h4 class="text-dark">Bienvenue <?php echo $_SESSION['nom'] . " " . $_SESSION['prenom'] ?></h4>
+                                <h4 class="text-dark">Bienvenue <?php echo $_SESSION['User']['nom'] . " " . $_SESSION['User']['prenom'] ?></h4>
                             </div>
                         </div>
                     </div>

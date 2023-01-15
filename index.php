@@ -28,19 +28,14 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         // $resultat = $unControleur->selectAll();
         // $nb = $resultat[0]['nb'];
         // $mdp = sha1($mdp . $nb);
-        $unUser = $unControleur->verifConnection($email, $mdp);
+        $_SESSION['User'] = $unControleur->verifConnection($email, $mdp);
         $formation = $unControleur->selectWhere("formule", "id_f", $unUser['id_formation']);
         if ($unUser == null) {
             echo "<div class='col-md-3 alert alert-danger'>Verifiez vos identifiants<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
                 <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
               </svg> </span> </div>";
         } else {
-            $_SESSION['email'] = $unUser['email_e'];
-            $_SESSION['nom'] = $unUser['nom_e'];
-            $_SESSION['prenom'] = $unUser['prenom_e'];
-            $_SESSION['id_e'] = $unUser['id_e'];
             $_SESSION['formation'] = $formation;
-            $_SESSION['heures'] = $heures;
 
             if (isset($_SESSION['redirection'])) {
                 header("Location: index.php?page=1");
@@ -86,10 +81,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
           </svg> </span> </div>";
             } else {
-                $_SESSION['email'] = $unUser['email_e'];
-                $_SESSION['nom'] = $unUser['nom_e'];
-                $_SESSION['prenom'] = $unUser['prenom_e'];
-                $_SESSION['id_e'] = $unUser['id_e'];
+                $_SESSION['User'] = $unUser;
 
                 if (isset($_SESSION['redirection'])) {
                     header("Location : " . $_SESSION['redirection']);
