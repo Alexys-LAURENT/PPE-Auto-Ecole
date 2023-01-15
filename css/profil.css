@@ -86,6 +86,10 @@
     border-bottom: 1px solid #eaeaea;
 }
 
+.infos-container .ligne:last-child {
+    border-bottom: none;
+}
+
 .ligne .label {
     width: 150px;
     font-size: 15px;
@@ -95,4 +99,24 @@
 
 .ligne .value {
     color: #9398a2;
+}
+
+
+@media screen and (max-width :1150px) {
+    .main {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .infos-container {
+        margin-right: 0;
+        width: 90%;
+    }
+
+    .profil-container {
+        margin-left: 0;
+        max-width: 350px;
+        width: 90%;
+    }
 }

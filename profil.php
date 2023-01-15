@@ -1,3 +1,12 @@
+<?php
+if (!isset($_SESSION['User'])) {
+    header("Location: index.php?page=0");
+}
+
+$date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,8 +29,8 @@
                     <img src="./images/profil-img.png" alt="">
                 </div>
                 <div class="profil-name">
-                    <p class="nom-prenom">Nom Prénom</p>
-                    <p class="date-inscri">Inscrit depuis le XX</p>
+                    <p class="nom-prenom"><?php echo $_SESSION['User']['nom_e'] . ' ' . $_SESSION['User']['prenom_e'] ?></p>
+                    <p class="date-inscri">Inscrit depuis le <?php echo $date ?></p>
                     <button class="btn-reset-password">Reset password</button>
                 </div>
             </div>
@@ -32,7 +41,7 @@
                         <p>Full Name</p>
                     </div>
                     <div class="value">
-                        <p>Nom Prénom</p>
+                        <p><?php echo $_SESSION['User']['nom_e'] . ' ' . $_SESSION['User']['prenom_e'] ?></p>
                     </div>
                 </div>
 
@@ -41,7 +50,7 @@
                         <p>Email</p>
                     </div>
                     <div class="value">
-                        <p>fip@gmail.com</p>
+                        <p><?php echo $_SESSION['User']['email_e'] ?></p>
                     </div>
                 </div>
 
@@ -50,7 +59,7 @@
                         <p>Téléphone</p>
                     </div>
                     <div class="value">
-                        <p>+(33)631254993</p>
+                        <p><?php echo $_SESSION['User']['tel_e'] ?></p>
                     </div>
                 </div>
 
@@ -59,7 +68,25 @@
                         <p>Adresse</p>
                     </div>
                     <div class="value">
-                        <p>36 bis route de claye</p>
+                        <p><?php echo $_SESSION['User']['adresse_e'] ?></p>
+                    </div>
+                </div>
+
+                <div class="ligne">
+                    <div class="label">
+                        <p>Ville</p>
+                    </div>
+                    <div class="value">
+                        <p><?php echo $_SESSION['User']['ville_e'] ?></p>
+                    </div>
+                </div>
+
+                <div class="ligne">
+                    <div class="label">
+                        <p>Code Postal</p>
+                    </div>
+                    <div class="value">
+                        <p><?php echo $_SESSION['User']['codepos_e'] ?></p>
                     </div>
                 </div>
             </div>
