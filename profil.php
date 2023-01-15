@@ -20,13 +20,16 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
 
 <body>
     <?php
+    $default = "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_960_720.png";
+
+    $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($_SESSION['User']['email_e']))) . "?d=" . urlencode($default);
     require_once("views/_navbar.php");
     ?>
     <div class="body d-flex justify-content-center">
         <div class="main">
             <div class="profil-container">
                 <div class="profil-img">
-                    <img src="./images/profil-img.png" alt="">
+                    <img class="rounded-circle" src="<?php echo $grav_url; ?>" alt="">
                 </div>
                 <div class="profil-name">
                     <p class="nom-prenom"><?php echo $_SESSION['User']['nom_e'] . ' ' . $_SESSION['User']['prenom_e'] ?></p>
