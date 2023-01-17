@@ -5,7 +5,7 @@
             France</p>
     </div>
     <div class="milieu">
-        <p>contact@nom.com</p>
+        <p>contact@autoecole.com</p>
     </div>
     <div class="droite">
         <p>GCV <br>
