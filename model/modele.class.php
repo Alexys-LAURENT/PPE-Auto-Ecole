@@ -89,6 +89,19 @@ class Modele
         }
     }
 
+    public function selectAll($table)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from " . $table . ";";
+            $select = $this->unPDO->prepare($requete);
+            $select->execute();
+            $unUser = $select->fetchAll();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
     public function selectAllHeures($table, $valeur, $mois, $annee)
     {
         if ($this->unPDO != null) {

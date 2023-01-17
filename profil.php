@@ -41,7 +41,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
             <div class="infos-container">
                 <div class="ligne">
                     <div class="label">
-                        <p>Full Name</p>
+                        <p>Nom Complet</p>
                     </div>
                     <div class="value">
                         <p><?php echo $_SESSION['User']['nom_e'] . ' ' . $_SESSION['User']['prenom_e'] ?></p>

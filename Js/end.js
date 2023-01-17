@@ -8,11 +8,10 @@ const mostRecentScore = localStorage.getItem('mostRecentScore');
 
 
 
-
-finalScore.innerText = mostRecentScore;
+finalScore.innerText = mostRecentScore + " / 20";
 
 window.onload = function () {
-    if (mostRecentScore >= 20) {
+    if (mostRecentScore >= 15) {
         var duration = 15 * 200;
         var animationEnd = Date.now() + duration;
         var defaults = {
