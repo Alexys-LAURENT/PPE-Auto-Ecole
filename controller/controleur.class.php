@@ -46,9 +46,9 @@ class Controleur
         return $this->unModele->selectWhere($table, $colonne, $valeur);
     }
 
-    public function selectAllHeures($table, $valeur, $mois, $annee)
+    public function selectAllHeuresMois($table, $valeur, $mois, $annee)
     {
-        return $this->unModele->selectAllHeures($table, $valeur, $mois, $annee);
+        return $this->unModele->selectAllHeuresMois($table, $valeur, $mois, $annee);
     }
 
     public function selectAllHeuresAll($table, $valeur)

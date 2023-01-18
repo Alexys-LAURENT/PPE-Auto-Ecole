@@ -7,6 +7,18 @@ if (isset($_POST['mois'])) {
     $mois = date('m');
 }
 
+if (isset($_POST['annee'])) {
+    $annee = $_POST['annee'];
+} else {
+    $annee = date('Y');
+}
+
+//récupère les heures pour le mois sélectionné dans planning
+$heures = $unControleur->selectAllHeuresMois("planning", $_SESSION['User']['id_e'], $mois, $annee);
+
+$toutesLesHeures = $unControleur->selectAllHeuresAll("planning", $_SESSION['User']['id_e']);
+
+
 //retirer toute les heures dont la checkbox est cochée
 if (isset($_POST['RetirerHeure'])) {
     foreach ($_POST['heureSupp'] as $uneHeure) {
@@ -19,59 +31,63 @@ if (isset($_POST['RetirerHeure'])) {
         $unControleur->setTable("cours_conduite");
         $unControleur->delete($tab);
     }
+
+    header("Location: index.php?page=2");
 }
 
 if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['heurehd']) && isset($_POST['heurehf'])) {
 
-    $unControleur->setTable("cours_conduite");
-    $tab = array(
-        "id_cc" => null,
-        "prixseance_cc" => 50,
-        "id_v" => 4,
-        "id_f" => $_SESSION['formation']['id_f']
-    );
+    foreach ($toutesLesHeures as $uneHeure) {
+        //si la partie date seule de la nouvelle heure est déjà prise
+        if (substr($_POST['datehd'], 0, 10) == substr($uneHeure['datehd'], 0, 10)) {
+            $erreur = true;
+        }
+    }
 
-    $unControleur->insert($tab);
+    if (!isset($erreur)) {
+        $unControleur->setTable("cours_conduite");
+        $tab = array(
+            "id_cc" => null,
+            "prixseance_cc" => 50,
+            "id_v" => 4,
+            "id_f" => $_SESSION['formation']['id_f']
+        );
+
+        $unControleur->insert($tab);
 
 
-    $unControleur->setTable("planning");
+        $unControleur->setTable("planning");
 
-    $datehd = new DateTime($_POST['datehd'] . " " . $_POST['heurehd']);
-    //set $heureFin to $datehd + $_POST['heurehf']
-    $heureFin = $datehd->format('H:i:s');
-    //ajoute 1h30 à $heureFin
-    $heureFin = date('H:i:s', strtotime($heureFin . ' + ' . $_POST['heurehf'] . ' minutes'));
+        $datehd = new DateTime($_POST['datehd'] . " " . $_POST['heurehd']);
+        //set $heureFin to $datehd + $_POST['heurehf']
+        $heureFin = $datehd->format('H:i:s');
+        //ajoute 1h30 à $heureFin
+        $heureFin = date('H:i:s', strtotime($heureFin . ' + ' . $_POST['heurehf'] . ' minutes'));
 
-    $datehf = new DateTime($_POST['datehd'] . " " . $heureFin);
+        $datehf = new DateTime($_POST['datehd'] . " " . $heureFin);
 
-    $datehd = $datehd->format('Y-m-d H:i:s');
-    $datehf = $datehf->format('Y-m-d H:i:s');
+        $datehd = $datehd->format('Y-m-d H:i:s');
+        $datehf = $datehf->format('Y-m-d H:i:s');
 
-    $tab = array(
-        "id_cc" => $unControleur->lastInsertId(),
-        "id_e" => $_SESSION['User']['id_e'],
-        "id_m" => 1,
-        "datehd" => $datehd,
-        "datehf" => $datehf,
-        "etat" => "0"
-    );
-    $unControleur->insert($tab);
+        $tab = array(
+            "id_cc" => $unControleur->lastInsertId(),
+            "id_e" => $_SESSION['User']['id_e'],
+            "id_m" => 1,
+            "datehd" => $datehd,
+            "datehf" => $datehf,
+            "etat" => "0"
+        );
+        $unControleur->insert($tab);
+        header("Location: index.php?page=2");
+    } else {
+        echo "<div class='col-md-3 alert alert-danger'>Vous avez déjà une heure planifiée pour ce jour.<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+            <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+          </svg> </span> </div>";
+    }
 }
 
-//convert DateTime to string
-// $tab['datehd'] = $tab['datehd']->format('Y-m-d H:i:s');
 
 
-if (isset($_POST['annee'])) {
-    $annee = $_POST['annee'];
-} else {
-    $annee = date('Y');
-}
-
-//récupère les heures pour le mois sélectionné dans planning
-$heures = $unControleur->selectAllHeures("planning", $_SESSION['User']['id_e'], $mois, $annee);
-
-$toutesLesHeures = $unControleur->selectAllHeuresAll("planning", $_SESSION['User']['id_e']);
 
 
 //calcul des heures effectuées
@@ -217,24 +233,27 @@ $heuresEffectuees = floor($heuresEffectuees);
                         </div>
                         <div class="row mx-auto max-height overflow-auto">
                             <?php
+                            $first = true;
                             foreach ($heures as $heure) {
-                                $date = date("d-m-Y", strtotime($heure['datehd']));
+                                if ($first) {
+                                    $first = false;
+                                    $date = date("d-m-Y", strtotime($heure['datehd']));
 
-                                if (date("m", strtotime($date)) == $mois) {
+                                    if (date("m", strtotime($date)) == $mois) {
 
-                                    //transforme la date en lettres et en français en majuscules
-                                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-                                    $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
-                                    $jour_chiffres = substr($date, 0, 2);
-                                    $moisHeure = substr(strtoupper(strftime("%B", strtotime($date))), 0, 4);
-                                    strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
+                                        //transforme la date en lettres et en français en majuscules
+                                        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                                        $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
+                                        $jour_chiffres = substr($date, 0, 2);
+                                        $moisHeure = substr(strtoupper(strftime("%B", strtotime($date))), 0, 4);
+                                        strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
 
-                                    $dureeHeure = floor((strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 3600);
-                                    $dureeMinute = (strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 60;
-                                    $dureeMinute = $dureeMinute - ($dureeHeure * 60);
+                                        $dureeHeure = floor((strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 3600);
+                                        $dureeMinute = (strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 60;
+                                        $dureeMinute = $dureeMinute - ($dureeHeure * 60);
 
 
-                                    echo "
+                                        echo "
                             <div class='col-12 p-3'>
                                 <div class='row'>
                                     <div class='col-2'>
@@ -254,6 +273,45 @@ $heuresEffectuees = floor($heuresEffectuees);
                                     </div>  
                                 </div>
                             </div>";
+                                    }
+                                } else {
+                                    $date = date("d-m-Y", strtotime($heure['datehd']));
+
+                                    if (date("m", strtotime($date)) == $mois) {
+
+                                        //transforme la date en lettres et en français en majuscules
+                                        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                                        $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
+                                        $jour_chiffres = substr($date, 0, 2);
+                                        $moisHeure = substr(strtoupper(strftime("%B", strtotime($date))), 0, 4);
+                                        strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
+
+                                        $dureeHeure = floor((strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 3600);
+                                        $dureeMinute = (strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 60;
+                                        $dureeMinute = $dureeMinute - ($dureeHeure * 60);
+
+
+                                        echo "
+                            <div class='col-12 p-3'>
+                                <div class='row'>
+                                    <div class='col-2'>
+                                        <div class='col-auto text-center rounded-4 bg-light-grey d-flex flex-column justify-content-center'>
+                                            <p class='p-0 m-0'><small> $jour </small></p>
+                                            <p class='p-0 m-0'> $jour_chiffres </p>
+                                            <p class='p-0 m-0'> $moisHeure </p>
+                                        </div>
+                                    </div>
+                                    <div class='col-10 my-auto'>
+                                        <div class='row'>
+                                            <div class='col-12 bg-grey rounded'>
+                                                <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite </h5>
+                                                <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>";
+                                    }
                                 }
                             }
 
@@ -301,6 +359,10 @@ $heuresEffectuees = floor($heuresEffectuees);
         background-color: #F4F4F4;
     }
 
+    .bg-light-grey {
+        background-color: #f9f9f9;
+    }
+
     #mois {
         transform: translateY(12.5%);
     }
@@ -318,33 +380,4 @@ $heuresEffectuees = floor($heuresEffectuees);
     }
 </style>
 
-<script>
-    function changeMonth(value) {
-        var mois = document.getElementById("mois");
-        var annee = document.getElementById("annee");
-        var moisValue = parseInt(mois.value);
-        if (moisValue + value > 12) {
-            mois.value = 1;
-            annee.value = parseInt(annee.value) + 1;
-        } else if (moisValue + value < 1) {
-            mois.value = 12;
-            annee.value = parseInt(annee.value) - 1;
-        } else {
-            mois.value = moisValue + value;
-        }
-    }
-
-    //event listener pour le changement de mois
-    document.getElementById("mois").addEventListener("change", function() {
-        this.form.submit();
-    });
-
-    //event listener pour le changement d'année
-    document.getElementById("annee").addEventListener("change", function() {
-        this.form.submit();
-    });
-
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>
+<script src="Js/Account.js"></script>

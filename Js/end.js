@@ -10,12 +10,13 @@ const mostRecentScore = localStorage.getItem('mostRecentScore');
 
 finalScore.innerText = mostRecentScore + " / 20";
 
+//fonction qui gère l'affichage des confettis si le score est supérieur à 15
 window.onload = function () {
     if (mostRecentScore >= 15) {
-        var duration = 15 * 200;
+        var duration = 10 * (mostRecentScore * 17.5);
         var animationEnd = Date.now() + duration;
         var defaults = {
-            startVelocity: 30,
+            startVelocity: mostRecentScore ^ 5,
             spread: 360,
             ticks: 1000,
             zIndex: 0

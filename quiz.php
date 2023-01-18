@@ -64,6 +64,27 @@ if (!isset($_SESSION['User'])) {
         <p class="choice-prefix">D</p>
         <p class="choice-text" data-number="D">Choice 4</p>
       </div>
+
+
+      <div id="sub" class="flex-column">
+        <h3 class="fw-bold" id="subQuestion">Quel est la réponse à cette question?</h3>
+        <div id="subA" class="choice-container my-2">
+          <p class="choice-prefix">A</p>
+          <p class="sub-choice-text" data-number="A">Choice 1</p>
+        </div>
+        <div id="subB" class="choice-container my-2">
+          <p class="choice-prefix">B</p>
+          <p class="sub-choice-text" data-number="B">Choice 2</p>
+        </div>
+        <div id="subC" class="choice-container my-2">
+          <p class="choice-prefix">C</p>
+          <p class="sub-choice-text" data-number="C">Choice 3</p>
+        </div>
+        <div id="subD" class="choice-container my-2">
+          <p class="choice-prefix">D</p>
+          <p class="sub-choice-text" data-number="D">Choice 4</p>
+        </div>
+      </div>
     </div>
   </div>
 

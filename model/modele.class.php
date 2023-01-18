@@ -102,10 +102,10 @@ class Modele
         }
     }
 
-    public function selectAllHeures($table, $valeur, $mois, $annee)
+    public function selectAllHeuresMois($table, $valeur, $mois, $annee)
     {
         if ($this->unPDO != null) {
-            $requete = "select * from " . $table . " where id_e=:valeur and month(datehd)=:mois and year(datehd)=:annee;";
+            $requete = "select * from " . $table . " where id_e=:valeur and month(datehd)=:mois and year(datehd)=:annee order by datehd desc;";
             $donnees = array(
                 ":valeur" => $valeur,
                 ":mois" => $mois,

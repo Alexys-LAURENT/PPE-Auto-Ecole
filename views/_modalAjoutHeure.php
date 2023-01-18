@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-12 my-2">
                             <label for="datehd">Date</label>
-                            <input type="date" name="datehd" id="datehd" class="form-control" required min="<?php echo date('Y-m-d') ?>">
+                            <input type="date" name="datehd" id="datehd" class="form-control" required min="<?php echo date('Y-m-d', strtotime("+1 day")); ?>">
                         </div>
                     </div>
                     <div class="row my-2">

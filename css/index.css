@@ -62,8 +62,89 @@
     z-index: 9999;
     display: flex !important;
     justify-content: space-between !important;
+    align-items: center !important;
 }
 
 .alert-danger svg:hover {
     cursor: pointer;
+}
+
+
+
+/* Chrome, Safari, Edge, Opera */
+*::-webkit-scrollbar {
+    width: 10px;
+    background-color: #7f7f7f;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+    background-color: #7f7f7f;
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #E0E0E0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #E0E0E0;
+}
+
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+::-webkit-scrollbar-button:hover {
+    background-color: #1E5E38;
+}
+
+::-webkit-scrollbar-button:active {
+    background-color: #13392C;
+}
+
+/* Internet Explorer */
+body::-ms-scrollbar {
+    width: 10px;
+    background-color: #7f7f7f;
+}
+
+body::-ms-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #E0E0E0;
+}
+
+body::-ms-scrollbar-thumb:hover {
+    background-color: #F5F5F5;
+}
+
+body::-ms-scrollbar-thumb:active {
+    background-color: #E0E0E0;
+}
+
+/* Firefox */
+body::-moz-scrollbar {
+    width: 10px;
+    background-color: #7f7f7f;
+}
+
+body::-moz-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #E0E0E0;
+}
+
+body::-moz-scrollbar-thumb:hover {
+    background-color: #F5F5F5;
+}
+
+body::-moz-scrollbar-thumb:active {
+    background-color: #E0E0E0;
 }

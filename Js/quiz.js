@@ -1,5 +1,7 @@
 const question = document.getElementById("question");
+const subQuestion = document.getElementById("subQuestion");
 const choices = Array.from(document.getElementsByClassName("choice-text"));
+const subChoices = Array.from(document.getElementsByClassName("sub-choice-text"));
 const img = document.getElementById("img");
 const progressText = document.getElementById("progressText");
 const scoreText = document.getElementById("score");
@@ -29,7 +31,13 @@ async function getQuestions() {
           choiceB: JSON.parse(loadedQuestion.choix).B,
           choiceC: JSON.parse(loadedQuestion.choix).C,
           choiceD: JSON.parse(loadedQuestion.choix).D,
-          answer: Object.keys(JSON.parse(loadedQuestion.reponse))
+          answer: Object.keys(JSON.parse(loadedQuestion.reponse)),
+          subQuestion: loadedQuestion.subTitre ? loadedQuestion.subTitre : null,
+          subChoixA: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).A : null,
+          subChoixB: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).B : null,
+          subChoixC: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).C : null,
+          subChoixD: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).D : null,
+          subAnswer: loadedQuestion.subReponse != null ? Object.keys(JSON.parse(loadedQuestion.subReponse)) : null,
         };
 
 
@@ -44,6 +52,7 @@ async function getQuestions() {
 
 async function main() {
   await getQuestions();
+
 
   //CONSTANTS
   const CORRECT_BONUS = 1;
@@ -73,10 +82,8 @@ async function main() {
 
 
     if (availableQuestions[questionIndex].choiceC == null) {
-      console.log(currentQuestion.choixC);
       document.getElementById("C").style.display = "none";
     } else {
-      console.log(currentQuestion.choixC);
       document.getElementById("C").style.display = "flex";
     }
 
@@ -84,6 +91,27 @@ async function main() {
       document.getElementById("D").style.display = "none";
     } else {
       document.getElementById("D").style.display = "flex";
+    }
+
+    if (currentQuestion.subQuestion == null) {
+      document.getElementById("sub").style.display = "none";
+    } else {
+      document.getElementById("sub").style.display = "flex";
+
+      subQuestion.innerText = currentQuestion.subQuestion;
+
+      subChoices.forEach(subChoice => {
+        const subNumber = subChoice.dataset["number"];
+        subChoice.innerText = currentQuestion["subChoix" + subNumber];
+      });
+
+      if (availableQuestions[questionIndex].subChoixC == null) {
+        document.getElementById("subC").style.display = "none";
+      }
+
+      if (availableQuestions[questionIndex].subChoixD == null) {
+        document.getElementById("subD").style.display = "none";
+      }
     }
 
     choices.forEach(choice => {
@@ -98,27 +126,57 @@ async function main() {
 
   };
 
+
   choices.forEach(choice => {
     choice.addEventListener("click", e => {
       if (!acceptingAnswers) return;
 
       acceptingAnswers = false;
       const selectedChoice = e.target;
-      const selectedAnswer = selectedChoice.dataset["number"];
+      const selectedAnswers = selectedChoice.dataset["number"].split(","); // Récupère les réponses sélectionnées sous forme de tableau
 
-      const classToApply =
-        selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+      // Vérifie si les réponses sélectionnées sont correctes
+      let isCorrect = true;
+      selectedAnswers.forEach(answer => {
+        if (!currentQuestion.answer.includes(answer)) {
+          isCorrect = false;
+        }
+      });
 
-      if (classToApply === "correct") {
-        incrementScore(CORRECT_BONUS);
-      }
-
+      const classToApply = isCorrect ? "correct" : "incorrect";
       selectedChoice.parentElement.classList.add(classToApply);
 
-      setTimeout(() => {
-        selectedChoice.parentElement.classList.remove(classToApply);
-        getNewQuestion();
-      }, 1000);
+      // Vérifie si la question a une sous-question
+      if (currentQuestion.subQuestion) {
+        // Affiche la sous-question
+        document.getElementById("sub").style.display = "block";
+        subChoices.forEach(subChoice => {
+          subChoice.addEventListener("click", e => {
+            const selectedSubChoice = e.target;
+            const selectedSubAnswer = selectedSubChoice.dataset["number"];
+            const subClassToApply = selectedSubAnswer == currentQuestion.subAnswer ? "correct" : "incorrect";
+
+            if (isCorrect && subClassToApply === "correct") {
+              incrementScore(CORRECT_BONUS);
+            }
+
+            selectedSubChoice.parentElement.classList.add(subClassToApply);
+            setTimeout(() => {
+              choices.forEach(choice => choice.parentElement.classList.remove(classToApply));
+              subChoices.forEach(subChoice => subChoice.parentElement.classList.remove(subClassToApply));
+              getNewQuestion();
+            }, 1000);
+          });
+        });
+      } else {
+        if (isCorrect) {
+          incrementScore(CORRECT_BONUS);
+        }
+        setTimeout(() => {
+          selectedChoice.parentElement.classList.remove(classToApply);
+          getNewQuestion();
+        }, 1000);
+      }
     });
   });
 
