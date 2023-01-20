@@ -13,6 +13,22 @@ if (isset($_POST['annee'])) {
     $annee = date('Y');
 }
 
+if (isset($_POST['AccepterHeure'])) {
+    $unControleur->setTable("planning");
+    $tab = array(
+        "etat" => "Valider"
+    );
+    $unControleur->update($tab, 'id_cc', $_POST['AccepterHeure']);
+}
+
+if (isset($_POST['RefuserHeure'])) {
+    $unControleur->setTable("planning");
+    $tab = array(
+        "etat" => "Refuser"
+    );
+    $unControleur->update($tab, 'id_cc', $_POST['RefuserHeure']);
+}
+
 //récupère les heures pour le mois sélectionné dans planning
 $heures = $unControleur->selectAllHeuresMois("planning", $_SESSION['User']['id_e'], $mois, $annee);
 
@@ -38,8 +54,18 @@ if (isset($_POST['RetirerHeure'])) {
 if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['heurehd']) && isset($_POST['heurehf'])) {
 
     foreach ($toutesLesHeures as $uneHeure) {
-        //si la partie date seule de la nouvelle heure est déjà prise
-        if (substr($_POST['datehd'], 0, 10) == substr($uneHeure['datehd'], 0, 10)) {
+        $dateDebut = new DateTime($_POST['datehd'] . " " . $_POST['heurehd']);
+
+        $heureF = $dateDebut->format('H:i:s');
+        $heureF = date('H:i:s', strtotime($heureF . ' + ' . $_POST['heurehf'] . ' minutes'));
+
+        $dateFin = new DateTime($_POST['datehd'] . " " . $heureF);
+
+        $dateDebut = $dateDebut->format('Y-m-d H:i:s');
+
+        $dateFin = $dateFin->format('Y-m-d H:i:s');
+        //si la date et l'heure de la nouvelle heure est égale à une heure déjà planifiée
+        if ($dateDebut > $uneHeure['datehd'] && $dateDebut < $uneHeure['datehf'] || $dateFin > $uneHeure['datehd'] && $dateFin < $uneHeure['datehf']) {
             $erreur = true;
         }
     }
@@ -75,12 +101,12 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
             "id_m" => 1,
             "datehd" => $datehd,
             "datehf" => $datehf,
-            "etat" => "0"
+            "etat" => "En attente user"
         );
         $unControleur->insert($tab);
         header("Location: index.php?page=2");
     } else {
-        echo "<div class='col-md-3 alert alert-danger'>Vous avez déjà une heure planifiée pour ce jour.<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+        echo "<div class='col-md-3 alert alert-danger'>Vous avez déjà une heure planifiée pour ce jour et cette heure.<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
             <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
           </svg> </span> </div>";
     }
@@ -265,9 +291,48 @@ $heuresEffectuees = floor($heuresEffectuees);
                                     </div>
                                     <div class='col-10 my-auto'>
                                         <div class='row'>
-                                            <div class='col-12 bg-grey rounded'>
-                                                <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite </h5>
-                                                <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
+                                            <div class='col-12 bg-grey rounded d-flex'>
+                                                <div>
+                                                    <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite </h5>
+                                                    <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
+                                                </div>
+                                                <div class='align-self-center ms-auto'>
+                                                    ";
+                                        if ($heure['etat'] == "En attente user") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='orange' class='bi bi-hourglass-split' viewBox='0 0 16 16'>
+                                                                <path d='M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z'/>
+                                                                </svg>";
+                                        } elseif ($heure['etat'] == "Valider") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='green' class='bi bi-check' viewBox='0 0 16 16'>
+                                                    <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/>
+                                                    </svg>";
+                                        } elseif ($heure['etat'] == "Refuser") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='red' class='bi bi-x' viewBox='0 0 16 16'>
+                                                    <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>
+                                                    </svg>";
+                                        } elseif ($heure['etat'] == "Effectuer") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='green' class='bi bi-check-all' viewBox='0 0 16 16'>
+                                                    <path d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z'/>
+                                                    </svg>";
+                                        } elseif ($heure['etat'] == "En attente moniteur") {
+                                            echo "
+                                            <form method='POST'>
+                                                <label class='pointer scale-label'>
+                                                <input type='submit' name='AccepterHeure' class='d-none' value='$heure[id_cc]'>
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='green' class='bi bi-check' viewBox='0 0 16 16'>
+                                                    <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/>
+                                                    </svg>
+                                                </label>
+                                                <label class='pointer scale-label'>
+                                                <input type='submit' name='RefuserHeure' class='d-none' value='$heure[id_cc]'>
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='red' class='bi bi-x' viewBox='0 0 16 16'>
+                                                    <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>
+                                                    </svg>
+                                                </label>
+                                            </form>";
+                                        }
+                                        echo "
+                                                </div>
                                             </div>
                                         </div>
                                     </div>  
@@ -303,9 +368,48 @@ $heuresEffectuees = floor($heuresEffectuees);
                                     </div>
                                     <div class='col-10 my-auto'>
                                         <div class='row'>
-                                            <div class='col-12 bg-grey rounded'>
-                                                <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite </h5>
-                                                <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
+                                            <div class='col-12 bg-grey rounded d-flex'>
+                                                <div>
+                                                    <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite </h5>
+                                                    <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
+                                                </div>
+                                                <div class='align-self-center ms-auto'>
+                                                    ";
+                                        if ($heure['etat'] == "En attente user") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='orange' class='bi bi-hourglass-split' viewBox='0 0 16 16'>
+                                                                <path d='M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z'/>
+                                                                </svg>";
+                                        } elseif ($heure['etat'] == "Valider") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='green' class='bi bi-check' viewBox='0 0 16 16'>
+                                                    <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/>
+                                                    </svg>";
+                                        } elseif ($heure['etat'] == "Refuser") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='red' class='bi bi-x' viewBox='0 0 16 16'>
+                                                    <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>
+                                                    </svg>";
+                                        } elseif ($heure['etat'] == "Effectuer") {
+                                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='green' class='bi bi-check-all' viewBox='0 0 16 16'>
+                                                    <path d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z'/>
+                                                    </svg>";
+                                        } elseif ($heure['etat'] == "En attente moniteur") {
+                                            echo "
+                                            <form method='POST'>
+                                                <label class='pointer scale-label'>
+                                                <input type='submit' name='AccepterHeure' class='d-none' value='$heure[id_cc]'>
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='green' class='bi bi-check' viewBox='0 0 16 16'>
+                                                    <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/>
+                                                    </svg>
+                                                </label>
+                                                <label class='pointer scale-label'>
+                                                <input type='submit' name='RefuserHeure' class='d-none' value='$heure[id_cc]'>
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='red' class='bi bi-x' viewBox='0 0 16 16'>
+                                                    <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>
+                                                    </svg>
+                                                </label>
+                                            </form>";
+                                        }
+                                        echo "
+                                                </div>
                                             </div>
                                         </div>
                                     </div>  
@@ -377,6 +481,14 @@ $heuresEffectuees = floor($heuresEffectuees);
 
     .max-height {
         max-height: 19rem;
+    }
+
+    .scale-label {
+        transition: transform 0.15s ease-in-out;
+    }
+
+    .scale-label:hover {
+        transform: scale(1.25);
     }
 </style>
 

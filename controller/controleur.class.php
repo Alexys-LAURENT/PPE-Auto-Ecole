@@ -20,6 +20,11 @@ class Controleur
         return $this->unModele->insert($tab);
     }
 
+    public function update($tab, $colonne, $valeur)
+    {
+        $this->unModele->update($tab, $colonne, $valeur);
+    }
+
     public function delete($tab)
     {
         return $this->unModele->delete($tab);

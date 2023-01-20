@@ -5,7 +5,7 @@
             France</p>
     </div>
     <div class="milieu">
-        <p>contact@autoecole.com</p>
+        <p>contact@valauto.com</p>
     </div>
     <div class="droite">
         <p>GCV <br>
