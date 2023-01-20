@@ -104,6 +104,7 @@ $heuresEffectuees = floor($heuresEffectuees);
     require_once("./views/_navbar.php");
     ?>
 
+
     <main class="py-5 bg-back">
         <div class="container">
             <div class="row justify-content-between">
