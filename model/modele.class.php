@@ -53,6 +53,22 @@ class Modele
         }
     }
 
+    public function update($tab, $colonne, $valeur)
+    {
+        if ($this->unPDO != null) {
+            $chaineChamps = array();
+            foreach ($tab as $cle => $value) {
+                $tabChamps[] = $cle . "=:" . $cle;
+                $donnees[":" . $cle] = $value;
+            }
+            $chaineChamps = implode(",", $tabChamps);
+            $requete = "update " . $this->table . " set " . $chaineChamps . " where " . $colonne . "=:valeur;";
+            $donnees[":valeur"] = $valeur;
+            $update = $this->unPDO->prepare($requete);
+            $update->execute($donnees);
+        }
+    }
+
     public function delete($tab)
     {
         if ($this->unPDO != null) {
