@@ -4,7 +4,7 @@
     // }
 
     if (isset($_POST['Submit-PermisB'])) {
-        if (!isset($_SESSION['email'])) { //Si pas connecté, redirect login/register
+        if (!isset($_SESSION['User'])) { //Si pas connecté, redirect login/register
             $_SESSION['redirection'] = "index.php?page=1"; // on set une variable de session qui est un lien de redirection
             header("location: index.php?page=9"); // cette variable de session sera utiliser dans l'accueil puis "unset" pour revenir à cette page après inscription/connexion
         } else {
@@ -14,7 +14,7 @@
     }
 
     if (isset($_POST['Submit-PermisA'])) {
-        if (!isset($_SESSION['email'])) { //Si pas connecté, redirect login/register
+        if (!isset($_SESSION['User'])) { //Si pas connecté, redirect login/register
             $_SESSION['redirection'] = "index.php?page=1"; // on set une variable de session qui est un lien de redirection
             header("location: index.php?page=9"); // cette variable de session sera utiliser dans l'accueil puis "unset" pour revenir à cette page après inscription/connexion
         } else {
@@ -25,7 +25,7 @@
 
 
     if (isset($_POST['Submit-Code'])) {
-        if (!isset($_SESSION['email'])) { //Si pas connecté, redirect login/register
+        if (!isset($_SESSION['User'])) { //Si pas connecté, redirect login/register
             $_SESSION['redirection'] = "index.php?page=1"; // on set une variable de session qui est un lien de redirection
             header("location: index.php?page=9"); // cette variable de session sera utiliser dans l'accueil puis "unset" pour revenir à cette page après inscription/connexion
         } else {

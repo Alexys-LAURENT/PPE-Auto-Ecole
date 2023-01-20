@@ -11,6 +11,7 @@
 
 <body>
     <?php
+
     require_once("./views/_navbar.php");
 
     if (isset($_SESSION['redirect']) && $_SESSION['redirect'] == true) {

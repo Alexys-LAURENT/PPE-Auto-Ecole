@@ -29,7 +29,7 @@
                                     echo "<td>" . $dateSup . "</td>";
                                     echo "<td>" . $heureDebSup . "</td>";
                                     echo "<td>" . $heureFinSup . "</td>";
-                                    echo "<td><input class='form-check-input' type='checkbox' name='heureSupp[]' value='" . $heure['id_cc'] . "'></td>";
+                                    echo "<td><input class='form-check-input pointer' type='checkbox' name='heureSupp[]' value='" . $heure['id_cc'] . "'></td>";
                                     echo "</tr>";
                                     $noheures = true;
                                 }

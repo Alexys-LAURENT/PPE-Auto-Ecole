@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['User'])) {
   header('Location: index.php?page=0');
 }
 
@@ -14,12 +14,29 @@ if (!isset($_SESSION['email'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Val Auto quiz - Jouer</title>
-  <link rel="stylesheet" href="./css/app.css" />
   <link rel="stylesheet" href="./css/quiz.css" />
 </head>
 
 <body>
-  <div class="container">
+  <div id="hud">
+    <div id="hud-item">
+      <p id="progressText" class="hud-prefix">
+        Question
+      </p>
+      <div id="progressBar">
+        <div id="progressBarFull"></div>
+      </div>
+    </div>
+    <div id="hud-item">
+      <p class="hud-prefix">
+        Score
+      </p>
+      <h1 class="hud-main-text" id="score">
+        0
+      </h1>
+    </div>
+  </div>
+  <div class="container py-5">
     <div class="back">
       <a href="index.php?page=2">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -28,45 +45,51 @@ if (!isset($_SESSION['email'])) {
       </a>
     </div>
     <div id="game" class="justify-center flex-column">
-      <div id="hud">
-        <div id="hud-item">
-          <p id="progressText" class="hud-prefix">
-            Question
-          </p>
-          <div id="progressBar">
-            <div id="progressBarFull"></div>
-          </div>
-        </div>
-        <div id="hud-item">
-          <p class="hud-prefix">
-            Score
-          </p>
-          <h1 class="hud-main-text" id="score">
-            0
-          </h1>
-        </div>
-      </div>
-      <h2 id="question">Quel est la réponse à cette question?</h2>
-      <div class="choice-container">
+
+      <img id="img" class="img-fluid rounded">
+      <h3 class="fw-bold" id="question">Quel est la réponse à cette question?</h3>
+      <div id="A" class="choice-container my-2">
         <p class="choice-prefix">A</p>
-        <p class="choice-text" data-number="1">Choice 1</p>
+        <p class="choice-text" data-number="A">Choice 1</p>
       </div>
-      <div class="choice-container">
+      <div id="B" class="choice-container my-2">
         <p class="choice-prefix">B</p>
-        <p class="choice-text" data-number="2">Choice 2</p>
+        <p class="choice-text" data-number="B">Choice 2</p>
       </div>
-      <div class="choice-container">
+      <div id="C" class="choice-container my-2">
         <p class="choice-prefix">C</p>
-        <p class="choice-text" data-number="3">Choice 3</p>
+        <p class="choice-text" data-number="C">Choice 3</p>
       </div>
-      <div class="choice-container">
+      <div id="D" class="choice-container my-2">
         <p class="choice-prefix">D</p>
-        <p class="choice-text" data-number="4">Choice 4</p>
+        <p class="choice-text" data-number="D">Choice 4</p>
+      </div>
+
+
+      <div id="sub" class="flex-column">
+        <h3 class="fw-bold" id="subQuestion">Quel est la réponse à cette question?</h3>
+        <div id="subA" class="choice-container my-2">
+          <p class="choice-prefix">A</p>
+          <p class="sub-choice-text" data-number="A">Choice 1</p>
+        </div>
+        <div id="subB" class="choice-container my-2">
+          <p class="choice-prefix">B</p>
+          <p class="sub-choice-text" data-number="B">Choice 2</p>
+        </div>
+        <div id="subC" class="choice-container my-2">
+          <p class="choice-prefix">C</p>
+          <p class="sub-choice-text" data-number="C">Choice 3</p>
+        </div>
+        <div id="subD" class="choice-container my-2">
+          <p class="choice-prefix">D</p>
+          <p class="sub-choice-text" data-number="D">Choice 4</p>
+        </div>
       </div>
     </div>
   </div>
-  <script src="./js/quiz.js"></script>
 
 </body>
 
 </html>
+
+<script src="./js/quiz.js"></script>

@@ -22,3 +22,16 @@
 
 </html>
 </body>
+
+<style>
+  .container {
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+</style>
