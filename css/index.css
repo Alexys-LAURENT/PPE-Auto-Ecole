@@ -74,13 +74,13 @@
 /* Chrome, Safari, Edge, Opera */
 *::-webkit-scrollbar {
     width: 10px;
-    background-color: #7f7f7f;
+    background-color: transparent;
     border-radius: 10px;
 }
 
 body::-webkit-scrollbar {
     width: 10px;
-    background-color: #7f7f7f;
+    background-color: transparent;
     border-radius: 0;
 }
 

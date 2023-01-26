@@ -46,6 +46,11 @@ class Controleur
         return $this->unModele->verifConnection($email, $mdp);
     }
 
+    public function verifConnectionMoniteur($email, $mdp)
+    {
+        return $this->unModele->verifConnectionMoniteur($email, $mdp);
+    }
+
     public function selectWhere($table, $colonne, $valeur)
     {
         return $this->unModele->selectWhere($table, $colonne, $valeur);
