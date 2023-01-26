@@ -38,6 +38,23 @@ class Modele
         }
     }
 
+    public function verifConnectionMoniteur($email, $mdp) //Très bien
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from moniteur where email_m=:email and mdp_m=:mdp;";
+            $donnees = array(
+                ":email" => $email,
+                ":mdp" => $mdp
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetch();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
     public function insert($tab)
     {
         if ($this->unPDO != null) {

@@ -26,18 +26,31 @@
                         FAQ</a>
                 </li>
                 <?php
-                if (isset($_SESSION['User'])) {
+                if (isset($_SESSION['User']) && $_SESSION['User'] != null) {
                     echo '<li class="nav-item">
                     <div class="dropdown-center nav-link">
-  <button class=" con btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Mon compte
-  </button>
-  <ul class="dropdown-menu">
-  <li><a class="dropdown-item" href="index.php?page=6">Mon profil</a></li>
-    <li><a class="dropdown-item" href="index.php?page=2">Accéder à mon espace</a></li>
-    <li><a class="dropdown-item" href="index.php?page=10">Déconnexion</a></li>
-  </ul>
-</div>
+                    <button class=" con btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mon compte
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="index.php?page=6">Mon profil</a></li>
+                        <li><a class="dropdown-item" href="index.php?page=2">Accéder à mon espace</a></li>
+                        <li><a class="dropdown-item" href="index.php?page=10">Déconnexion</a></li>
+                    </ul>
+                    </div>
+                    </li> ';
+                } elseif (isset($_SESSION['Moniteur']) && $_SESSION['Moniteur'] != null) {
+                    echo '<li class="nav-item">
+                    <div class="dropdown-center nav-link">
+                    <button class=" con btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mon compte
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="index.php?page=6">Mon profil</a></li>
+                        <li><a class="dropdown-item" href="index.php?page=2">Accéder à mon espace</a></li>
+                        <li><a class="dropdown-item" href="index.php?page=10">Déconnexion</a></li>
+                    </ul>
+                    </div>
                     </li> ';
                 } else {
                     echo '   <li class="nav-item">

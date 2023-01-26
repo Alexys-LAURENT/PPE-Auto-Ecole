@@ -29,12 +29,8 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         // $nb = $resultat[0]['nb'];
         // $mdp = sha1($mdp . $nb);
         $_SESSION['User'] = $unControleur->verifConnection($email, $mdp);
-        $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
-        if ($_SESSION['User'] == null) {
-            echo "<div class='col-md-3 alert alert-danger'>Verifiez vos identifiants<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
-                <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
-              </svg> </span> </div>";
-        } else {
+        if ($_SESSION['User'] != null) {
+            $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
             $_SESSION['formation'] = $formation;
 
             if (isset($_SESSION['redirection'])) {
@@ -42,6 +38,17 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
                 unset($_SESSION['redirection']);
             } else {
                 header("Location: index.php?page=0");
+            }
+        } else {
+            $email = $_POST['email'];
+            $mdp = $_POST['mdp'];
+            $_SESSION['Moniteur'] = $unControleur->verifConnectionMoniteur($email, $mdp);
+            if ($_SESSION['Moniteur'] != null) {
+                header("Location: index.php?page=2");
+            } else {
+                echo "<div class='col-md-3 alert alert-danger'>Verifiez vos identifiants<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+                <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+                </svg> </span> </div>";
             }
         }
     }
@@ -108,7 +115,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             require_once("forfaits.php");
             break;
         case '2':
-            if ($_SESSION) {
+            if ($_SESSION['User']) {
                 if (empty($_SESSION['formation'])) {
                     $_SESSION['redirectFormation'] = true;
                     header("location: index.php?page=0");
@@ -116,6 +123,9 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
                     require_once("Account.php");
                     break;
                 }
+            } elseif ($_SESSION['Moniteur']) {
+                require_once("AccountMoniteur.php");
+                break;
             } else {
                 $_SESSION['redirect'] = true;
                 header("location: index.php?page=0");

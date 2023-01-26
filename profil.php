@@ -1,9 +1,33 @@
 <?php
-if (!isset($_SESSION['User'])) {
+if (isset($_SESSION['User']) && $_SESSION['User'] != null) {
+    $profil = array(
+        "nom" => $_SESSION['User']['nom_e'],
+        "prenom" => $_SESSION['User']['prenom_e'],
+        "email" => $_SESSION['User']['email_e'],
+        "tel" => $_SESSION['User']['tel_e'],
+        "adresse" => $_SESSION['User']['adresse_e'],
+        "ville" => $_SESSION['User']['ville_e'],
+        "codepostal" => $_SESSION['User']['codepos_e'],
+        "dateprofil" => $_SESSION['User']['dateinscrip_e'],
+        "id" => $_SESSION['User']['id_e'],
+    );
+} elseif (isset($_SESSION['Moniteur']) && $_SESSION['Moniteur'] != null) {
+    $profil = array(
+        "nom" => $_SESSION['Moniteur']['nom_m'],
+        "prenom" => $_SESSION['Moniteur']['prenom_m'],
+        "email" => $_SESSION['Moniteur']['email_m'],
+        "tel" => $_SESSION['Moniteur']['tel_m'],
+        "adresse" => $_SESSION['Moniteur']['adresse_m'],
+        "ville" => $_SESSION['Moniteur']['ville_m'],
+        "codepostal" => $_SESSION['Moniteur']['codpos_m'],
+        "dateprofil" => $_SESSION['Moniteur']['dateembauche_m'],
+        "id" => $_SESSION['Moniteur']['id_m'],
+    );
+} else {
     header("Location: index.php?page=0");
 }
 
-$date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
+$date = date("d M Y", strtotime($profil['dateprofil']));
 
 ?>
 
@@ -22,7 +46,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
     <?php
     $default = "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_960_720.png";
 
-    $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($_SESSION['User']['email_e']))) . "?d=" . urlencode($default);
+    $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($profil['email']))) . "?d=" . urlencode($default);
     require_once("views/_navbar.php");
     ?>
     <div class="body d-flex justify-content-center">
@@ -32,8 +56,8 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
                     <img class="rounded-circle" src="<?php echo $grav_url; ?>" alt="">
                 </div>
                 <div class="profil-name">
-                    <p class="nom-prenom"><?php echo $_SESSION['User']['nom_e'] . ' ' . $_SESSION['User']['prenom_e'] ?></p>
-                    <p class="date-inscri">Inscrit depuis le <?php echo $date ?></p>
+                    <p class="nom-prenom"><?php echo $profil['nom'] . ' ' . $profil['prenom'] ?></p>
+                    <p class="date-inscri">Actif depuis le <?php echo $date ?></p>
                     <button class="btn-reset-password">Reset password</button>
                 </div>
             </div>
@@ -44,7 +68,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
                         <p>Nom Complet</p>
                     </div>
                     <div class="value">
-                        <p><?php echo $_SESSION['User']['nom_e'] . ' ' . $_SESSION['User']['prenom_e'] ?></p>
+                        <p><?php echo $profil['nom'] . ' ' . $profil['prenom'] ?></p>
                     </div>
                 </div>
 
@@ -53,7 +77,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
                         <p>Email</p>
                     </div>
                     <div class="value">
-                        <p><?php echo $_SESSION['User']['email_e'] ?></p>
+                        <p><?php echo $profil['email'] ?></p>
                     </div>
                 </div>
 
@@ -62,7 +86,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
                         <p>Téléphone</p>
                     </div>
                     <div class="value">
-                        <p><?php echo $_SESSION['User']['tel_e'] ?></p>
+                        <p><?php echo $profil['tel'] ?></p>
                     </div>
                 </div>
 
@@ -71,7 +95,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
                         <p>Adresse</p>
                     </div>
                     <div class="value">
-                        <p><?php echo $_SESSION['User']['adresse_e'] ?></p>
+                        <p><?php echo $profil['adresse'] ?></p>
                     </div>
                 </div>
 
@@ -80,7 +104,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
                         <p>Ville</p>
                     </div>
                     <div class="value">
-                        <p><?php echo $_SESSION['User']['ville_e'] ?></p>
+                        <p><?php echo $profil['ville'] ?></p>
                     </div>
                 </div>
 
@@ -89,7 +113,7 @@ $date = date("d M Y", strtotime($_SESSION['User']['dateinscrip_e']));
                         <p>Code Postal</p>
                     </div>
                     <div class="value">
-                        <p><?php echo $_SESSION['User']['codepos_e'] ?></p>
+                        <p><?php echo $profil['codepostal'] ?></p>
                     </div>
                 </div>
             </div>
