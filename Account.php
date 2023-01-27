@@ -1,6 +1,5 @@
 <?php
 
-//if $mois is changed selectAllHeures
 if (isset($_POST['mois'])) {
     $mois = $_POST['mois'];
 } else {

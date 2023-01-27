@@ -122,6 +122,42 @@ class Modele
         }
     }
 
+    public function selectWhere2($table, $colonne, $valeur, $colonne2, $valeur2)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from " . $table . " where " . $colonne . "=:valeur and " . $colonne2 . "=:valeur2;";
+            $donnees = array(
+                ":valeur" => $valeur,
+                ":valeur2" => $valeur2
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetchAll();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
+    public function selectHeuresMonit($table, $colonne, $valeur, $colonne2, $valeur2, $mois, $annee)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from " . $table . " where " . $colonne . "=:valeur and " . $colonne2 . "!=:valeur2 and month(datehd)=:mois and year(datehd)=:annee order by datehd desc;";
+            $donnees = array(
+                ":valeur" => $valeur,
+                ":valeur2" => $valeur2,
+                ":mois" => $mois,
+                ":annee" => $annee
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetchAll();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
     public function selectAll($table)
     {
         if ($this->unPDO != null) {
@@ -172,7 +208,7 @@ class Modele
     public function selectAllHeuresEffectuees($table, $valeur)
     {
         if ($this->unPDO != null) {
-            $requete = "select datehd, datehf from " . $table . " where id_e=:valeur and datehf < CURRENT_TIMESTAMP();";
+            $requete = "select datehd, datehf from " . $table . " where id_e=:valeur and etat='Effectuer'";
             $donnees = array(
                 ":valeur" => $valeur,
             );

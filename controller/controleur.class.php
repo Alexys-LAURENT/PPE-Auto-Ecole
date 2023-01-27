@@ -56,6 +56,16 @@ class Controleur
         return $this->unModele->selectWhere($table, $colonne, $valeur);
     }
 
+    public function selectWhere2($table, $colonne, $valeur, $colonne2, $valeur2)
+    {
+        return $this->unModele->selectWhere2($table, $colonne, $valeur, $colonne2, $valeur2);
+    }
+
+    public function selectHeuresMonit($table, $colonne, $valeur, $colonne2, $valeur2, $mois, $annee)
+    {
+        return $this->unModele->selectHeuresMonit($table, $colonne, $valeur, $colonne2, $valeur2, $mois, $annee);
+    }
+
     public function selectAllHeuresMois($table, $valeur, $mois, $annee)
     {
         return $this->unModele->selectAllHeuresMois($table, $valeur, $mois, $annee);
