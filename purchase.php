@@ -64,21 +64,21 @@ if ($_SESSION['offre'] == "Code") {
                                         header("Location: index.php?page=1");
                                     } ?>€</p>
 
-                    <label for="">Nom sur la carte :</label>
+                    <label for="inputNom">Nom sur la carte :</label>
                     <input type="text" name="nom" id="inputNom">
 
 
 
-                    <label for="">Numéro de carte :</label>
-                    <input type="text" name="num" id="inputNum">
+                    <label for="inputNum">Numéro de carte :</label>
+                    <input type="text" name="num" id="inputNum" class="inputNum" onkeyup="formatCardNumber(this)" maxlength="19">
 
                     <div class="d-flex-label">
-                        <label for="">Date d'éxpiration</label>
-                        <label for="">CVV</label>
+                        <label for="inputDate">Date d'éxpiration</label>
+                        <label for="inputCVV">CVV</label>
                     </div>
                     <div class="d-flex input">
-                        <input type="text" placeholder="MM/YY" id="inputDate" name="dateExpi">
-                        <input type="number" maxlength="3" id="inputCVV" name="cvv">
+                        <input type="text" placeholder="MM/YY" id="inputDate" name="dateExpi" maxlength="5">
+                        <input type="number" min="100" max="999" id="inputCVV" name="cvv">
                     </div>
                     <button name="submitPurchase" id="submit">
                         <p id="textbtnSublit">Payer</p><img id="gif" src="./images/loading.gif" alt="">
@@ -92,3 +92,15 @@ if ($_SESSION['offre'] == "Code") {
 </body>
 
 </html>
+<script>
+    function formatCardNumber(input) {
+        // Récupère la valeur de l'input
+        var value = input.value;
+        // Remplace les espaces par des vides
+        value = value.replace(/\s+/g, '');
+        // Boucle sur chaque 4 caractères pour ajouter un espace
+        value = value.match(/.{1,4}/g).join(" ");
+        // Met à jour la valeur de l'input avec les espaces
+        input.value = value;
+    }
+</script>
