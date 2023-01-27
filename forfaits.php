@@ -9,7 +9,15 @@
             header("location: index.php?page=9"); // cette variable de session sera utiliser dans l'accueil puis "unset" pour revenir à cette page après inscription/connexion
         } else {
             $_SESSION['achat'] = true;
-            header("location: purchase.php?offre=PermisB");
+            switch ($_POST['typeBoite']) {
+                case "0": //Manuelle
+                    $_SESSION['typeBoite'] = "Manuelle";
+                    break;
+                case "300": //Automatique
+                    $_SESSION['typeBoite'] = "Automatique";
+                    break;
+            }
+            header("location: index.php?page=99&offre=PermisB");
         }
     }
 
@@ -19,7 +27,7 @@
             header("location: index.php?page=9"); // cette variable de session sera utiliser dans l'accueil puis "unset" pour revenir à cette page après inscription/connexion
         } else {
             $_SESSION['achat'] = true;
-            header("location: purchase.php?offre=PermisA");
+            header("location: index.php?page=99&offre=PermisA");
         }
     }
 
@@ -30,7 +38,7 @@
             header("location: index.php?page=9"); // cette variable de session sera utiliser dans l'accueil puis "unset" pour revenir à cette page après inscription/connexion
         } else {
             $_SESSION['achat'] = true;
-            header("location: purchase.php?offre=Code");
+            header("location: index.php?page=99&offre=Code");
         }
     }
 

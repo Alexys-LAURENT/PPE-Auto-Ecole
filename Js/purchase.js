@@ -3,6 +3,7 @@ const numeroCarte = document.getElementById('inputNum');
 const dateCarte = document.getElementById('inputDate');
 const cvvCarte = document.getElementById('inputCVV');
 
+
 document.getElementById('submit').addEventListener('click', function () {
 
     if (nomCarte.value == '') {
@@ -34,20 +35,37 @@ document.getElementById('submit').addEventListener('click', function () {
 });
 
 
-document.getElementById('submit').addEventListener('click', function () {
-    if (nomCarte.value == '' || numeroCarte.value == '' || dateCarte.value == '' || cvvCarte.value == '') {
-        event.preventDefault();
+document.getElementById('submit').addEventListener('click', function () { //Quand l'utilistaeur clique sur le bouton submit du formulaire de paiement
+    if (nomCarte.value == '' || numeroCarte.value == '' || dateCarte.value == '' || cvvCarte.value == '') { //Si un des champs est vide
+        event.preventDefault(); //On empêche l'envoi du formulaire
     } else {
-        event.preventDefault();
+        event.preventDefault(); //On empêche l'envoi du formulaire
 
-        document.getElementById('textbtnSublit').style.display = 'none';
+        document.getElementById('textbtnSublit').style.display = 'none'; //On affiche le message de validation et le gif de chargement
         document.getElementById('gif').style.display = 'block';
         document.getElementById('flash').style.display = 'block';
 
-        setTimeout(function () {
-            document.location.href = "index.php?page=2";
-        }, 5000);
 
+        var formData = new FormData(document.getElementById('FormPurchase')); //On récupère les données du formulaire
 
+        var xhr = new XMLHttpRequest(); //On envoie les données du formulaire au serveur
+        xhr.open('POST', 'Ajax_Purchase.php', true); //sur la page Ajax_Purchase.php
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () { //On traite la réponse du serveur
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // traite la réponse du serveur
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) { //Si la réponse est positive
+                    // redirige vers la page de remerciement
+                    setTimeout(function () {
+                        window.location.href = "http://localhost/autoecole2/index.php?page=2";
+                    }, Math.random() * (4500 - 2500) + 2500); //On redirige vers la page dashboard après un délai aléatoire entre 2.5 et 4.5 secondes
+                } else {
+                    // affiche un message d'erreur
+                    alert(response.message);
+                }
+            }
+        };
+        xhr.send(formData);
     }
 });

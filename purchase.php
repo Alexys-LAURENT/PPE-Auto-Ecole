@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 if (!isset($_SESSION['User'])) {
     header("Location: index.php?page=0");
 }
@@ -7,19 +7,27 @@ if (!isset($_SESSION['User'])) {
 if (!$_SESSION['achat']) {
     header("Location: index.php?page=0");
 }
-unset($_SESSION['achat']);
+unset($_SESSION['achat']); //On supprime la variable de session achat pour éviter que l'utilisateur puisse revenir sur la page purchase.php sans avoir acheté de formule
 
-if ($_GET['offre'] == "PermisB") {
-    $leprix = intval($_SESSION['total_PermisB'], 10);
+
+$_SESSION['offre'] = $_GET['offre']; //On set la variable de session offre avec la valeur de l'offre choisie par l'utilisateur pour l'utiliser dans le fichier Ajax_purchase.php
+
+if ($_SESSION['offre'] == "PermisB") {
+    $_SESSION['lePrix'] = intval($_SESSION['total_PermisB'], 10); //On set la variable de session lePrix avec le prix de l'offre choisie par l'utilisateur pour l'utiliser dans le fichier Ajax_purchase.php et l'afficher sur la page juste en dessous
 }
 
-if ($_GET['offre'] == "PermisA") {
-    $leprix = intval($_SESSION['total_PermisA'], 10);
+if ($_SESSION['offre'] == "PermisA") {
+    $_SESSION['lePrix'] = intval($_SESSION['total_PermisA'], 10); //On set la variable de session lePrix avec le prix de l'offre choisie par l'utilisateur pour l'utiliser dans le fichier Ajax_purchase.php et l'afficher sur la page juste en dessous
 }
 
-if ($_GET['offre'] == "Code") {
-    $leprix = intval($_SESSION['total_Code'], 10);
+if ($_SESSION['offre'] == "Code") {
+    $_SESSION['lePrix'] = intval($_SESSION['total_Code'], 10); //On set la variable de session lePrix avec le prix de l'offre choisie par l'utilisateur pour l'utiliser dans le fichier Ajax_purchase.php et l'afficher sur la page juste en dessous
 }
+
+// if (isset($_POST['submitPurchase']) && $_POST['cvv'] != '' && $_POST['dateExpi'] != '' && $_POST['num'] != '' && $_POST['nom'] != '') {
+//     $unControleur->addFormuleToUser($_SESSION['User']['id_e'], $_GET['offre'], $leprix, $typeBoite);
+//     unset($_SESSION['typeBoite']);
+// }
 
 ?>
 <!DOCTYPE html>
@@ -40,7 +48,7 @@ if ($_GET['offre'] == "Code") {
 
     <div class="body">
         <div class="container">
-            <form action="">
+            <form action="" method="POST" id="FormPurchase">
                 <div class="header">
                     <h3>Paiement en ligne</h3>
                 </div>
@@ -50,10 +58,10 @@ if ($_GET['offre'] == "Code") {
                         <img class="mastercard" src="./images/mastercard.png" width="50px" alt="">
                     </div>
                     <h2>Montant du paiement</h2>
-                    <p id="montant"><?php if ($leprix != 0) {
-                                        echo $leprix;
+                    <p id="montant"><?php if ($_SESSION['lePrix'] != 0) {
+                                        echo $_SESSION['lePrix'];
                                     } else {
-                                        header("Location: index.php?page=4");
+                                        header("Location: index.php?page=1");
                                     } ?>€</p>
 
                     <label for="">Nom sur la carte :</label>
@@ -72,8 +80,8 @@ if ($_GET['offre'] == "Code") {
                         <input type="text" placeholder="MM/YY" id="inputDate" name="dateExpi">
                         <input type="number" maxlength="3" id="inputCVV" name="cvv">
                     </div>
-                    <button type="submit" name="submitPurchase" id="submit">
-                        <p id="textbtnSublit">payer</p><img id="gif" src="./images/loading.gif" alt="">
+                    <button name="submitPurchase" id="submit">
+                        <p id="textbtnSublit">Payer</p><img id="gif" src="./images/loading.gif" alt="">
                     </button>
                 </div>
             </form>

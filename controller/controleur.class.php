@@ -75,4 +75,9 @@ class Controleur
     {
         return $this->unModele->Register($tab);
     }
+
+    public function addFormuleToUser($id_e, $typeFormule, $prix_f, $typeBoite)
+    {
+        $this->unModele->addFormuleToUser($id_e, $typeFormule, $prix_f, $typeBoite);
+    }
 }
