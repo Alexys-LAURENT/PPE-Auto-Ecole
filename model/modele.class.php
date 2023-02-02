@@ -21,7 +21,7 @@ class Modele
         $this->table = $uneTable;
     }
 
-    public function verifConnection($email, $mdp) //Très bien
+    public function verifConnection($email, $mdp)
     {
         if ($this->unPDO != null) {
             $requete = "select * from eleve where email_e=:email and mdp_e=:mdp;";
@@ -38,7 +38,7 @@ class Modele
         }
     }
 
-    public function verifConnectionMoniteur($email, $mdp) //Très bien
+    public function verifConnectionMoniteur($email, $mdp)
     {
         if ($this->unPDO != null) {
             $requete = "select * from moniteur where email_m=:email and mdp_m=:mdp;";

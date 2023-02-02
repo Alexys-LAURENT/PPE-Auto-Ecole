@@ -89,9 +89,8 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
           </svg> </span> </div>";
             } else {
                 $_SESSION['User'] = $unUser;
-
                 if (isset($_SESSION['redirection'])) {
-                    header("Location : " . $_SESSION['redirection']);
+                    header("Location:" . $_SESSION['redirection']);
                     unset($_SESSION['redirection']);
                 } else {
                     header("Location: index.php?page=0");
