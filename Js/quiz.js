@@ -72,7 +72,7 @@ async function main() {
     }
 
     questionCounter++;
-    progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+    progressText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
     //Update the progress bar
     progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
 
@@ -96,7 +96,7 @@ async function main() {
     if (currentQuestion.subQuestion == null) {
       document.getElementById("sub").style.display = "none";
     } else {
-      document.getElementById("sub").style.display = "flex";
+      document.getElementById("sub").style.display = "block";
 
       subQuestion.innerText = currentQuestion.subQuestion;
 

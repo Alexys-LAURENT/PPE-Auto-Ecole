@@ -18,24 +18,7 @@ if (!isset($_SESSION['User'])) {
 </head>
 
 <body>
-  <div id="hud">
-    <div id="hud-item">
-      <p id="progressText" class="hud-prefix">
-        Question
-      </p>
-      <div id="progressBar">
-        <div id="progressBarFull"></div>
-      </div>
-    </div>
-    <div id="hud-item">
-      <p class="hud-prefix">
-        Score
-      </p>
-      <h1 class="hud-main-text" id="score">
-        0
-      </h1>
-    </div>
-  </div>
+  <img src="images/logo.png" alt="" width="100" class="valAutoImg">
   <div class="container py-5">
     <div class="back">
       <a href="index.php?page=2">
@@ -45,46 +28,61 @@ if (!isset($_SESSION['User'])) {
       </a>
     </div>
     <div id="game" class="justify-center flex-column">
+      <div id="progressBar">
+        <div id="progressBarFull"></div>
+      </div>
+      <div class="img-container" style="background-color: pink;">
+        <div class="score-container">
+          <p class="score-text">Score</p>
+          <p class="score-value" id="score">0</p>
+        </div>
+        <p id="progressText" class="hud-nbQuestion"></p>
+        <img id="img" class="img-fluid rounded mx-auto">
+      </div>
+      <h3 id="question">Quel est la réponse à cette question?</h3>
 
-      <img id="img" class="img-fluid rounded">
-      <h3 class="fw-bold" id="question">Quel est la réponse à cette question?</h3>
-      <div id="A" class="choice-container my-2">
-        <p class="choice-prefix">A</p>
-        <p class="choice-text" data-number="A">Choice 1</p>
-      </div>
-      <div id="B" class="choice-container my-2">
-        <p class="choice-prefix">B</p>
-        <p class="choice-text" data-number="B">Choice 2</p>
-      </div>
-      <div id="C" class="choice-container my-2">
-        <p class="choice-prefix">C</p>
-        <p class="choice-text" data-number="C">Choice 3</p>
-      </div>
-      <div id="D" class="choice-container my-2">
-        <p class="choice-prefix">D</p>
-        <p class="choice-text" data-number="D">Choice 4</p>
-      </div>
-
-
-      <div id="sub" class="flex-column">
-        <h3 class="fw-bold" id="subQuestion">Quel est la réponse à cette question?</h3>
-        <div id="subA" class="choice-container my-2">
+      <div class="all-choice-container">
+        <div id="A" class="choice-container my-2">
           <p class="choice-prefix">A</p>
-          <p class="sub-choice-text" data-number="A">Choice 1</p>
+          <p class="choice-text" data-number="A">Choice 1</p>
         </div>
-        <div id="subB" class="choice-container my-2">
+        <div id="B" class="choice-container my-2">
           <p class="choice-prefix">B</p>
-          <p class="sub-choice-text" data-number="B">Choice 2</p>
+          <p class="choice-text" data-number="B">Choice 2</p>
         </div>
-        <div id="subC" class="choice-container my-2">
+        <div id="C" class="choice-container my-2">
           <p class="choice-prefix">C</p>
-          <p class="sub-choice-text" data-number="C">Choice 3</p>
+          <p class="choice-text" data-number="C">Choice 3</p>
         </div>
-        <div id="subD" class="choice-container my-2">
+        <div id="D" class="choice-container my-2">
           <p class="choice-prefix">D</p>
-          <p class="sub-choice-text" data-number="D">Choice 4</p>
+          <p class="choice-text" data-number="D">Choice 4</p>
         </div>
       </div>
+
+
+      <div id="sub">
+        <h3 id="subQuestion">Quel est la réponse à cette question?</h3>
+        <div class="all-choice-container">
+          <div id="subA" class="choice-container my-2">
+            <p class="choice-prefix">A</p>
+            <p class="sub-choice-text" data-number="A">Choice 1</p>
+          </div>
+          <div id="subB" class="choice-container my-2">
+            <p class="choice-prefix">B</p>
+            <p class="sub-choice-text" data-number="B">Choice 2</p>
+          </div>
+          <div id="subC" class="choice-container my-2">
+            <p class="choice-prefix">C</p>
+            <p class="sub-choice-text" data-number="C">Choice 3</p>
+          </div>
+          <div id="subD" class="choice-container my-2">
+            <p class="choice-prefix">D<< /p>
+                <p class="sub-choice-text" data-number="D">Choice 4</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
