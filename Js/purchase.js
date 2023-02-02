@@ -58,7 +58,12 @@ document.getElementById('submit').addEventListener('click', function () { //Quan
                 if (response.success) { //Si la réponse est positive
                     // redirige vers la page de remerciement
                     setTimeout(function () {
-                        window.location.href = "http://localhost/autoecole2/index.php?page=2";
+                        //recupérer l'url jusqu'à "page=" et ajouter "page=2"
+                        var url = window.location.href;
+                        var url2 = url.substring(0, url.indexOf("page=") + 5);
+                        window.location.href = url2 + "2"; //rédirige vers la page dashboard
+
+
                     }, Math.random() * (4500 - 2500) + 2500); //On redirige vers la page dashboard après un délai aléatoire entre 2.5 et 4.5 secondes
                 } else {
                     // affiche un message d'erreur
