@@ -205,6 +205,22 @@ class Modele
         }
     }
 
+    public function selectAllHeuresMonit($table, $valeur)
+    {
+        if ($this->unPDO != null) {
+            $requete = "select * from " . $table . " where id_m=:valeur order by datehd desc;";
+            $donnees = array(
+                ":valeur" => $valeur,
+            );
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $unUser = $select->fetchAll();
+            return $unUser;
+        } else {
+            return null;
+        }
+    }
+
     public function selectAllHeuresEffectuees($table, $valeur)
     {
         if ($this->unPDO != null) {

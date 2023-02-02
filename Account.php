@@ -270,8 +270,8 @@ $heuresEffectuees = floor($heuresEffectuees);
                                         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
                                         $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
                                         $jour_chiffres = substr($date, 0, 2);
-                                        $moisHeure = substr(strtoupper(strftime("%B", strtotime($date))), 0, 4);
-                                        strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
+                                        $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));
+                                        // strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
 
                                         $dureeHeure = floor((strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 3600);
                                         $dureeMinute = (strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 60;
@@ -347,8 +347,8 @@ $heuresEffectuees = floor($heuresEffectuees);
                                         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
                                         $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
                                         $jour_chiffres = substr($date, 0, 2);
-                                        $moisHeure = substr(strtoupper(strftime("%B", strtotime($date))), 0, 4);
-                                        strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
+                                        $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));
+                                        // strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
 
                                         $dureeHeure = floor((strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 3600);
                                         $dureeMinute = (strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 60;

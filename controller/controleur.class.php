@@ -76,6 +76,11 @@ class Controleur
         return $this->unModele->selectAllHeuresAll($table, $valeur);
     }
 
+    public function selectAllHeuresMonit($table, $valeur)
+    {
+        return $this->unModele->selectAllHeuresMonit($table, $valeur);
+    }
+
     public function selectAllHeuresEffectuees($table, $valeur)
     {
         return $this->unModele->selectAllHeuresEffectuees($table, $valeur);
