@@ -20,13 +20,11 @@ p {
   margin: 0;
 }
 
+#game {
+  margin-top: 125px;
+}
 
 
-/* h1 {
-  font-size: 5.4rem;
-  color: #56a5eb;
-  margin-bottom: 5rem;
-} */
 
 h1>span {
   font-size: 2.4rem;
@@ -253,9 +251,6 @@ input::placeholder {
   border: 1px solid rgb(99, 99, 99);
 }
 
-/* .hud-main-text {
-  text-align: center;
-} */
 
 #progressBar {
   width: 100%;

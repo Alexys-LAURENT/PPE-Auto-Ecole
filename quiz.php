@@ -31,13 +31,13 @@ if (!isset($_SESSION['User'])) {
       <div id="progressBar">
         <div id="progressBarFull"></div>
       </div>
-      <div class="img-container" style="background-color: pink;">
+      <div class="img-container mx-auto">
         <div class="score-container">
           <p class="score-text">Score</p>
           <p class="score-value" id="score">0</p>
         </div>
         <p id="progressText" class="hud-nbQuestion"></p>
-        <img id="img" class="img-fluid rounded mx-auto">
+        <img id="img" class="img-fluid rounded">
       </div>
       <h3 id="question">Quel est la réponse à cette question?</h3>
 
