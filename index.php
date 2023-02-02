@@ -134,6 +134,9 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         case '3':
             require_once('FAQ.php');
             break;
+        case '4':
+            require_once('A_propos.php');
+            break;
         case '6':
             require_once('profil.php');
             break;
