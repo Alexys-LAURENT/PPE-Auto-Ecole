@@ -13,16 +13,75 @@
     require_once("./views/_navbar.php");
     ?>
     <div class="banner mb-5 position-relative">
-        <div class="container-xs">
-            <h1 class="slogan my-5 text-center">À propos de nous!</h1>
-        </div>
-        <!-- <div class="messageBox bg-white position-absolute p-2">
-            <p>Je suis un texteJe suis un texteJe suis un texteJe suis Je suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteun texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texteJe suis un texte</p>
-        </div> -->
+        <h1 class="slogan my-5 text-center">À propos de nous!</h1>
         <div class="voiture position-absolute">
-            <img src="images/voiture.avif" alt="" width="100px" height="100px" class="position-relative">
+            <img src="images/voiture.avif" alt="" width="100px" height="100px" class="position-relative voiture-img">
         </div>
     </div>
+    <main>
+        <div class="container">
+            <div class="row my-5 py-4">
+                <div class="col-8 align-self-center">
+                    <p>
+                        Nous sommes une auto-école reconnue depuis plusieurs années,
+                        spécialisée dans la formation des conducteurs débutants et expérimentés.
+                        Nous sommes fiers de fournir un enseignement de qualité supérieure pour
+                        aider nos élèves à devenir des conducteurs sûrs et compétents.
+                    </p>
+                </div>
+                <div class="col-4 text-center align-self-center">
+                    <img src="images/qualite-superieure.png" alt="" width="200rem" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <div class="bg-grey">
+            <div class="container">
+                <div class="row my-5 py-4">
+                    <div class="col-4 text-center align-self-center">
+                        <img src="images/certification.png" alt="" width="180rem" class="img-fluid">
+                    </div>
+                    <div class="col-8 align-self-center">
+                        <p>
+                            Nous offrons une variété de cours de conduite, y compris les leçons de conduite individualisées,
+                            les cours de conduite en groupe et les programmes de formation accélérée.
+                            Nous sommes également fiers d'être licenciés et certifiés pour fournir des services de formation de qualité.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row my-5 py-4">
+                <div class="col-xl-8 align-self-center">
+                    <p>
+                        Nous nous efforçons de toujours fournir un service client exceptionnel.
+                        Nous sommes toujours disponibles pour répondre à toutes vos questions et
+                        pour vous aider à planifier votre formation en fonction de vos besoins et de votre emploi du temps.
+                    </p>
+                </div>
+                <div class="col-xl-4 text-center align-self-center">
+                    <img src="images/service-client.jpg" alt="" width="350rem" class="img-fluid rounded-3">
+                </div>
+            </div>
+            <div class="row my-5 py-4">
+                <div class="col-md-8 bg-light text-center mx-auto rounded-3 p-3">
+                    <p>
+                        N'hésitez pas à <a href="mailto:contact@valauto.com" target="_blank">nous contacter</a> pour en savoir plus sur nos services
+                        ou pour prendre rendez-vous pour une leçon de conduite.
+                        Nous nous réjouissons de vous aider à devenir un conducteur qualifié et compétent.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="">
+
+
+
+
+        <?php
+        require_once("./views/_footer.php");
+        ?>
 </body>
 
 </html>
@@ -32,13 +91,18 @@
     html,
     body {
         font-family: 'Karla';
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .banner {
         background-color: #2B8C52;
         width: 100%;
         min-height: 60vh;
+    }
+
+    .bg-grey {
+        background-color: #F5F5F5;
+        width: 100vw !important;
     }
 
     .slogan {
@@ -50,14 +114,15 @@
     .voiture {
         bottom: -25px;
         animation: voiture 10s infinite;
+        user-select: none;
     }
 
     @keyframes voiture {
         0% {
-            transform: translateX(-10vw);
+            transform: translateX(-30vw);
         }
 
-        20% {
+        30% {
             transform: translateX(45vw);
         }
 
@@ -70,23 +135,34 @@
         }
     }
 
-    .voiture::after {
-        content: ' ';
-        position: absolute;
-        left: 50px;
-        bottom: 80px;
-        border: 32px solid;
-        border-color: transparent transparent transparent white;
-        transform: scale(0);
-        animation: popUp 10s infinite;
+    @media screen and (max-width: 600px) {
+        @keyframes voiture {
+            0% {
+                transform: translateX(-30vw);
+            }
+
+            30% {
+                transform: translateX(20vw);
+            }
+
+            60% {
+                transform: translateX(20vw);
+            }
+
+            100% {
+                transform: translateX(150vw);
+            }
+        }
     }
+
 
     .voiture::before {
         z-index: 1;
-        content: "Nous sommes une auto-école!";
+        content: attr(data-content);
         position: absolute;
-        width: 150px;
-        height: 80px;
+        width: min-content;
+        min-width: 200%;
+        max-height: 200px;
         bottom: 100px;
         left: 50px;
         font-size: 16px;
@@ -97,6 +173,22 @@
         background-color: white;
         border-radius: 10px;
         box-shadow: 0px 0px 10px gray;
+    }
+
+    .voiture::after {
+        z-index: 0;
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        bottom: 120px;
+        left: 150px;
+        border-left: 0px solid transparent;
+        border-right: 20px solid transparent;
+        border-top: 20px solid white;
+        display: block;
+        transform: scale(0);
+        animation: popUp2 10s infinite;
     }
 
     @keyframes popUp {
@@ -124,10 +216,125 @@
             transform: scale(0);
         }
     }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes popUp2 {
+        0% {
+            transform: scale(0);
+        }
+
+        19.5% {
+            transform: scale(0);
+        }
+
+        27% {
+            transform: scale(1) translateY(40px) translateX(-80px);
+            z-index: 1;
+        }
+
+        57.5% {
+            transform: scale(1) translateY(40px) translateX(-80px);
+            z-index: 1;
+        }
+
+        60% {
+            z-index: 0;
+        }
+
+        62.5% {
+            transform: scale(0) translateY(0px);
+        }
+
+        100% {
+            transform: scale(0);
+        }
+    }
 </style>
 <script>
     const voiture = document.querySelector('.voiture');
     voiture.addEventListener('dragstart', (e) => {
         e.preventDefault();
     });
+
+    var txtMessage = [
+        "Nous sommes là pour vous aider à obtenir votre permis de conduire!",
+        "Nous offrons des cours de conduite pratiques et théoriques!",
+        "Notre équipe d'instructeurs expérimentés est là pour vous guider!",
+        "Nous avons une flotte de voitures modernes et bien entretenues!",
+        "Rejoignez-nous aujourd'hui pour débuter votre aventure de conduite!",
+        "Nous sommes là pour vous aider à devenir un conducteur en toute confiance!",
+        "N'hésitez pas à nous contacter pour plus d'informations!",
+        "Nous sommes impatients de vous accueillir dans notre auto-école!",
+        "Nous formons les conducteurs du futur!",
+        "Notre enseignement est adapté à tous les niveaux!",
+        "Nous avons les meilleurs instructeurs!",
+        "Venez découvrir nos forfaits!",
+        "Offrez-vous une expérience de conduite inoubliable!",
+        "Nous avons des véhicules modernes et bien entretenus!",
+        "Apprenez à conduire en toute confiance!",
+        "Rejoignez notre communauté de conducteurs!",
+        "Choisissez l'auto-école qui vous accompagne dans votre apprentissage!",
+        "Votre permis de conduire entre de bonnes mains avec nous!",
+        "Des cours amusants et instructifs, c'est chez nous!",
+        "Nous sommes là pour vous aider à atteindre votre objectif!",
+        "Obtenez votre permis de conduire en un temps record!",
+        "Notre équipe est à votre disposition pour toutes vos questions!",
+        "Rejoignez-nous dès maintenant pour débuter votre aventure!",
+        "Nous sommes le choix idéal pour votre formation en conduite!"
+    ];
+
+
+
+
+
+
+    const message = document.querySelector('.voiture');
+    message.dataset.content = txtMessage[Math.floor(Math.random() * txtMessage.length)];
+    setInterval(() => {
+        message.dataset.content = txtMessage[Math.floor(Math.random() * txtMessage.length)];
+    }, 10000);
+
+
+
+
+    const element = document.querySelector('.voiture');
+
+    function createBubble() {
+        const bubble = document.createElement('div');
+        bubble.style.width = '10px';
+        bubble.style.height = '10px';
+        bubble.style.borderRadius = '50%';
+        bubble.style.backgroundColor = 'gray';
+        bubble.style.position = 'absolute';
+        bubble.style.left = '-20px';
+        //randomly position the bubble vertically
+        bubble.style.top = '50%';
+        element.appendChild(bubble);
+
+        //slowly move the bubble to the left and make it fade out
+        bubble.animate([{
+                transform: 'translateX(0)',
+                opacity: 1
+            },
+            {
+                transform: 'translateX(-100px) translateY(-100px)',
+                opacity: 0
+            }
+        ], {
+            duration: 1000,
+            easing: 'ease-in-out',
+            iterations: 1
+        });
+    }
+
+    setInterval(createBubble, 500);
 </script>
