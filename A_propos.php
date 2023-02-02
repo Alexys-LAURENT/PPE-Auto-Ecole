@@ -98,6 +98,7 @@
         background-color: #2B8C52;
         width: 100%;
         min-height: 60vh;
+        overflow: hidden;
     }
 
     .bg-grey {
@@ -112,18 +113,30 @@
     }
 
     .voiture {
-        bottom: -25px;
-        animation: voiture 10s infinite;
+        bottom: -26px;
+        animation: voiture 10s infinite ease-in-out;
         user-select: none;
     }
 
     @keyframes voiture {
         0% {
-            transform: translateX(-30vw);
+            transform: translateX(-30vw) rotate(-5deg);
         }
 
         30% {
-            transform: translateX(45vw);
+            transform: translateX(45vw) rotate(5deg);
+        }
+
+        34% {
+            transform: translateX(45vw) rotate(-1deg);
+        }
+
+        36% {
+            transform: translateX(45vw) rotate(1deg);
+        }
+
+        38% {
+            transform: translateX(45vw) rotate(0deg);
         }
 
         60% {
@@ -131,7 +144,7 @@
         }
 
         100% {
-            transform: translateX(120vw);
+            transform: translateX(120vw) rotate(-7deg);
         }
     }
 
@@ -172,7 +185,6 @@
         animation: popUp 10s infinite;
         background-color: white;
         border-radius: 10px;
-        box-shadow: 0px 0px 10px gray;
     }
 
     .voiture::after {
@@ -181,7 +193,7 @@
         position: absolute;
         width: 0;
         height: 0;
-        bottom: 120px;
+        bottom: 125px;
         left: 150px;
         border-left: 0px solid transparent;
         border-right: 20px solid transparent;
@@ -313,27 +325,49 @@
         bubble.style.width = '10px';
         bubble.style.height = '10px';
         bubble.style.borderRadius = '50%';
-        bubble.style.backgroundColor = 'gray';
+        bubble.style.backgroundColor = '#c8c8c8';
         bubble.style.position = 'absolute';
         bubble.style.left = '-20px';
         //randomly position the bubble vertically
         bubble.style.top = '50%';
+        bubble.style.opacity = 0;
         element.appendChild(bubble);
 
-        //slowly move the bubble to the left and make it fade out
+        //slowly move the bubble to the up and left doing a curve and make it fade out
         bubble.animate([{
-                transform: 'translateX(0)',
-                opacity: 1
+                transform: 'translateX(0px)',
             },
             {
-                transform: 'translateX(-100px) translateY(-100px)',
-                opacity: 0
+                transform: 'translateX(-10px) translateY(-2px)',
+                opacity: 1,
+                delay: 500
+            },
+            {
+                transform: 'translateX(-35px) translateY(-6px)',
+                opacity: 1,
+                delay: 1000
+            },
+            {
+                transform: 'translateX(-50px) translateY(-12px)',
+                opacity: 1,
+                delay: 1500
+            },
+            {
+                transform: 'translateX(-70px) translateY(-20px)',
+                opacity: 1,
+                delay: 2000
+            },
+            {
+                transform: 'translateX(-75px) translateY(-30px)',
+                opacity: 0,
+                delay: 2500
             }
         ], {
-            duration: 1000,
-            easing: 'ease-in-out',
-            iterations: 1
+            duration: 3000,
+            easing: 'ease-out'
         });
+
+
     }
 
     setInterval(createBubble, 500);
