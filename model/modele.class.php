@@ -171,7 +171,7 @@ class Modele
         }
     }
 
-    public function selectAllHeuresMois($table, $valeur, $mois, $annee)
+    public function selectAllHeuresMois($table, $valeur, $mois, $annee) //Toutes les heures d'un mois
     {
         if ($this->unPDO != null) {
             $requete = "select * from " . $table . " where id_e=:valeur and month(datehd)=:mois and year(datehd)=:annee order by datehd desc;";
@@ -189,7 +189,7 @@ class Modele
         }
     }
 
-    public function selectAllHeuresAll($table, $valeur)
+    public function selectAllHeuresAll($table, $valeur) //Toutes les heures
     {
         if ($this->unPDO != null) {
             $requete = "select * from " . $table . " where id_e=:valeur order by datehd asc;";
@@ -259,6 +259,53 @@ class Modele
             return $unUser;
         } else {
             return null;
+        }
+    }
+
+    public function addFormuleToUser($id_e, $typeFormule, $prix_f, $typeBoite)
+    {
+        if ($this->unPDO != null) {
+
+            $requete = "";
+            $donnees = array();
+
+
+
+            switch ($typeFormule) { //On prépare les requettes et les valeurs en fonction du type de formule
+                case "PermisB":
+                    $requete = "select id_f from formule where nom_f like '%Permis B%' and prix_f = :prix_f and type_boite = :typeBoite ;";
+                    $donnees = array(
+                        ":prix_f" => $prix_f,
+                        ":typeBoite" => $typeBoite
+                    );
+                    break;
+                case "PermisA":
+                    $requete = "select id_f from formule where nom_f like '%Permis A%' and prix_f = :prix_f ;";
+                    $donnees = array(
+                        ":prix_f" => $prix_f
+                    );
+                    break;
+                case "Code":
+                    $requete = "select id_f from formule where nom_f like '%Code%' and prix_f = :prix_f ;";
+                    $donnees = array(
+                        ":prix_f" => $prix_f
+                    );
+                    break;
+            }
+
+
+
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            $idFormule = $select->fetch(); //On récupère l'id de la formule que l'utilisateur a choisi
+
+            $requete = "update eleve set id_formation = :idFormule where id_e = :id_e;"; //On ajoute l'id de la formule à l'utilisateur
+            $donnees = array(
+                ":id_e" => $id_e,
+                ":idFormule" => $idFormule['id_f']
+            );
+            $insert = $this->unPDO->prepare($requete);
+            $insert->execute($donnees); //On ajoute l'id de la formule à l'utilisateur
         }
     }
 }

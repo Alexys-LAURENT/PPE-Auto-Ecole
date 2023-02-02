@@ -151,6 +151,9 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             unset($_SESSION);
             header("location: index.php?page=0");
             break;
+        case '99':
+            require_once("purchase.php");
+            break;
         default:
             require_once("erreur_404.php");
             break;

@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-xl">
     <div class="container-md">
         <div class="logo my-2 me-5">
-            <img src="images/logo.png" alt="" width="50">
-            Val'Auto
+            <a class="text-decoration-none" href="index.php?page=0">
+                <img src="images/logo.png" alt="" width="50">
+                Val'Auto
+            </a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

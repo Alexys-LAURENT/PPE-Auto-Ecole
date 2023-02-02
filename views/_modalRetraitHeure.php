@@ -19,6 +19,7 @@
                         </thead>
                         <tbody>
                             <?php
+                            $noheures = false;
                             foreach ($toutesLesHeures as $heure) {
                                 if ($heure['datehd'] > date("Y-m-d H:i:s")) {
                                     $dateSup = date("d/m/Y", strtotime($heure['datehd']));
@@ -30,7 +31,13 @@
                                     echo "<td>" . $heureFinSup . "</td>";
                                     echo "<td><input class='form-check-input pointer' type='checkbox' name='heureSupp[]' value='" . $heure['id_cc'] . "'></td>";
                                     echo "</tr>";
+                                    $noheures = true;
                                 }
+                            }
+                            if ($noheures == false) {
+                                echo "<tr>";
+                                echo "<td colspan='4'>Vous n'avez pas d'heures à supprimer</td>";
+                                echo "</tr>";
                             }
                             ?>
                         </tbody>

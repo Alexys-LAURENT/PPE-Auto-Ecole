@@ -18,6 +18,7 @@ h2 {
 
 h2 {
     margin-top: 15px;
+    font-size: 22px !important;
 }
 
 #flash {
@@ -49,9 +50,11 @@ h2 {
 
 .container {
     width: 400px;
-    height: 510px;
+    height: 510px !important;
     /* background-color: green; */
     border: 1px solid black;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 .cards {
@@ -101,7 +104,7 @@ button p {
 
 .header {
     width: 100%;
-    height: 100px;
+    height: 80px;
     background-color: #eef2f4;
     display: flex;
     align-items: center;
@@ -113,6 +116,7 @@ button p {
 h3 {
     font-weight: 100;
     opacity: 0.6;
+    margin-top: 5px !important;
 }
 
 p {
