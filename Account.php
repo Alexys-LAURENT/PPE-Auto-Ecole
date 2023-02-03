@@ -152,7 +152,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                 <div class="col-xl-5 p-3 border rounded-3 text-center text-white my-2 bg-white">
                     <div class="row mx-auto my-3">
                         <div class="col-8">
-                            <h5 class="text-start text-dark">Ma formation : <?php echo $_SESSION['formation']['nom_f'] ?></h5>
+                            <h5 class="text-start text-dark">Ma formation : <?php echo utf8_encode($_SESSION['formation']['nom_f']) ?></h5>
                         </div>
                         <div class="col-4">
                             <h5 class="text-end text-dark"><?php echo $heuresEffectuees . "." . $minutes ?>/<?php echo $_SESSION['formation']['nb_heures'] ?>h</h5>
