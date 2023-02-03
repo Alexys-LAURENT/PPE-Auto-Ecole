@@ -187,6 +187,11 @@
         font-family: 'Karla';
     }
 
+    #Accueil {
+        text-decoration: underline;
+        text-underline-offset: 5px;
+    }
+
     .banner {
         background-color: #2B8C52;
         width: 100%;

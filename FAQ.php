@@ -133,6 +133,11 @@
         background-color: #f3f4f6;
     }
 
+    #FAQ {
+        text-decoration: underline;
+        text-underline-offset: 5px;
+    }
+
     .titre {
         font-size: 1.80rem;
         font-weight: 800;

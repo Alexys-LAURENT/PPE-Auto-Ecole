@@ -64,7 +64,7 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
 
         $dateFin = $dateFin->format('Y-m-d H:i:s');
         //si la date et l'heure de la nouvelle heure est égale à une heure déjà planifiée
-        if ($dateDebut > $uneHeure['datehd'] && $dateDebut < $uneHeure['datehf'] || $dateFin > $uneHeure['datehd'] && $dateFin < $uneHeure['datehf']) {
+        if ($dateDebut >= $uneHeure['datehd'] && $dateDebut <= $uneHeure['datehf'] || $dateFin >= $uneHeure['datehd'] && $dateFin <= $uneHeure['datehf']) {
             $erreur = true;
         }
     }

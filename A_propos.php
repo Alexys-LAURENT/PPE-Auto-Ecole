@@ -60,7 +60,7 @@
                     </p>
                 </div>
                 <div class="col-xl-4 text-center align-self-center">
-                    <img src="images/service-client.jpg" alt="" width="350rem" class="img-fluid rounded-3">
+                    <img src="images/service-client.jpg" alt="" width="500rem" class="img-fluid rounded-3">
                 </div>
             </div>
             <div class="row my-5 py-4">
@@ -92,6 +92,13 @@
     body {
         font-family: 'Karla';
         overflow-x: hidden;
+    }
+
+
+
+    #A-Propos {
+        text-decoration: underline;
+        text-underline-offset: 5px;
     }
 
     .banner {
@@ -144,7 +151,7 @@
         }
 
         100% {
-            transform: translateX(120vw) rotate(-7deg);
+            transform: translateX(120vw) rotate(-5deg);
         }
     }
 
