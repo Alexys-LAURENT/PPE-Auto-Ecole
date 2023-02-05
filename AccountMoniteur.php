@@ -216,7 +216,7 @@ if (isset($_POST['ProposerHeure'])) {
                         <?php
                         $first = true;
                         foreach ($heures as $heure) {
-                            $eleve = $unControleur->selectWhere("eleve", "id_e", $uneHeure['id_e']);
+                            $eleve = $unControleur->selectWhere("eleve", "id_e", $heure['id_e']);
                             $date = date("d-m-Y", strtotime($heure['datehd']));
 
                             if (date("m", strtotime($date)) == $mois) {
