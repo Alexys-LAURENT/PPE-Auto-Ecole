@@ -37,11 +37,40 @@
                         <div class="col-6">
                             <label for="heurehf">Durée</label>
                             <select name="heurehf" id="heurehf" class="form-select pointer">
+                                <?php
+                                if ($_SESSION['formation']['nb_heures'] - $heuresEffectuees - ($minutes / 60) == 3) {
+                                    echo
+                                    '
+                                <option value="60">1h</option>
+                                <option value="90">1h30</option>
+                                <option value="120">2h</option>
+                                <option value="180">3h</option>';
+                                } elseif ($_SESSION['formation']['nb_heures'] - $heuresEffectuees - ($minutes / 60) == 2.5) {
+                                    echo
+                                    '
+                                <option value="60">1h</option>
+                                <option value="90">1h30</option>
+                                <option value="150">2h30</option>';
+                                } elseif ($_SESSION['formation']['nb_heures'] - $heuresEffectuees - ($minutes / 60) == 2) {
+                                    echo '
+                                <option value="60">1h</option>
+                                <option value="120">2h</option>';
+                                } elseif ($_SESSION['formation']['nb_heures'] - $heuresEffectuees - ($minutes / 60) == 1.5) {
+                                    echo '
+                                <option value="90">1h30</option>';
+                                } elseif ($_SESSION['formation']['nb_heures'] - $heuresEffectuees - ($minutes / 60) == 1) {
+                                    echo '
+                                <option value="60">1h</option>';
+                                } else {
+                                    echo
+                                    '
                                 <option value="60">1h</option>
                                 <option value="90">1h30</option>
                                 <option value="120">2h</option>
                                 <option value="150">2h30</option>
-                                <option value="180">3h</option>
+                                <option value="180">3h</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>

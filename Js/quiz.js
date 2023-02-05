@@ -7,6 +7,7 @@ const progressText = document.getElementById("progressText");
 const scoreText = document.getElementById("score");
 const progressBarFull = document.getElementById("progressBarFull");
 let currentQuestion = {};
+let FinalQuestions = [];
 let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
@@ -68,6 +69,7 @@ async function main() {
     if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
       localStorage.setItem("mostRecentScore", score);
       //go to the end page
+      sendFinalQuestions();
       return document.location.href = "./end.php";
     }
 
@@ -78,6 +80,7 @@ async function main() {
 
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
+    FinalQuestions.push(currentQuestion);
     question.innerText = currentQuestion.question;
 
 
@@ -190,3 +193,13 @@ async function main() {
 }
 
 main();
+
+function sendFinalQuestions() {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", "script.php", true);
+
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  xhr.send("FinalQuestions=" + FinalQuestions);
+}
