@@ -55,7 +55,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
 
     if (isset($_POST['Register'])) {
 
-        if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['adr']) || empty($_POST['ville']) || empty($_POST['cp']) || empty($_POST['tel']) || empty($_POST['date']) || empty($_POST['mdp']) || empty($_POST['sexe'])) {
+        if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) || empty($_POST['adr']) || empty($_POST['ville']) || empty($_POST['cp']) || empty($_POST['tel']) || empty($_POST['date']) || empty($_POST['mdp']) || empty($_POST['sexe']) || empty($_POST['security_question']) || empty($_POST['security_answer'])) {
             echo "<div class='col-md-3 alert alert-danger'>Veuillez remplir tous les champs <span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
             <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
           </svg> </span> </div>";
@@ -71,7 +71,9 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
                 "tel" => $_POST['tel'],
                 "date" => $_POST['date'],
                 "mdp" => $_POST['mdp'],
-                "sexe" => $_POST['sexe']
+                "sexe" => $_POST['sexe'],
+                "security_question" => $_POST['security_question'],
+                "security_answer" => $_POST['security_answer']
             );
 
             // //Hachage avec un grain de sel

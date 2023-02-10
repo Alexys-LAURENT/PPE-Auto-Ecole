@@ -125,7 +125,7 @@ CREATE TABLE
         `prenom_e` varchar(50) NOT NULL,
         `datenai_e` date NOT NULL,
         `ville_e` varchar(50) NOT NULL,
-        `adresse_e` varchar(50) NOT NULL,
+        `adresse_e` varchar(50) NOT NULL,   
         `email_e` varchar(255) NOT NULL,
         `mdp_e` varchar(255) NOT NULL,
         `tel_e` char(10) NOT NULL,
@@ -133,7 +133,9 @@ CREATE TABLE
         `dateinscrip_e` date NOT NULL,
         `sexe` char(1) DEFAULT NULL,
         `id_formation` int(11) DEFAULT NULL,
-        PRIMARY KEY (`id_e`),
+        `security_question` VARCHAR(255) NOT NULL,
+        `security_answer` VARCHAR(100) NOT NULL,
+        PRIMARY KEY (`id_e`),   
         KEY `FK_FORMATION` (`id_formation`),
         CONSTRAINT `FK_FORMATION` FOREIGN KEY (`id_formation`) REFERENCES `formule` (`id_f`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 16 DEFAULT CHARSET = utf8mb4;
@@ -981,7 +983,7 @@ VALUES (
         '2022-04-30 14:00:00',
         '2022-04-30 15:00:00',
         '0'
-    ), (
+    ), (    
         5,
         3,
         7,
@@ -1729,7 +1731,7 @@ UNLOCK TABLES;
 ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */
-
+    
 ;
 
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */
