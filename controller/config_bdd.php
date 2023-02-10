@@ -1,5 +1,5 @@
 <?php
 $serveur = "localhost";
 $bdd = "autoecole";
-$user = "valentio";
-$mdp = "valentio";
+$user = "root";
+$mdp = "";
