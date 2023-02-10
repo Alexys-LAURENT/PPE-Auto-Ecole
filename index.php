@@ -172,6 +172,10 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
     .bg-green {
         background-color: #2B8C52;
     }
+
+    main {
+        flex: 1;
+    }
 </style>
 
 <script src="./Js/index.js"></script>

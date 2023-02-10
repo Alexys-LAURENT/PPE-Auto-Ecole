@@ -14,7 +14,7 @@
     require_once("./views/_navbar.php");
     ?>
 
-    <main class="">
+    <main class="d-flex">
         <div class="container bg-grey p-4">
             <div class="col-md-12 mx-auto">
                 <div class="bg-gradient-green rounded-top p-3 text-center text-light">
@@ -161,6 +161,10 @@
 
     .quest-close {
         height: 0 !important;
+    }
+
+    .bg-grey {
+        flex: 1;
     }
 </style>
 

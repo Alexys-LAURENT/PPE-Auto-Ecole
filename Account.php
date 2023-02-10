@@ -268,7 +268,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                                     if (date("m", strtotime($date)) == $mois) {
 
                                         //transforme la date en lettres et en français en majuscules
-                                        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                                        setlocale(LC_TIME, 'fr_FR.UTF-8');
                                         $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
                                         $jour_chiffres = substr($date, 0, 2);
                                         $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));
@@ -345,7 +345,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                                     if (date("m", strtotime($date)) == $mois) {
 
                                         //transforme la date en lettres et en français en majuscules
-                                        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                                        setlocale(LC_TIME, 'fr_FR.UTF-8');
                                         $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
                                         $jour_chiffres = substr($date, 0, 2);
                                         $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));
