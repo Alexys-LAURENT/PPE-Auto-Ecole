@@ -151,25 +151,27 @@ async function main() {
 
       // Vérifie si la question a une sous-question
       if (currentQuestion.subQuestion) {
+        const onChoiceClick = e => {
+          const selectedSubChoice = e.target;
+          const selectedSubAnswer = selectedSubChoice.dataset["number"];
+          const subClassToApply = selectedSubAnswer == currentQuestion.subAnswer ? "correct" : "incorrect";
+
+          if (isCorrect && subClassToApply === "correct") {
+            incrementScore(CORRECT_BONUS);
+          }
+
+          selectedSubChoice.parentElement.classList.add(subClassToApply);
+          setTimeout(() => {
+            subChoices.forEach(subChoice => subChoice.removeEventListener("click", onChoiceClick));
+            choices.forEach(choice => choice.parentElement.classList.remove(classToApply));
+            subChoices.forEach(subChoice => subChoice.parentElement.classList.remove(subClassToApply));
+            getNewQuestion();
+          }, 1000);
+        };
         // Affiche la sous-question
         document.getElementById("sub").style.display = "block";
         subChoices.forEach(subChoice => {
-          subChoice.addEventListener("click", e => {
-            const selectedSubChoice = e.target;
-            const selectedSubAnswer = selectedSubChoice.dataset["number"];
-            const subClassToApply = selectedSubAnswer == currentQuestion.subAnswer ? "correct" : "incorrect";
-
-            if (isCorrect && subClassToApply === "correct") {
-              incrementScore(CORRECT_BONUS);
-            }
-
-            selectedSubChoice.parentElement.classList.add(subClassToApply);
-            setTimeout(() => {
-              choices.forEach(choice => choice.parentElement.classList.remove(classToApply));
-              subChoices.forEach(subChoice => subChoice.parentElement.classList.remove(subClassToApply));
-              getNewQuestion();
-            }, 1000);
-          });
+          subChoice.addEventListener("click", onChoiceClick);
         });
       } else {
         if (isCorrect) {

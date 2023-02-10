@@ -124,3 +124,8 @@
 .body {
     flex: 1;
 }
+
+#old_eye_slash,
+#old_eye_slash2 {
+    display: none;
+}

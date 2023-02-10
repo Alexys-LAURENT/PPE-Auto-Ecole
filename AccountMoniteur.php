@@ -12,11 +12,11 @@ if (isset($_POST['annee'])) {
     $annee = date('Y');
 }
 
-$heuresAValider = $unControleur->selectWhere2("planning", "id_m", $_SESSION['Moniteur']['id_m'], "etat", "En attente user");
+$heuresAValider = $unControleur->selectWhere2("planning", "id_m", $_SESSION['Moniteur']['ID_U'], "etat", "En attente user");
 
-$heures = $unControleur->selectHeuresMonit("planning", "id_m", $_SESSION['Moniteur']['id_m'], "etat", "En attente user", $mois, $annee);
+$heures = $unControleur->selectHeuresMonit("planning", "id_m", $_SESSION['Moniteur']['ID_U'], "etat", "En attente user", $mois, $annee);
 
-$toutesLesHeures = $unControleur->selectAllHeuresMonit("planning", $_SESSION['Moniteur']['id_m']);
+$toutesLesHeures = $unControleur->selectAllHeuresMonit("planning", $_SESSION['Moniteur']['ID_U']);
 
 
 if (isset($_POST['AccepterHeure'])) {

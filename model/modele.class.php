@@ -24,7 +24,7 @@ class Modele
     public function verifConnection($email, $mdp)
     {
         if ($this->unPDO != null) {
-            $requete = "select * from eleve where email_e=:email and mdp_e=:mdp;";
+            $requete = "select * from user where EMAIL_U=:email and MDP_U=:mdp;";
             $donnees = array(
                 ":email" => $email,
                 ":mdp" => $mdp

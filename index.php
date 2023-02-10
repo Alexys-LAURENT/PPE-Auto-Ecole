@@ -29,10 +29,18 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         // $nb = $resultat[0]['nb'];
         // $mdp = sha1($mdp . $nb);
         $_SESSION['User'] = $unControleur->verifConnection($email, $mdp);
-        if ($_SESSION['User'] != null) {
+        if ($_SESSION['User'] != null && $_SESSION['User']['ROLE_U'] == "eleve") {
+            $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "ID_U", $_SESSION['User']['ID_U'])['ID_FORMATION'];
+            $_SESSION['User']['DATEINSCRIPTION_U'] = $unControleur->selectWhere("eleve", "ID_U", $_SESSION['User']['ID_U'])['DATEINSCRIPTION'];
             $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
             $_SESSION['formation'] = $formation;
-
+        }
+        if ($_SESSION['User'] != null && $_SESSION['User']['ROLE_U'] == "moniteur") {
+            $_SESSION['Moniteur'] = $_SESSION['User'];
+            $_SESSION['User'] = null;
+            $_SESSION['Moniteur']['DATEEMBAUCHE_U'] = $unControleur->selectWhere("moniteur", "ID_U", $_SESSION['Moniteur']['ID_U'])['DATEEMBAUCHE'];
+        }
+        if ($_SESSION['User'] != null || $_SESSION['Moniteur'] != null) {
             if (isset($_SESSION['redirection'])) {
                 header("Location: index.php?page=1");
                 unset($_SESSION['redirection']);
@@ -40,16 +48,9 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
                 header("Location: index.php?page=0");
             }
         } else {
-            $email = $_POST['email'];
-            $mdp = $_POST['mdp'];
-            $_SESSION['Moniteur'] = $unControleur->verifConnectionMoniteur($email, $mdp);
-            if ($_SESSION['Moniteur'] != null) {
-                header("Location: index.php?page=0");
-            } else {
-                echo "<div class='col-md-3 alert alert-danger'>Verifiez vos identifiants<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+            echo "<div class='col-md-3 alert alert-danger'>Verifiez vos identifiants<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
                 <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
                 </svg> </span> </div>";
-            }
         }
     }
 
