@@ -15,7 +15,6 @@
     width: 350px;
     height: 350px;
     background-color: red;
-    margin-top: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,7 +62,6 @@
     width: 55%;
     height: 350px;
     background-color: blue;
-    margin-top: 100px;
     background-color: white;
     border: 1px solid #eaeaea;
     border-radius: 4px;
@@ -94,7 +92,6 @@
     width: 150px;
     font-size: 15px;
     font-weight: 700;
-    /* background-color: #2b8c52; */
 }
 
 .ligne .value {
@@ -119,4 +116,13 @@
         max-width: 350px;
         width: 90%;
     }
+}
+
+.body {
+    flex: 1;
+}
+
+#old_eye_slash,
+#old_eye_slash2 {
+    display: none;
 }

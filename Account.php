@@ -29,9 +29,9 @@ if (isset($_POST['RefuserHeure'])) {
 }
 
 //récupère les heures pour le mois sélectionné dans planning
-$heures = $unControleur->selectAllHeuresMois("planning", $_SESSION['User']['id_e'], $mois, $annee);
+$heures = $unControleur->selectAllHeuresMois("planning", $_SESSION['User']['id_u'], $mois, $annee);
 
-$toutesLesHeures = $unControleur->selectAllHeuresAll("planning", $_SESSION['User']['id_e']);
+$toutesLesHeures = $unControleur->selectAllHeuresAll("planning", $_SESSION['User']['id_u']);
 
 
 //retirer toute les heures dont la checkbox est cochée
@@ -64,7 +64,7 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
 
         $dateFin = $dateFin->format('Y-m-d H:i:s');
         //si la date et l'heure de la nouvelle heure est égale à une heure déjà planifiée
-        if ($dateDebut > $uneHeure['datehd'] && $dateDebut < $uneHeure['datehf'] || $dateFin > $uneHeure['datehd'] && $dateFin < $uneHeure['datehf']) {
+        if ($dateDebut >= $uneHeure['datehd'] && $dateDebut <= $uneHeure['datehf'] || $dateFin >= $uneHeure['datehd'] && $dateFin <= $uneHeure['datehf']) {
             $erreur = true;
         }
     }
@@ -96,8 +96,8 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
 
         $tab = array(
             "id_cc" => $unControleur->lastInsertId(),
-            "id_e" => $_SESSION['User']['id_e'],
-            "id_m" => 1,
+            "id_e" => $_SESSION['User']['id_u'],
+            "id_m" => 15,
             "datehd" => $datehd,
             "datehf" => $datehf,
             "etat" => "En attente user"
@@ -117,7 +117,7 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
 
 //calcul des heures effectuées
 $heuresEffectuees = 0;
-foreach ($unControleur->selectAllHeuresEffectuees("planning", $_SESSION['User']['id_e']) as $uneHeure) {
+foreach ($unControleur->selectAllHeuresEffectuees("planning", $_SESSION['User']['id_u']) as $uneHeure) {
     //time diff between $uneHeure['datehd'] and $uneHeure['datehf']
     $heuresEffectuees += (strtotime($uneHeure['datehf']) - strtotime($uneHeure['datehd'])) / 3600;
 }
@@ -161,7 +161,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                     <div class="row mx-auto">
                         <div class="col-6">
                             <div class="my-2">
-                                <h4 class="text-dark text-start">Bienvenue <?php echo $_SESSION['User']['nom_e'] . " " . $_SESSION['User']['prenom_e'] ?></h4>
+                                <h4 class="text-dark text-start">Bienvenue <?php echo $_SESSION['User']['nom_u'] . " " . $_SESSION['User']['prenom_u'] ?></h4>
                             </div>
                         </div>
                     </div>
@@ -345,7 +345,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                                     if (date("m", strtotime($date)) == $mois) {
 
                                         //transforme la date en lettres et en français en majuscules
-                                        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                                        setlocale(LC_TIME, 'fr_FR.UTF-8');
                                         $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
                                         $jour_chiffres = substr($date, 0, 2);
                                         $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));

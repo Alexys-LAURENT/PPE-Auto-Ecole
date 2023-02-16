@@ -11,7 +11,6 @@
 
 <body>
     <?php
-
     require_once("./views/_navbar.php");
 
     if (isset($_SESSION['redirect']) && $_SESSION['redirect'] == true) {
@@ -169,7 +168,11 @@
                 </div>
             </div>
         </div>
-        <button onclick="topFunction()" id="myBtn" title="Go to top">▲</button>
+        <button onclick="topFunction()" id="myBtn" title="Go to top">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16" style="margin-bottom: 2px;">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+            </svg>
+        </button>
     </main>
     <?php
     require_once("./views/_footer.php");
@@ -185,6 +188,11 @@
     html,
     body {
         font-family: 'Karla';
+    }
+
+    #Accueil {
+        text-decoration: underline;
+        text-underline-offset: 5px;
     }
 
     .banner {

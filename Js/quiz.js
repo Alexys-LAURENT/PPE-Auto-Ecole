@@ -7,6 +7,7 @@ const progressText = document.getElementById("progressText");
 const scoreText = document.getElementById("score");
 const progressBarFull = document.getElementById("progressBarFull");
 let currentQuestion = {};
+let FinalQuestions = [];
 let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
@@ -157,25 +158,27 @@ async function main() {
 
       // Vérifie si la question a une sous-question
       if (currentQuestion.subQuestion) {
+        const onChoiceClick = e => {
+          const selectedSubChoice = e.target;
+          const selectedSubAnswer = selectedSubChoice.dataset["number"];
+          const subClassToApply = selectedSubAnswer == currentQuestion.subAnswer ? "correct" : "incorrect";
+
+          if (isCorrect && subClassToApply === "correct") {
+            incrementScore(CORRECT_BONUS);
+          }
+
+          selectedSubChoice.parentElement.classList.add(subClassToApply);
+          setTimeout(() => {
+            subChoices.forEach(subChoice => subChoice.removeEventListener("click", onChoiceClick));
+            choices.forEach(choice => choice.parentElement.classList.remove(classToApply));
+            subChoices.forEach(subChoice => subChoice.parentElement.classList.remove(subClassToApply));
+            getNewQuestion();
+          }, 1000);
+        };
         // Affiche la sous-question
         document.getElementById("sub").style.display = "block";
         subChoices.forEach(subChoice => {
-          subChoice.addEventListener("click", e => {
-            const selectedSubChoice = e.target;
-            const selectedSubAnswer = selectedSubChoice.dataset["number"];
-            const subClassToApply = selectedSubAnswer == currentQuestion.subAnswer ? "correct" : "incorrect";
-
-            if (isCorrect && subClassToApply === "correct") {
-              incrementScore(CORRECT_BONUS);
-            }
-
-            selectedSubChoice.parentElement.classList.add(subClassToApply);
-            setTimeout(() => {
-              choices.forEach(choice => choice.parentElement.classList.remove(classToApply));
-              subChoices.forEach(subChoice => subChoice.parentElement.classList.remove(subClassToApply));
-              getNewQuestion();
-            }, 1000);
-          });
+          subChoice.addEventListener("click", onChoiceClick);
         });
       } else {
         if (isCorrect) {
@@ -199,3 +202,13 @@ async function main() {
 }
 
 main();
+
+function sendFinalQuestions() {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", "script.php", true);
+
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  xhr.send("FinalQuestions=" + FinalQuestions);
+}

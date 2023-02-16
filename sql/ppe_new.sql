@@ -75,7 +75,7 @@ CREATE TABLE
         KEY `id_f` (`id_f`),
         CONSTRAINT `cours_conduite_ibfk_1` FOREIGN KEY (`id_v`) REFERENCES `vehicule` (`id_v`),
         CONSTRAINT `cours_conduite_ibfk_2` FOREIGN KEY (`id_f`) REFERENCES `formule` (`id_f`)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 43 DEFAULT CHARSET = utf8mb4;
+    ) ENGINE = InnoDB AUTO_INCREMENT = 49 DEFAULT CHARSET = utf8mb4;
 
 /*!40101 SET character_set_client = @saved_cs_client */
 
@@ -94,7 +94,7 @@ LOCK TABLES `cours_conduite` WRITE;
 ;
 
 INSERT INTO `cours_conduite`
-VALUES (1, 50.00, 1, 4), (2, 50.00, 3, 5), (3, 50.00, 4, 3), (4, 50.00, 2, 3), (5, 50.00, 4, 3), (6, 50.00, 4, 2), (7, 50.00, 4, 2), (24, 50.00, 4, 2), (25, 50.00, 4, 2), (27, 50.00, 4, 2), (28, 50.00, 4, 2), (29, 50.00, 4, 2), (30, 50.00, 4, 2), (41, 50.00, 4, 2), (42, 50.00, 4, 2);
+VALUES (1, 50.00, 1, 4), (2, 50.00, 3, 5), (3, 50.00, 4, 3), (4, 50.00, 2, 3), (5, 50.00, 4, 3), (6, 50.00, 4, 2), (7, 50.00, 4, 2), (24, 50.00, 4, 2), (25, 50.00, 4, 2), (27, 50.00, 4, 2), (28, 50.00, 4, 2), (29, 50.00, 4, 2), (30, 50.00, 4, 2), (41, 50.00, 4, 2), (42, 50.00, 4, 2), (43, 50.00, 4, 2), (48, 50.00, 4, 2);
 
 /*!40000 ALTER TABLE `cours_conduite` ENABLE KEYS */
 
@@ -125,7 +125,7 @@ CREATE TABLE
         `prenom_e` varchar(50) NOT NULL,
         `datenai_e` date NOT NULL,
         `ville_e` varchar(50) NOT NULL,
-        `adresse_e` varchar(50) NOT NULL,
+        `adresse_e` varchar(50) NOT NULL,   
         `email_e` varchar(255) NOT NULL,
         `mdp_e` varchar(255) NOT NULL,
         `tel_e` char(10) NOT NULL,
@@ -133,10 +133,12 @@ CREATE TABLE
         `dateinscrip_e` date NOT NULL,
         `sexe` char(1) DEFAULT NULL,
         `id_formation` int(11) DEFAULT NULL,
-        PRIMARY KEY (`id_e`),
+        `security_question` VARCHAR(255) NOT NULL,
+        `security_answer` VARCHAR(100) NOT NULL,
+        PRIMARY KEY (`id_e`),   
         KEY `FK_FORMATION` (`id_formation`),
         CONSTRAINT `FK_FORMATION` FOREIGN KEY (`id_formation`) REFERENCES `formule` (`id_f`)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8mb4;
+    ) ENGINE = InnoDB AUTO_INCREMENT = 16 DEFAULT CHARSET = utf8mb4;
 
 /*!40101 SET character_set_client = @saved_cs_client */
 
@@ -288,7 +290,7 @@ VALUES (
         '2023-01-04',
         'Montfermeil',
         '12 rue du portail',
-        'louis.lamouche2204@gmail.com',
+        'a@gmail.com',
         '123',
         '0612345678',
         '93370',
@@ -323,114 +325,23 @@ VALUES (
         '2023-01-13',
         'M',
         NULL
+    ), (
+        15,
+        'titi',
+        'toto',
+        '2023-02-01',
+        'dzefs',
+        '12',
+        'c@gmail.com',
+        '123',
+        '0612345678',
+        '55555',
+        '2023-02-02',
+        'M',
+        9
     );
 
 /*!40000 ALTER TABLE `eleve` ENABLE KEYS */
-
-;
-
-UNLOCK TABLES;
-
---
-
--- Table structure for table `etablissement`
-
---
-
-DROP TABLE IF EXISTS `etablissement`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-
-;
-
-/*!40101 SET character_set_client = utf8 */
-
-;
-
-CREATE TABLE
-    `etablissement` (
-        `degre` int(11) NOT NULL AUTO_INCREMENT,
-        `nom` varchar(50) NOT NULL,
-        `adresse` varchar(50) NOT NULL,
-        `codepostal` char(5) NOT NULL,
-        PRIMARY KEY (`degre`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
-
-/*!40101 SET character_set_client = @saved_cs_client */
-
-;
-
---
-
--- Dumping data for table `etablissement`
-
---
-
-LOCK TABLES `etablissement` WRITE;
-
-/*!40000 ALTER TABLE `etablissement` DISABLE KEYS */
-
-;
-
-/*!40000 ALTER TABLE `etablissement` ENABLE KEYS */
-
-;
-
-UNLOCK TABLES;
-
---
-
--- Table structure for table `etudiant`
-
---
-
-DROP TABLE IF EXISTS `etudiant`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-
-;
-
-/*!40101 SET character_set_client = utf8 */
-
-;
-
-CREATE TABLE
-    `etudiant` (
-        `id_et` int(11) NOT NULL AUTO_INCREMENT,
-        `niveau_etude` varchar(50) NOT NULL,
-        `reduction` float NOT NULL,
-        `nom_et` varchar(50) NOT NULL,
-        `prenom_et` varchar(50) NOT NULL,
-        `datenai_et` date NOT NULL,
-        `ville_et` varchar(50) NOT NULL,
-        `adresse_et` varchar(50) NOT NULL,
-        `tel_et` char(10) NOT NULL,
-        `codepos_et` char(5) NOT NULL,
-        `dateinscrip_et` datetime NOT NULL,
-        `sexe_et` char(1) DEFAULT NULL,
-        `degre` int(11) NOT NULL,
-        PRIMARY KEY (`id_et`),
-        KEY `degre` (`degre`),
-        CONSTRAINT `etudiant_ibfk_1` FOREIGN KEY (`degre`) REFERENCES `etablissement` (`degre`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
-
-/*!40101 SET character_set_client = @saved_cs_client */
-
-;
-
---
-
--- Dumping data for table `etudiant`
-
---
-
-LOCK TABLES `etudiant` WRITE;
-
-/*!40000 ALTER TABLE `etudiant` DISABLE KEYS */
-
-;
-
-/*!40000 ALTER TABLE `etudiant` ENABLE KEYS */
 
 ;
 
@@ -458,7 +369,7 @@ CREATE TABLE
         `nom_f` varchar(50) NOT NULL,
         `prix_f` decimal(15, 2) NOT NULL,
         `nb_heures` float(4, 2) DEFAULT NULL,
-        `type_boite` enum('auto', 'manuel') DEFAULT NULL,
+        `type_boite` enum('Manuelle', 'Automatique') DEFAULT NULL,
         PRIMARY KEY (`id_f`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 30 DEFAULT CHARSET = utf8mb4;
 
@@ -490,7 +401,7 @@ VALUES (
         'Permis B',
         599.00,
         20.00,
-        'manuel'
+        'Manuelle'
     ), (
         3,
         'Pack 5h conduite',
@@ -532,13 +443,13 @@ VALUES (
         'Permis B',
         749.00,
         25.00,
-        'manuel'
+        'Manuelle'
     ), (
         10,
         'Permis B',
         1059.00,
         30.00,
-        'manuel'
+        'Manuelle'
     ), (
         11,
         'Permis A1',
@@ -568,91 +479,91 @@ VALUES (
         'Permis B',
         899.00,
         20.00,
-        'auto'
+        'Automatique'
     ), (
         16,
         'Permis B',
         1049.00,
         25.00,
-        'auto'
+        'Automatique'
     ), (
         17,
         'Permis B',
         1359.00,
         30.00,
-        'auto'
+        'Automatique'
     ), (
         18,
         'Permis B accompagné',
         739.00,
         20.00,
-        'manuel'
+        'Manuelle'
     ), (
         19,
         'Permis B accompagné',
         889.00,
         25.00,
-        'manuel'
+        'Manuelle'
     ), (
         20,
         'Permis B accompagné',
         1199.00,
         30.00,
-        'manuel'
+        'Manuelle'
     ), (
         21,
         'Permis B accompagné',
         1039.00,
         20.00,
-        'auto'
+        'Automatique'
     ), (
         22,
         'Permis B accompagné',
         1189.00,
         25.00,
-        'auto'
+        'Automatique'
     ), (
         23,
         'Permis B accompagné',
         1499.00,
         30.00,
-        'auto'
+        'Automatique'
     ), (
         24,
         'Permis B acceléré',
         899.00,
         20.00,
-        'manuel'
+        'Manuelle'
     ), (
         25,
         'Permis B acceléré',
         1049.00,
         25.00,
-        'manuel'
+        'Manuelle'
     ), (
         26,
         'Permis B acceléré',
         1359.00,
         30.00,
-        'manuel'
+        'Manuelle'
     ), (
         27,
         'Permis B acceléré',
         1199.00,
         20.00,
-        'auto'
+        'Automatique'
     ), (
         28,
         'Permis B acceléré',
         1349.00,
         25.00,
-        'auto'
+        'Automatique'
     ), (
         29,
         'Permis B acceléré',
         1659.00,
         30.00,
-        'auto'
+        'Automatique'
     );
 
 /*!40000 ALTER TABLE `formule` ENABLE KEYS */
@@ -1072,7 +983,7 @@ VALUES (
         '2022-04-30 14:00:00',
         '2022-04-30 15:00:00',
         '0'
-    ), (
+    ), (    
         5,
         3,
         7,
@@ -1082,17 +993,31 @@ VALUES (
     ), (
         41,
         10,
-        1,
+        15,
         '2023-01-13 09:00:00',
         '2023-01-13 10:00:00',
         'Effectuer'
     ), (
         42,
         10,
-        1,
+        15,
         '2023-01-18 09:00:00',
         '2023-01-18 10:00:00',
         'Effectuer'
+    ), (
+        43,
+        10,
+        15,
+        '2023-01-30 11:00:00',
+        '2023-01-30 13:00:00',
+        'Valider'
+    ), (
+        48,
+        10,
+        1,
+        '2023-02-15 09:00:00',
+        '2023-02-15 10:00:00',
+        'En attente user'
     );
 
 /*!40000 ALTER TABLE `planning` ENABLE KEYS */
@@ -1723,60 +1648,6 @@ UNLOCK TABLES;
 
 --
 
--- Table structure for table `salarie`
-
---
-
-DROP TABLE IF EXISTS `salarie`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-
-;
-
-/*!40101 SET character_set_client = utf8 */
-
-;
-
-CREATE TABLE
-    `salarie` (
-        `id_s` int(11) NOT NULL AUTO_INCREMENT,
-        `nom_entreprise` varchar(50) NOT NULL,
-        `nom_s` varchar(50) NOT NULL,
-        `prenom_s` varchar(50) NOT NULL,
-        `datenai_s` date NOT NULL,
-        `ville_s` varchar(50) NOT NULL,
-        `adresse_s` varchar(255) NOT NULL,
-        `tel_s` char(10) NOT NULL,
-        `codepos_s` char(5) NOT NULL,
-        `sexe_s` char(1) DEFAULT NULL,
-        `dateinscrip_s` datetime NOT NULL,
-        PRIMARY KEY (`id_s`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
-
-/*!40101 SET character_set_client = @saved_cs_client */
-
-;
-
---
-
--- Dumping data for table `salarie`
-
---
-
-LOCK TABLES `salarie` WRITE;
-
-/*!40000 ALTER TABLE `salarie` DISABLE KEYS */
-
-;
-
-/*!40000 ALTER TABLE `salarie` ENABLE KEYS */
-
-;
-
-UNLOCK TABLES;
-
---
-
 -- Table structure for table `vehicule`
 
 --
@@ -1860,7 +1731,7 @@ UNLOCK TABLES;
 ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */
-
+    
 ;
 
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */
@@ -1887,4 +1758,4 @@ UNLOCK TABLES;
 
 ;
 
--- Dump completed on 2023-01-26 11:19:21
+-- Dump completed on 2023-02-03 14:48:42

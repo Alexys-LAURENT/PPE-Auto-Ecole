@@ -24,7 +24,7 @@ class Modele
     public function verifConnection($email, $mdp)
     {
         if ($this->unPDO != null) {
-            $requete = "select * from eleve where email_e=:email and mdp_e=:mdp;";
+            $requete = "select * from user where EMAIL_U=:email and MDP_U=:mdp;";
             $donnees = array(
                 ":email" => $email,
                 ":mdp" => $mdp
@@ -240,21 +240,27 @@ class Modele
     public function Register($tab)
     {
         if ($this->unPDO != null) {
-            $requete = "insert into eleve values (null, :nom, :prenom, :date, :ville, :adr, :email, :mdp, :tel, :cp, curdate(), :sexe, null);";
+            $requete = "insert into user values (null, :nom, :prenom, :date, :email, :tel, :adr, :ville, :cp, :sexe, :role, :mdp, :security_question, :security_answer);";
             $donnees = array(
                 ":nom" => $tab['nom'],
                 ":prenom" => $tab['prenom'],
+                ":date" => $tab['date'],
                 ":email" => $tab['email'],
+                ":tel" => $tab['tel'],
                 ":adr" => $tab['adr'],
                 ":ville" => $tab['ville'],
                 ":cp" => $tab['cp'],
-                ":tel" => $tab['tel'],
-                ":date" => $tab['date'],
+                ":sexe" => $tab['sexe'],
+                ":role" => 'eleve',
                 ":mdp" => $tab['mdp'],
-                ":sexe" => $tab['sexe']
+                ":security_question" => $tab['security_question'],
+                ":security_answer" => $tab['security_answer']
             );
             $insert = $this->unPDO->prepare($requete);
             $insert->execute($donnees);
+            $requete = "insert into eleve values (LAST_INSERT_ID(), null, curdate());";
+            $insert = $this->unPDO->prepare($requete);
+            $insert->execute();
             $unUser = $this->verifConnection($tab['email'], $tab['mdp']);
             return $unUser;
         } else {

@@ -65,7 +65,18 @@
     align-items: center !important;
 }
 
-.alert-danger svg:hover {
+.alert-success {
+    position: absolute !important;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.alert svg:hover {
     cursor: pointer;
 }
 

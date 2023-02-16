@@ -155,6 +155,10 @@ function Display_PermisB() {
     document.getElementById("validate-PermisB").style.display = "flex";
     document.getElementById("validate-PermisA").style.display = "none";
     document.getElementById("validate-Code").style.display = "none";
+
+    document.getElementById("btn-PermisB").classList.add("boutton-active");
+    document.getElementById("btn-PermisA").classList.remove("boutton-active");
+    document.getElementById("btn-Code").classList.remove("boutton-active");
 }
 
 function Display_PermisA() {
@@ -165,6 +169,10 @@ function Display_PermisA() {
     document.getElementById("validate-PermisB").style.display = "none";
     document.getElementById("validate-PermisA").style.display = "flex";
     document.getElementById("validate-Code").style.display = "none";
+
+    document.getElementById("btn-PermisB").classList.remove("boutton-active");
+    document.getElementById("btn-PermisA").classList.add("boutton-active");
+    document.getElementById("btn-Code").classList.remove("boutton-active");
 }
 
 function Display_Code() {
@@ -175,7 +183,12 @@ function Display_Code() {
     document.getElementById("validate-PermisB").style.display = "none";
     document.getElementById("validate-PermisA").style.display = "none";
     document.getElementById("validate-Code").style.display = "flex";
+
+    document.getElementById("btn-PermisB").classList.remove("boutton-active");
+    document.getElementById("btn-PermisA").classList.remove("boutton-active");
+    document.getElementById("btn-Code").classList.add("boutton-active");
 }
+
 
 function sendDataPermisB() {
     var total_PermisB = parseInt(ChampGauche) + parseInt(ChampMilieu) + parseInt(ChampDroite);
