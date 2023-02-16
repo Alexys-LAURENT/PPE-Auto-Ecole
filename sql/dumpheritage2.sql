@@ -35,15 +35,6 @@ CREATE TABLE `cours_conduite` (
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cours_conduite`
---
-
-LOCK TABLES `cours_conduite` WRITE;
-/*!40000 ALTER TABLE `cours_conduite` DISABLE KEYS */;
-INSERT INTO `cours_conduite` VALUES (1,50.00,1,4),(2,50.00,3,5),(3,50.00,4,3),(4,50.00,2,3),(5,50.00,4,3),(6,50.00,4,2),(7,50.00,4,2),(24,50.00,4,2),(25,50.00,4,2),(27,50.00,4,2),(28,50.00,4,2),(29,50.00,4,2),(30,50.00,4,2),(41,50.00,4,2),(42,50.00,4,2),(43,50.00,4,2),(48,50.00,4,2),(50,50.00,4,2),(51,50.00,4,2),(52,50.00,4,2);
-/*!40000 ALTER TABLE `cours_conduite` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `eleve`
@@ -234,15 +225,6 @@ CREATE TABLE `planning` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `planning`
---
-
-LOCK TABLES `planning` WRITE;
-/*!40000 ALTER TABLE `planning` DISABLE KEYS */;
-INSERT INTO `planning` VALUES (1,1,1,'2022-04-19 10:00:00','2022-04-19 11:00:00','0'),(2,2,2,'2022-04-17 10:00:00','2022-04-17 15:00:00','0'),(3,3,3,'2022-04-19 13:00:00','2022-04-19 14:00:00','0'),(4,3,13,'2022-04-30 14:00:00','2022-04-30 15:00:00','0'),(5,3,7,'2022-05-04 14:00:00','2022-05-04 15:00:00','0'),(41,10,15,'2023-01-13 09:00:00','2023-01-13 10:00:00','Effectuer'),(42,10,15,'2023-01-18 09:00:00','2023-01-18 10:00:00','Effectuer'),(43,10,15,'2023-01-30 11:00:00','2023-01-30 13:00:00','Valider'),(48,10,1,'2023-02-15 09:00:00','2023-02-15 10:00:00','En attente user'),(50,10,15,'2023-02-23 11:00:00','2023-02-23 12:00:00','Valider'),(52,10,15,'2023-02-16 08:17:00','2023-02-16 08:18:00','En attente moniteur');
-/*!40000 ALTER TABLE `planning` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `questions_quiz`
