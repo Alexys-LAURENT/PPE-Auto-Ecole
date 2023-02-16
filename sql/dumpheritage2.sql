@@ -416,3 +416,23 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2023-02-16  8:47:07
+
+DELIMITER $$
+
+CREATE PROCEDURE verifier_et_mettre_a_jour_etat()
+BEGIN
+  UPDATE planning SET etat = 'Effectuer'
+  WHERE datehf < NOW() AND etat = 'Valider';
+
+  UPDATE planning SET etat = 'Refuser'
+  WHERE datehf < NOW() AND etat IN ('En attente user', 'En attente moniteur');
+END $$
+
+DELIMITER ;
+
+
+
+CREATE EVENT mettre_a_jour_etat
+ON SCHEDULE EVERY 1 MINUTE
+DO
+  CALL verifier_et_mettre_a_jour_etat();
