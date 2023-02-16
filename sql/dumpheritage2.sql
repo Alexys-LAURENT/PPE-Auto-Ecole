@@ -91,6 +91,7 @@ CREATE TABLE `eleve2` (
   `dateinscrip_e` date NOT NULL,
   `sexe` char(1) DEFAULT NULL,
   `id_formation` int(11) DEFAULT NULL,
+
   PRIMARY KEY (`id_e`),
   KEY `FK_FORMATION` (`id_formation`),
   CONSTRAINT `FK_FORMATION` FOREIGN KEY (`id_formation`) REFERENCES `formule` (`id_f`)
@@ -249,7 +250,7 @@ CREATE TABLE `photoeleve` (
 
 LOCK TABLES `photoeleve` WRITE;
 /*!40000 ALTER TABLE `photoeleve` DISABLE KEYS */;
-INSERT INTO `photoeleve` VALUES (2,'image/png',NULL,'32174','3135715.png',9),(4,'image/png',NULL,'32174','3135715.png',9),(5,'image/png',NULL,'32174','3135715.png',1);
+INSERT INTO `photo` VALUES (2,'image/png',NULL,'32174','3135715.png',9),(4,'image/png',NULL,'32174','3135715.png',9),(5,'image/png',NULL,'32174','3135715.png',1);
 /*!40000 ALTER TABLE `photoeleve` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -363,6 +364,8 @@ CREATE TABLE `user` (
   `sexe_u` char(1) DEFAULT NULL,
   `role_u` enum('eleve','moniteur','admin') NOT NULL,
   `mdp_u` varchar(255) NOT NULL,
+  `security_question` VARCHAR(255) NOT NULL,
+  `security_answer` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id_u`),
   UNIQUE KEY `UNIQUE_EMAIL` (`email_u`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
