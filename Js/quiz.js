@@ -10,9 +10,10 @@ let currentQuestion = {};
 let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
-
+let finalQuestions = [];
 let availableQuestions = [];
 let questions;
+
 
 
 //Requete Ajax pour récupérer les questions depuis questions_quiz.php qui les récupère depuis la base de données
@@ -32,12 +33,14 @@ async function getQuestions() {
           choiceC: JSON.parse(loadedQuestion.choix).C,
           choiceD: JSON.parse(loadedQuestion.choix).D,
           answer: Object.keys(JSON.parse(loadedQuestion.reponse)),
+          explication: loadedQuestion.explication,
           subQuestion: loadedQuestion.subTitre ? loadedQuestion.subTitre : null,
           subChoixA: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).A : null,
           subChoixB: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).B : null,
           subChoixC: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).C : null,
           subChoixD: loadedQuestion.subChoix != null ? JSON.parse(loadedQuestion.subChoix).D : null,
           subAnswer: loadedQuestion.subReponse != null ? Object.keys(JSON.parse(loadedQuestion.subReponse)) : null,
+          subExplication: loadedQuestion.subExplication != null ? loadedQuestion.subExplication : null
         };
 
 
@@ -47,6 +50,9 @@ async function getQuestions() {
   };
   xhr.send();
 }
+
+
+
 
 
 
@@ -68,6 +74,7 @@ async function main() {
     if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
       localStorage.setItem("mostRecentScore", score);
       //go to the end page
+      localStorage.setItem("finalQuestions", JSON.stringify(finalQuestions));
       return document.location.href = "./end.php";
     }
 
@@ -78,6 +85,8 @@ async function main() {
 
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
+    finalQuestions.push(currentQuestion);
+    console.log(finalQuestions);
     question.innerText = currentQuestion.question;
 
 

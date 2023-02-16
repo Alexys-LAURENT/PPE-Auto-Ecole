@@ -33,8 +33,8 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
             $_SESSION['formation'] = $formation;
 
-            if (isset($_SESSION['redirection'])) {
-                header("Location: index.php?page=1");
+            if (isset($_SESSION['redirection'])) { //la variable est definie quand l'utilisateur souhaite acheter une formation mais qu'il n'est pas connecté
+                header("Location: index.php?page=1"); //redirection vers la page de paiement après que la connexion/création de compte ai été réalisée et qu'il a été redirigé sur l'index
                 unset($_SESSION['redirection']);
             } else {
                 header("Location: index.php?page=0");
