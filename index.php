@@ -99,6 +99,10 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
           </svg> </span> </div>";
             } else {
                 $_SESSION['User'] = $unUser;
+                $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];
+                $_SESSION['User']['dateinscription_u'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['dateinscription'];
+                $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
+                $_SESSION['formation'] = $formation;
                 if (isset($_SESSION['redirection'])) {
                     header("Location:" . $_SESSION['redirection']);
                     unset($_SESSION['redirection']);
