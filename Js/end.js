@@ -1,8 +1,8 @@
-// const url = document.referrer; //on recupere l'url de la page precedente
-// const url2 = url.substring(url.lastIndexOf('/') + 1); //on recupere le nom de la page precedente
-// if (url2 != "index.php?page=7") { //si la page precedente n'est pas la page 7 (quizz.php) alors on redirige vers la page d'accueil
-//     document.location.href = "index.php?page=0";
-// }
+const url = document.referrer; //on recupere l'url de la page precedente
+const url2 = url.substring(url.lastIndexOf('/') + 1); //on recupere le nom de la page precedente
+if (url2 != "index.php?page=7") { //si la page precedente n'est pas la page 7 (quizz.php) alors on redirige vers la page d'accueil
+    document.location.href = "index.php?page=0";
+}
 const finalScore = document.getElementById('finalScore');
 const mostRecentScore = localStorage.getItem('mostRecentScore');
 
@@ -19,43 +19,6 @@ const questionContainer = document.getElementById('Answers');
 const buttonsChoix = document.getElementsByClassName('btn-question');
 let previ = 0;
 
-// const FirstquestionDiv = document.createElement('div');
-// FirstquestionDiv.classList.add('question');
-// FirstquestionDiv.innerHTML = `
-//         <img src="${finalQuestions[previ].url}" alt="">
-//         <div class="question-title">
-//             <h2>${finalQuestions[previ].question}</h2>
-//         </div>
-//         <div class="question-answers">
-//           <div class="answer-choice"><p>A :${finalQuestions[previ].choiceA} ${finalQuestions[previ].answer[0] == "A" ? check : ''}</p></div>
-//           <div class="answer-choice"><p>B :${finalQuestions[previ].choiceB}${finalQuestions[previ].answer[0] == "B" ? check : ''}</p></div>
-//             ${finalQuestions[previ].choiceC != null ? `<div class="answer-choice"><p>C :${finalQuestions[previ].choiceC}${finalQuestions[previ].answer[0] == "C" ? check : ''}</p></div>` : ''}
-//             ${finalQuestions[previ].choiceD != null ? `<div class="answer-choice"><p>D :${finalQuestions[previ].choiceD}${finalQuestions[previ].answer[0] == "D" ? check : ''}</p></div>` : ''}
-//         </div>
-//         <div class="question-explanation">
-//             <p>${finalQuestions[previ].explication}</p>
-//         </div>
-//         `;
-// if (finalQuestions[previ].subQuestion != null) {
-//     const FirstsubQuestionDiv = document.createElement('div');
-//     FirstsubQuestionDiv.classList.add('subQuestion');
-//     FirstsubQuestionDiv.innerHTML = `
-//             <div class="subQuestion-title">
-//                 <h2>${finalQuestions[previ].subQuestion}</h2>
-//             </div>
-//             <div class="subQuestion-answers">
-//             <div class="subAnswer-choice"><p>A :${finalQuestions[previ].subChoixA} ${finalQuestions[previ].subAnswer[0] == "A" ? check : ''}</p></div>
-//             <div class="subAnswer-choice"><p>B :${finalQuestions[previ].subChoixB}${finalQuestions[previ].subAnswer[0] == "B" ? check : ''}</p></div>
-//             ${finalQuestions[previ].subChoixC != null ? `<div class="subAnswer-choice"><p>C :${finalQuestions[previ].subChoixC}${finalQuestions[previ].subAnswer[0] == "C" ? check : ''}</p></div>` : ''}
-//             ${finalQuestions[previ].subChoixD != null ? `<div class="subAnswer-choice"><p>D :${finalQuestions[previ].subChoixD}${finalQuestions[previ].subAnswer[0] == "D" ? check : ''}</p></div>` : ''}
-//         </div>
-//             <div class="subQuestion-explanation">
-//                 <p>${finalQuestions[previ].subExplication}</p>
-//             </div>
-//             `;
-//     FirstquestionDiv.appendChild(FirstsubQuestionDiv);
-// }
-// questionContainer.appendChild(FirstquestionDiv);
 
 
 
