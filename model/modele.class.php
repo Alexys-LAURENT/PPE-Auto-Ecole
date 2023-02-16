@@ -240,7 +240,7 @@ class Modele
     public function Register($tab)
     {
         if ($this->unPDO != null) {
-            $requete = "insert into user values (null, :nom, :prenom, :date, :email, :tel, :adr, :ville, :cp, :sexe, :role, :mdp);";
+            $requete = "insert into user values (null, :nom, :prenom, :date, :email, :tel, :adr, :ville, :cp, :sexe, :role, :mdp, :security_question, :security_answer);";
             $donnees = array(
                 ":nom" => $tab['nom'],
                 ":prenom" => $tab['prenom'],
@@ -253,6 +253,8 @@ class Modele
                 ":sexe" => $tab['sexe'],
                 ":role" => 'eleve',
                 ":mdp" => $tab['mdp'],
+                ":security_question" => $tab['security_question'],
+                ":security_answer" => $tab['security_answer']
             );
             $insert = $this->unPDO->prepare($requete);
             $insert->execute($donnees);
