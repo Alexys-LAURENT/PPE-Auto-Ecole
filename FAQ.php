@@ -83,23 +83,26 @@
                 </div>
                 <div id="question5" class="bg-white quest quest-close">
                     <p class="p-3">
-                        Les séances de code ont lieu dans une salle de l’auto-école. L’élève dispose en général d’un boîtier qui lui permet de répondre directement aux questions proposées. Mais certaines auto-écoles ne possède pas ce dispositif, les réponses se font donc sur papier. Lors de l’examen, les élèves seront tous équipés d’un boîtier. Avant de commencer, l’usage du boîtier sera expliqué aux candidats.
+                        Les séances de code ont lieu dans une salle de l’auto-école.
+                        L’élève dispose en général d’un boîtier qui lui permet de répondre directement aux questions proposées.
+                        Mais certaines auto-écoles ne possède pas ce dispositif, les réponses se font donc sur papier.
+                        Lors de l’examen, les élèves seront tous équipés d’un boîtier.
+                        Avant de commencer, l’usage du boîtier sera expliqué aux candidats.
                         Il est très simple d’utilisation avec juste 6 touches.
+                    </p>
                     <ul>
                         <li>4 pour les réponses : A, B, C, D</li>
                         <li>1 touche pour valider sa réponse</li>
                         <li>1 touche pour corriger éventuellement sa réponse avant de la valider</li>
                     </ul>
-                    </p>
                 </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question6()">
                     Comment le code est-il évalué ?
                 </div>
                 <div id="question6" class="bg-white quest quest-close">
                     <p class="p-3">
-                        Pour obtenir l’examen du code de la route, le candidat doit répondre juste à au moins 35 questions sur 40.
-                        Le code en ligne est-il compris dans l’offre ou est-ce une option ?
-                        Combien de temps le code est-il valable ? Depuis 2015, le code, une fois obtenu est valable 5 ans.
+                        Pour obtenir l’examen du code de la route, le candidat doit répondre juste à au moins 35 questions sur 40. <br>
+                        Depuis 2015, le code, une fois obtenu est valable 5 ans.
                     </p>
                 </div>
                 <div class="question form-select rounded-0 border-0 p-3 pointer" onclick="Question7()">
@@ -108,7 +111,7 @@
                 <div id="question7" class="bg-white quest quest-close">
                     <p class="p-3">
                         Oui, il est tout à fait possible de commencer les leçons de conduite en même temps que l'apprentissage du code de la route.
-                        Souvent l'auto-école recommande d'obtenir d'abord le code avant de commencer les leçons de conduite car il semblerait que se rythme soit plus rapide et moins onéreux.
+                        Souvent l'auto-école recommande d'obtenir d'abord le code avant de commencer les leçons de conduite car il semblerait que ce rythme soit plus rapide et moins onéreux.
                     </p>
                 </div>
             </div>

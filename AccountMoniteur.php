@@ -12,11 +12,11 @@ if (isset($_POST['annee'])) {
     $annee = date('Y');
 }
 
-$heuresAValider = $unControleur->selectWhere2("planning", "id_m", $_SESSION['Moniteur']['ID_U'], "etat", "En attente user");
+$heuresAValider = $unControleur->selectWhere2("planning", "id_m", $_SESSION['Moniteur']['id_u'], "etat", "En attente user");
 
-$heures = $unControleur->selectHeuresMonit("planning", "id_m", $_SESSION['Moniteur']['ID_U'], "etat", "En attente user", $mois, $annee);
+$heures = $unControleur->selectHeuresMonit("planning", "id_m", $_SESSION['Moniteur']['id_u'], "etat", "En attente user", $mois, $annee);
 
-$toutesLesHeures = $unControleur->selectAllHeuresMonit("planning", $_SESSION['Moniteur']['ID_U']);
+$toutesLesHeures = $unControleur->selectAllHeuresMonit("planning", $_SESSION['Moniteur']['id_u']);
 
 
 if (isset($_POST['AccepterHeure'])) {
@@ -73,7 +73,7 @@ if (isset($_POST['ProposerHeure'])) {
                     if ($heuresAValider != null) {
                         $first = true;
                         foreach ($heuresAValider as $uneHeure) {
-                            $eleve = $unControleur->selectWhere("eleve", "id_e", $uneHeure['id_e']);
+                            $eleve = $unControleur->selectWhere("user", "id_u", $uneHeure['id_e']);
 
                             $date = date("d-m-Y", strtotime($uneHeure['datehd']));
                             $dateInput = date("Y-m-d", strtotime($uneHeure['datehd']));
@@ -112,7 +112,7 @@ if (isset($_POST['ProposerHeure'])) {
                                         <div class='row'>
                                             <div class='col-12 bg-grey rounded d-flex'>
                                                 <div>
-                                                    <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite <span class='fw-normal'>(Élève : $eleve[nom_e] $eleve[prenom_e])</span> </h5>
+                                                    <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite <span class='fw-normal'>(Élève : $eleve[nom_u] $eleve[prenom_u])</span> </h5>
                                                     <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($uneHeure['datehd'])) . " - " . date("H:i", strtotime($uneHeure['datehf'])) . ")</h6>
                                                 </div>
                                                 <div class='align-self-center ms-auto d-flex'>
@@ -216,7 +216,7 @@ if (isset($_POST['ProposerHeure'])) {
                         <?php
                         $first = true;
                         foreach ($heures as $heure) {
-                            $eleve = $unControleur->selectWhere("eleve", "id_e", $heure['id_e']);
+                            $eleve = $unControleur->selectWhere("user", "id_u", $heure['id_e']);
                             $date = date("d-m-Y", strtotime($heure['datehd']));
 
                             if (date("m", strtotime($date)) == $mois) {
@@ -255,7 +255,7 @@ if (isset($_POST['ProposerHeure'])) {
                                         <div class='row'>
                                             <div class='col-12 bg-grey rounded d-flex'>
                                                 <div>
-                                                    <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite <span class='fw-normal'>(Élève : $eleve[nom_e] $eleve[prenom_e])</span></h5>
+                                                    <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite <span class='fw-normal'>(Élève : $eleve[nom_u] $eleve[prenom_u])</span></h5>
                                                     <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
                                                 </div>
                                                 <div class='align-self-center ms-auto'>

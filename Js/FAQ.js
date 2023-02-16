@@ -236,27 +236,27 @@ function Question6() {
         question6.classList.add("quest-open");
         addEventListener("resize", function () {
             if (window.innerWidth < 444) {
-                question6.style.height = "185px";
+                question6.style.height = "165px";
             } else if (window.innerWidth < 491) {
-                question6.style.height = "175px";
+                question6.style.height = "145px";
             } else if (window.innerWidth < 768) {
-                question6.style.height = "150px";
+                question6.style.height = "120px";
             } else if (window.innerWidth < 992) {
-                question6.style.height = "125px";
+                question6.style.height = "115px";
             } else {
-                question6.style.height = "100px";
+                question6.style.height = "90px";
             }
         });
         if (window.innerWidth < 444) {
-            question6.style.height = "185px";
+            question6.style.height = "165px";
         } else if (window.innerWidth < 491) {
-            question6.style.height = "175px";
+            question6.style.height = "145px";
         } else if (window.innerWidth < 768) {
-            question6.style.height = "150px";
+            question6.style.height = "120px";
         } else if (window.innerWidth < 992) {
-            question6.style.height = "125px";
+            question6.style.height = "115px";
         } else {
-            question6.style.height = "100px";
+            question6.style.height = "90px";
         }
         document.getElementById("question1").classList.remove("quest-open");
         document.getElementById("question1").classList.add("quest-close");

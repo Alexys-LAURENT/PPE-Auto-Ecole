@@ -1,6 +1,4 @@
     <?php
-    // if (isset($_SESSION['totalPermisB'])) {
-    // }
 
     if (isset($_POST['Submit-PermisB'])) {
         if (!isset($_SESSION['User'])) { //Si pas connecté, redirect login/register
@@ -55,7 +53,7 @@
 
     ?>
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="fr">
 
     <head>
         <meta charset="UTF-8">

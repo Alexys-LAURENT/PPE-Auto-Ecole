@@ -50,7 +50,7 @@
                         <option value="Quel est votre genre de film préféré ?">Quel est votre genre de film préféré ?</option>
                         <option value="Quel est votre livre préféré?">Quel est votre livre préféré?</option>
                         <option value="Dans quelle ville êtes-vous né ?">Dans quelle ville êtes-vous né ?</option>
-                        <option name =" "value="Quelle était ta nourriture préférée étant enfant ?">Quelle était ta nourriture préférée étant enfant ?</option>
+                        <option value="Quelle était ta nourriture préférée étant enfant ?">Quelle était votre nourriture préférée étant enfant ?</option>
                     </select> <br>
                     <input type="text" placeholder="Security Answer" name="security_answer"><br>
                     <button type="submit" name="Register" value="Register">S'inscrire</button>
@@ -88,9 +88,9 @@
         $security_question = $_POST['security_question'];
         $security_answer = $_POST['security_answer'];
         $password = $_POST['mdp'];
-    
+
         $eleve = $controller->selectWhere("eleve", "email", $email);
-    
+
         if ($eleve) {
             if ($security_question == $eleve['security_question'] && $security_answer == $eleve['security_answer']) {
                 $data = [
@@ -98,9 +98,8 @@
                 ];
                 $controller->update("eleve", "email", $email, $data);
                 echo 'Votre mot de passe a été modifié avec succès !';
-
             } else {
-                echo 'votre question de sécurité & réponse est incorrect !';
+                echo 'votre question de sécurité ou réponse est incorrecte !';
             }
         } else {
             echo 'Votre email est incorrect !';
@@ -109,49 +108,49 @@
     ?>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Mot de passe oublié ?</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form action="" method="post">
-      <div class="input-group mb-3">
-        <input type="email" class="form-email-reset" id="email" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2" required>
-        <div class="input-group-append">
-      </div>
-</br>
-      <select name="security_question" id="">
-                        <option value="Quelle est votre couleur préférée ?">Quel est votre couleur préférée ?</option>
-                        <option value="Quel est votre genre de film préféré ?">Quel est votre genre de film préféré ?</option>
-                        <option value="Quel est votre livre préféré?">Quel est votre livre préféré?</option>
-                        <option value="Dans quelle ville êtes-vous né ?">Dans quelle ville êtes-vous né ?</option>
-                        <option value="Quelle était ta nourriture préférée étant enfant ?">Quelle était ta nourriture préférée étant enfant ?</option>
-                    </select> 
-</br>
-        <input type="text" placeholder="Security Answer" name="security_answer">
-</br>
-<br>
-<div class="input-group mb-3">
-    <br>
-        <input type="password" class="form-password-reset mb-2" id="password" name="mdp" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="basic-addon2" required>
-        <div class="input-group-append">
-      </div>
-      <div class="modal-footer">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mot de passe oublié ?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-email-reset" id="email" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2" required>
+                            <div class="input-group-append">
+                            </div>
+                            </br>
+                            <select name="security_question" id="">
+                                <option value="Quelle est votre couleur préférée ?">Quel est votre couleur préférée ?</option>
+                                <option value="Quel est votre genre de film préféré ?">Quel est votre genre de film préféré ?</option>
+                                <option value="Quel est votre livre préféré?">Quel est votre livre préféré?</option>
+                                <option value="Dans quelle ville êtes-vous né ?">Dans quelle ville êtes-vous né ?</option>
+                                <option value="Quelle était ta nourriture préférée étant enfant ?">Quelle était votre nourriture préférée étant enfant ?</option>
+                            </select>
+                            </br>
+                            <input type="text" placeholder="Security Answer" name="security_answer">
+                            </br>
+                            <br>
+                            <div class="input-group mb-3">
+                                <br>
+                                <input type="password" class="form-password-reset mb-2" id="password" name="mdp" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="basic-addon2" required>
+                                <div class="input-group-append">
+                                </div>
+                                <div class="modal-footer">
 
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-primary" id="userPasswordModify" name="userPasswordModify">Modifier</button>
-        </form>
-      </div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    <button type="button" class="btn btn-primary" id="userPasswordModify" name="userPasswordModify">Modifier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<style>
-</style>
+    <style>
+    </style>
 
 </body>
 

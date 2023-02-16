@@ -1,38 +1,51 @@
 <?php
-if (isset($_SESSION['User']) && $_SESSION['User'] != null) {
+if (!empty($_SESSION['User'])) {
     $profil = array(
-        "nom" => $_SESSION['User']['NOM_U'],
-        "prenom" => $_SESSION['User']['PRENOM_U'],
-        "email" => $_SESSION['User']['EMAIL_U'],
-        "tel" => $_SESSION['User']['TEL_U'],
-        "adresse" => $_SESSION['User']['ADRESSE_U'],
-        "ville" => $_SESSION['User']['VILLE_U'],
-        "codepostal" => $_SESSION['User']['CODEPOS_U'],
-        "dateprofil" => $_SESSION['User']['DATEINSCRIPTION_U'],
-        "id" => $_SESSION['User']['ID_U'],
+        "nom" => $_SESSION['User']['nom_u'],
+        "prenom" => $_SESSION['User']['prenom_u'],
+        "email" => $_SESSION['User']['email_u'],
+        "tel" => $_SESSION['User']['tel_u'],
+        "adresse" => $_SESSION['User']['adresse_u'],
+        "ville" => $_SESSION['User']['ville_u'],
+        "codepostal" => $_SESSION['User']['codepos_u'],
+        "dateprofil" => $_SESSION['User']['dateinscription_u'],
+        "id" => $_SESSION['User']['id_u'],
     );
-} elseif (isset($_SESSION['Moniteur']) && $_SESSION['Moniteur'] != null) {
+} elseif (!empty($_SESSION['Moniteur'])) {
     $profil = array(
-        "nom" => $_SESSION['Moniteur']['NOM_U'],
-        "prenom" => $_SESSION['Moniteur']['PRENOM_U'],
-        "email" => $_SESSION['Moniteur']['EMAIL_U'],
-        "tel" => $_SESSION['Moniteur']['TEL_U'],
-        "adresse" => $_SESSION['Moniteur']['ADRESSE_U'],
-        "ville" => $_SESSION['Moniteur']['VILLE_U'],
-        "codepostal" => $_SESSION['Moniteur']['CODEPOS_U'],
-        "dateprofil" => $_SESSION['Moniteur']['DATEEMBAUCHE_U'],
-        "id" => $_SESSION['Moniteur']['ID_U'],
+        "nom" => $_SESSION['Moniteur']['nom_u'],
+        "prenom" => $_SESSION['Moniteur']['prenom_u'],
+        "email" => $_SESSION['Moniteur']['email_u'],
+        "tel" => $_SESSION['Moniteur']['tel_u'],
+        "adresse" => $_SESSION['Moniteur']['adresse_u'],
+        "ville" => $_SESSION['Moniteur']['ville_u'],
+        "codepostal" => $_SESSION['Moniteur']['codepos_u'],
+        "dateprofil" => $_SESSION['Moniteur']['dateembauche_u'],
+        "id" => $_SESSION['Moniteur']['id_u'],
+    );
+} elseif (!empty($_SESSION['Admin'])) {
+    $profil = array(
+        "nom" => $_SESSION['Admin']['nom_u'],
+        "prenom" => $_SESSION['Admin']['prenom_u'],
+        "email" => $_SESSION['Admin']['email_u'],
+        "tel" => $_SESSION['Admin']['tel_u'],
+        "adresse" => $_SESSION['Admin']['adresse_u'],
+        "ville" => $_SESSION['Admin']['ville_u'],
+        "codepostal" => $_SESSION['Admin']['codepos_u'],
+        "id" => $_SESSION['Admin']['id_u'],
     );
 } else {
     header("Location: index.php?page=0");
 }
 
-$date = date("d M Y", strtotime($profil['dateprofil']));
+setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+$date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtotime($profil['dateprofil']))) : null;
+
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -51,18 +64,26 @@ $date = date("d M Y", strtotime($profil['dateprofil']));
     ?>
     <div class="body d-flex justify-content-center">
         <div class="main">
-            <div class="profil-container">
+            <div class="profil-container mt-5">
                 <div class="profil-img">
                     <img class="rounded-circle" src="<?php echo $grav_url; ?>" alt="">
                 </div>
                 <div class="profil-name">
                     <p class="nom-prenom"><?php echo $profil['nom'] . ' ' . $profil['prenom'] ?></p>
-                    <p class="date-inscri">Actif depuis le <?php echo $date ?></p>
-                    <button class="btn-reset-password" data-bs-toggle="modal" data-bs-target="#exampleModal">Reset password</button>
+                    <?php
+                    if (!isset($_SESSION['Admin'])) {
+                        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                        echo "
+                    <p class='date-inscri'>
+                        Actif depuis le $date
+                    </p>";
+                    }
+                    ?>
+                    <button class="btn-reset-password" data-bs-toggle="modal" data-bs-target="#exampleModal">Changer mon mot de passe</button>
                 </div>
             </div>
 
-            <div class="infos-container">
+            <div class="infos-container mt-5">
                 <div class="ligne">
                     <div class="label">
                         <p>Nom Complet</p>
@@ -127,18 +148,43 @@ $date = date("d M Y", strtotime($profil['dateprofil']));
             <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
             </svg> </span> </div>";
         } else {
-            $unControleur->setTable("eleve");
+            $unControleur->setTable("user");
             $old_password = $_POST['old_password'];
             $new_password = $_POST['new_password'];
-            $currentPassword = $_SESSION['User']['mdp_e'];
+            if (!empty($_SESSION['User'])) {
+                $currentPassword = $_SESSION['User']['mdp_u'];
+            } elseif (!empty($_SESSION['Moniteur'])) {
+                $currentPassword = $_SESSION['Moniteur']['mdp_u'];
+            } elseif (!empty($_SESSION['Admin'])) {
+                $currentPassword = $_SESSION['Admin']['mdp_u'];
+            }
             if ($old_password != $currentPassword) {
                 echo "<div class='col-md-3 alert alert-danger'>Ancien mot de passe est incorrect.<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
                 <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
                 </svg> </span> </div>";
             } else {
-                $tab = array("mdp_e" => $new_password);
-                $unControleur->update($tab, 'id_e', $_SESSION['User']['id_e']);
-                $_SESSION['User'] = $unControleur->verifConnection($_SESSION['User']['email_e'], $new_password);
+                $tab = array("mdp_u" => $new_password);
+                if (!empty($_SESSION['User'])) {
+                    $unControleur->update($tab, 'id_u', $_SESSION['User']['id_u']);
+                } elseif (!empty($_SESSION['Moniteur'])) {
+                    $unControleur->update($tab, 'id_u', $_SESSION['Moniteur']['id_u']);
+                } elseif (!empty($_SESSION['Admin'])) {
+                    $unControleur->update($tab, 'id_u', $_SESSION['Admin']['id_u']);
+                }
+                // $unControleur->update($tab, 'id_u', isset($_SESSION['User']) ? $_SESSION['User']['id_u'] : (isset($_SESSION['Moniteur']) ? $_SESSION['Moniteur']['id_u'] : (isset($_SESSION['Admin']) ? $_SESSION['Admin']['id_u'] : null)));
+                // $_SESSION['User'] = $unControleur->verifConnection($_SESSION['User']['email_e'], $new_password);
+                if (!empty($_SESSION['User'])) {
+                    $_SESSION['User'] = $unControleur->verifConnection($_SESSION['User']['email_u'], $new_password);
+                    $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];
+                    $_SESSION['User']['dateinscription_u'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['dateinscription'];
+                    $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
+                    $_SESSION['formation'] = $formation;
+                } elseif (!empty($_SESSION['Moniteur'])) {
+                    $_SESSION['Moniteur'] = $unControleur->verifConnection($_SESSION['Moniteur']['email_u'], $new_password);
+                    $_SESSION['Moniteur']['dateembauche_u'] = $unControleur->selectWhere("moniteur", "id_u", $_SESSION['Moniteur']['id_u'])['dateembauche'];
+                } elseif (!empty($_SESSION['Admin'])) {
+                    $_SESSION['Admin'] = $unControleur->verifConnection($_SESSION['Admin']['email_u'], $new_password);
+                }
                 echo "<div class='col-md-3 alert alert-success'>Votre mot de passe a été modifié avec succes !<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
                 <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
                 </svg> </span> </div>";
