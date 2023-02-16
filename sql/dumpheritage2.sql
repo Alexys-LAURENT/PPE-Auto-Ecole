@@ -98,16 +98,6 @@ CREATE TABLE `eleve2` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `eleve2`
---
-
-LOCK TABLES `eleve2` WRITE;
-/*!40000 ALTER TABLE `eleve2` DISABLE KEYS */;
-INSERT INTO `eleve2` VALUES (1,'Yahaya','Ben Zamey','2000-11-05','EVREUX','05 Rue Du Bel Air','ben@gmail.com','$2y$12$XY1jbGAJyps68VxzA7SWYe3/D3OVjOfIgzeSF.UVeLZB3bAlABUVS','0783451878','91000','2022-02-03',NULL,NULL),(2,'jeune','homme','2002-03-02','Paris','5 rue de la fraise','jeune@gmail.com','$2y$12$pq9ykZvdtyRv8xjRwG35zO0kHBZFLJfY8OtcSis9hX7DqPza.fNWq','0105257154','667','2022-03-05',NULL,NULL),(3,'titan','tern','1989-02-05','Paris','rue du test','titan@gmail.com','$2y$12$frua.kwCti2cCOBa152p6.pCm1DM86tfiQ6AXJQBpb7kj.v/yMGBS','0105257154','75000','2022-04-16',NULL,NULL),(4,'gilou','jean','2000-10-01','Paris','01 rue de la grille','gilou@gmail.com','$2y$12$vKcUuURzxF6ja//cgarEG.c0S2IuYIfzST2WDiYVp1TYNUuKZvlW6','0605257154','75000','2022-04-16',NULL,NULL),(5,'astride','carlo','1991-07-02','Lyon','12 rue de lautoroute','a.carlo@gmail.com','$2y$12$x5BI/LwEBPgBZfgxWZq/3edpLV1De2H5gelUIsuAlAXO2lMs808xu','0705257154','91000','2022-04-28',NULL,NULL),(6,'charlie','natalya','2004-12-07','Levallois','12 avenue berget','nalaya1@gmail.com','$2y$12$8YnykOfkuehgpOybcGKaR.SGECE2.iDq2VsXsOm9YPXMgHSy0s3ym','0605257152','29200','2022-04-28','F',NULL),(7,'bertrand','lignac','2016-09-03','paris','16 rue du louvre','lignac@gmail.com','$2y$12$2rHqe6AHlVr.TNNpRSuYcO/AIYNHf4RJbxQf.O0TiqP8q40oosmw.','0705254154','75000','2022-04-28','M',NULL),(8,'alain','leroie','2003-12-01','paris','14 rue du sergent le malin','leroie@gmail.com','$2y$12$YtWvFj0HBhfqZluTZIxcqewm4eb.oLOzsT.AMJ/XxP4CNBul0NZ.C','0745254154','91000','2022-04-28','M',NULL),(9,'test','toto','2003-06-07','Paris','5 rue de la grille','test@gmail.com','$2y$12$utkGWndp9WB1g36ougdfk.bdqjB7dcadJ4x221j6WaGWg.U.MVXlG','0763254864','75000','2022-05-07',NULL,NULL),(10,'Tdzdzest','tdzdzest','2023-01-04','Montfermeil','12 rue du portail','a@gmail.com','123','0612345678','93370','2023-01-06','M',2),(11,'Test','Alexys','2023-01-18','Montfermeil','53 Avenue des Palmiers','a@gmail.com','456','0612345678','93370','2023-01-06','M',NULL),(12,'b','b','2019-01-13','b','b','b@gmail.com','123','0612345678','1','2023-01-13','M',NULL),(15,'titi','toto','2023-02-01','dzefs','12','c@gmail.com','123','0612345678','55555','2023-02-02','M',9);
-/*!40000 ALTER TABLE `eleve2` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `formule`
 --
 
@@ -159,38 +149,6 @@ INSERT INTO `moniteur` VALUES (15,'2021-02-10','2020-01-01');
 /*!40000 ALTER TABLE `moniteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `moniteur2`
---
-
-DROP TABLE IF EXISTS `moniteur2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `moniteur2` (
-  `id_m` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_m` varchar(50) NOT NULL,
-  `prenom_m` varchar(50) NOT NULL,
-  `dateembauche_m` date NOT NULL,
-  `adresse_m` varchar(50) NOT NULL,
-  `dateobtentionBAFM` date NOT NULL,
-  `codpos_m` char(5) NOT NULL,
-  `tel_m` char(10) NOT NULL,
-  `mdp_m` varchar(500) NOT NULL,
-  `email_m` varchar(255) NOT NULL,
-  `ville_m` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_m`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `moniteur2`
---
-
-LOCK TABLES `moniteur2` WRITE;
-/*!40000 ALTER TABLE `moniteur2` DISABLE KEYS */;
-INSERT INTO `moniteur2` VALUES (1,'Renardo','Lucas','2022-03-03','06 rue de la vilette','2021-03-11','91000','0765492315','Moniteur.test123','R.Lucas034',''),(2,'Gerard','Delice','2022-04-01','04 rue de la paix','2021-06-02','75000','0764157895','Moniteur.test123','G.Delice51',''),(3,'Jule','Sacre','2022-04-01','02 rue du boulgour','2021-08-03','13000','0748623514','Moniteur.test123','J.Sacre789',''),(6,'Steve','Marcel','2022-04-13','04 rue de lassistanat','2022-04-01','91000','0649312565','8vZjAupi6WT3RF','stevemar88',''),(7,'Crus','Larry','2022-04-05','02 rue laoe','2022-04-01','65000','0611534878','UFhpVEaoW1cx','cruslarr81',''),(9,'ben','Salem','2022-04-01','02 rue','2022-04-01','91000','0783451878','$2y$12$vE5M38qFcSQrginTcd0/f.6Izx4dsC1pvUNWHdMxuBy/xdM9/HPWu','bensalem62',''),(10,'griz','ly','2022-04-01','15 rue de laaa','2022-04-01','91000','0783451895','$2y$12$fsurKFe36bqYlJlLIAlKu.aaHGnE.nuzf39JeU/FffQSO6O9AFciS','grizly36',''),(11,'jojo','benaxo','2022-04-01','05 Rue Du Bel Air','2021-11-02','91000','0783151578','$2y$12$DRvHIxTA8sBw0k0eMDACruSwOrZ2h/sh6.qFAD.A0Z5ArmrLkP5Ci','jojobena52',''),(12,'paul','paugba','2022-04-01','120 rue de verdun','2022-04-01','29200','0765782545','$2y$12$AkRTEGZv46/HK9O2umcO/.HhQAdcG6uC1rq/Kv2cNn66b0MKLI2ia','paulpaug52',''),(13,'balty','mono','2022-04-01','21 rue de la saucisse','2022-04-01','54000','0745782315','$2y$12$x6KOfyKVLLVFlIvhzXcRaeGR/ULWwnLSwqYU/bFgdTw1T2B6xLa0S','baltymon6',''),(14,'Thiery','Sally','2019-12-02','5 rue de la grille','2009-02-01','75000','0763254864','$2y$12$rp5CjMbL4C7UF3e5BOWi5e0rItIYyZP38bHXFdBGPEaCWgQQHtsLW','thierysa9',''),(15,'Monit','Monit','2022-03-03','06 rue de la vilette','2021-08-03','91000','0612345678','123','monit@gmail.com','Paris');
-/*!40000 ALTER TABLE `moniteur2` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `paiement`
