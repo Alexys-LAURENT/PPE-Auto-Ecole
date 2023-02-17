@@ -61,33 +61,6 @@ INSERT INTO `eleve` VALUES (10,2,'2023-02-10');
 /*!40000 ALTER TABLE `eleve` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `eleve2`
---
-
-DROP TABLE IF EXISTS `eleve2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `eleve2` (
-  `id_e` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_e` varchar(50) NOT NULL,
-  `prenom_e` varchar(50) NOT NULL,
-  `datenai_e` date NOT NULL,
-  `ville_e` varchar(50) NOT NULL,
-  `adresse_e` varchar(50) NOT NULL,
-  `email_e` varchar(255) NOT NULL,
-  `mdp_e` varchar(255) NOT NULL,
-  `tel_e` char(10) NOT NULL,
-  `codepos_e` char(5) NOT NULL,
-  `dateinscrip_e` date NOT NULL,
-  `sexe` char(1) DEFAULT NULL,
-  `id_formation` int(11) DEFAULT NULL,
-
-  PRIMARY KEY (`id_e`),
-  KEY `FK_FORMATION` (`id_formation`),
-  CONSTRAINT `FK_FORMATION` FOREIGN KEY (`id_formation`) REFERENCES `formule` (`id_f`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `formule`
