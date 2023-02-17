@@ -1,3 +1,10 @@
+<?php
+if (isset($_SESSION['Moniteur'])) {
+    if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == "ValAuto123") {
+        header("Location: index.php?page=6");
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

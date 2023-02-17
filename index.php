@@ -120,7 +120,15 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
     } else {
         $page = 0;
     }
+    if (isset($_SESSION['Moniteur']) && $page != 10) {
+        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == "ValAuto123") {
+            $page = "MoniteurMDP";
+        }
+    }
     switch ($page) {
+        case 'MoniteurMDP':
+            require_once("Profil.php");
+            break;
         case '0':
             require_once("Accueil.php");
             break;

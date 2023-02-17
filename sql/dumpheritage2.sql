@@ -147,36 +147,6 @@ LOCK TABLES `paiement` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `photoeleve`
---
-
-DROP TABLE IF EXISTS `photoeleve`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `photoeleve` (
-  `id_photo` int(11) NOT NULL AUTO_INCREMENT,
-  `type_photo` varchar(25) NOT NULL,
-  `desc_photo` varchar(100) DEFAULT NULL,
-  `taille_photo` varchar(25) NOT NULL,
-  `nom_photo` varchar(50) NOT NULL,
-  `id_eleve` int(11) NOT NULL,
-  PRIMARY KEY (`id_photo`),
-  KEY `id_eleve` (`id_eleve`),
-  CONSTRAINT `photoeleve_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve2` (`id_e`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `photoeleve`
---
-
-LOCK TABLES `photoeleve` WRITE;
-/*!40000 ALTER TABLE `photoeleve` DISABLE KEYS */;
-INSERT INTO `photo` VALUES (2,'image/png',NULL,'32174','3135715.png',9),(4,'image/png',NULL,'32174','3135715.png',9),(5,'image/png',NULL,'32174','3135715.png',1);
-/*!40000 ALTER TABLE `photoeleve` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `planning`
 --
 
@@ -193,8 +163,8 @@ CREATE TABLE `planning` (
   PRIMARY KEY (`id_cc`,`id_e`,`id_m`,`datehd`),
   KEY `id_e` (`id_e`),
   KEY `id_m` (`id_m`),
-  CONSTRAINT `planning_ibfk_1` FOREIGN KEY (`id_e`) REFERENCES `eleve2` (`id_e`),
-  CONSTRAINT `planning_ibfk_2` FOREIGN KEY (`id_m`) REFERENCES `moniteur2` (`id_m`),
+  CONSTRAINT `planning_ibfk_1` FOREIGN KEY (`id_e`) REFERENCES `user` (`id_u`),
+  CONSTRAINT `planning_ibfk_2` FOREIGN KEY (`id_m`) REFERENCES `user` (`id_u`),
   CONSTRAINT `planning_ibfk_3` FOREIGN KEY (`id_cc`) REFERENCES `cours_conduite` (`id_cc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -265,7 +235,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id_u` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_u` int(11) NOT NULL AUTO_INCREMENT,
   `nom_u` varchar(255) NOT NULL,
   `prenom_u` varchar(255) NOT NULL,
   `datenaissance_u` date NOT NULL,
