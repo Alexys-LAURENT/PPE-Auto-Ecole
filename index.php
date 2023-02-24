@@ -27,7 +27,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
                 </svg> </span> </div>";
         } else {
             $email = $_POST['email'];
-            $mdp = $_POST['mdp'];
+            $mdp = sha1($_POST['mdp']);
             // //Hachage avec un grain de sel
             // $unControleur->setTable("grainSel");
             // $resultat = $unControleur->selectAll();

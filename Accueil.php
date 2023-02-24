@@ -63,9 +63,9 @@ if (isset($_SESSION['Moniteur'])) {
             <div class="row justify-content-between mb-5">
                 <div class="col-md-6">
                     <h2 class="pt-5 title">Passez votre permis de conduire aux côtés d’experts</h2>
-                    <p class="fs-5">Nous avons choisis les meilleurs formateurs pour voir réussites.
-                        Tous pationnés par leur métier ils seront vous guidé afin de
-                        vous mener vers l’optention de votre permis de conduire</p>
+                    <p class="fs-5">Nous avons choisis les meilleurs formateurs pour votre réussite.
+                        Tous pationnés par leur métier, ils sauront vous guider afin de
+                        vous mener vers l’obtention de votre permis de conduire</p>
                 </div>
                 <div class="col-md-6">
                     <img class="img-fluid" src="./images/photos.png" alt="">

@@ -258,10 +258,7 @@ class Modele
             );
             $insert = $this->unPDO->prepare($requete);
             $insert->execute($donnees);
-            $requete = "insert into eleve values (LAST_INSERT_ID(), null, curdate());";
-            $insert = $this->unPDO->prepare($requete);
-            $insert->execute();
-            $unUser = $this->verifConnection($tab['email'], $tab['mdp']);
+            $unUser = $this->verifConnection($tab['email'], sha1($tab['mdp']));
             return $unUser;
         } else {
             return null;

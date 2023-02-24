@@ -177,7 +177,7 @@
 
 
     .voiture::before {
-        z-index: 1;
+        z-index: 10;
         content: attr(data-content);
         position: absolute;
         width: min-content;
@@ -195,7 +195,7 @@
     }
 
     .voiture::after {
-        z-index: 0;
+        z-index: 1;
         content: "";
         position: absolute;
         width: 0;
@@ -295,14 +295,12 @@
         "Nous sommes impatients de vous accueillir dans notre auto-école!",
         "Nous formons les conducteurs du futur!",
         "Notre enseignement est adapté à tous les niveaux!",
-        "Nous avons les meilleurs instructeurs!",
         "Venez découvrir nos forfaits!",
         "Offrez-vous une expérience de conduite inoubliable!",
-        "Nous avons des véhicules modernes et bien entretenus!",
         "Apprenez à conduire en toute confiance!",
         "Rejoignez notre communauté de conducteurs!",
         "Choisissez l'auto-école qui vous accompagne dans votre apprentissage!",
-        "Votre permis de conduire entre de bonnes mains avec nous!",
+        "Votre permis de conduire est entre de bonnes mains avec nous!",
         "Des cours amusants et instructifs, c'est chez nous!",
         "Nous sommes là pour vous aider à atteindre votre objectif!",
         "Obtenez votre permis de conduire en un temps record!",
