@@ -1514,3 +1514,38 @@ EACH ROW BEGIN
 
 
 DELIMITER ;
+DROP TRIGGER IF EXISTS AFFECTATION_MONITEUR;
+
+DELIMITER //
+
+-- si l'élève a déja une heure dans la table planning , on affecte le moniteur à la nouvelle heure
+
+CREATE TRIGGER AFFECTATION_MONITEUR BEFORE INSERT ON 
+PLANNING FOR EACH ROW BEGIN 
+	DECLARE id_moniteur INT;
+	IF (
+	    SELECT COUNT(*)
+	    FROM planning
+	    WHERE
+	        id_e = NEW.id_e
+	) != 0 THEN
+	SET id_moniteur = (
+	        SELECT id_m
+	        FROM planning
+	        WHERE id_e = NEW.id_e
+	    );
+	ELSE -- selectionne un moniteur au hasard
+	SET id_moniteur = (
+	        SELECT id_u
+	        FROM USER
+	        WHERE
+	            role_u = 'moniteur'
+	        ORDER BY RAND()
+	        LIMIT 1
+	    );
+	END IF;
+	SET NEW.id_m = id_moniteur;
+	END // 
+
+
+DELIMITER ;

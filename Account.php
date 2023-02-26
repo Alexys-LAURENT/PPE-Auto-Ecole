@@ -97,7 +97,7 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
         $tab = array(
             "id_cc" => $unControleur->lastInsertId(),
             "id_e" => $_SESSION['User']['id_u'],
-            "id_m" => 15,
+            "id_m" => null,
             "datehd" => $datehd,
             "datehf" => $datehf,
             "etat" => "En attente user"

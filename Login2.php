@@ -13,7 +13,7 @@
 
     <div class="form-conteneur register-conteneur">
       <form action="#">
-        <h1>Register hire.</h1>
+        <h1>Inscrivez vous</h1>
         <div class="rowInputs">
           <input type="text" placeholder="Nom" name="nom">
           <input type="text" placeholder="Prénom" name="prenom">
@@ -51,39 +51,48 @@
 
     <div class="form-conteneur login-conteneur">
       <form action="#">
-        <h1>Login hire.</h1>
+        <h1>Connectez vous</h1>
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Password">
         <div class="content">
-          <div class="checkbox">
-            <input type="checkbox" name="checkbox" id="checkbox">
-            <label>Remember me</label>
-          </div>
           <div class="pass-link">
-            <a href="#">Forgot password?</a>
+            <a href="#">Mot de passe oublié ?</a>
           </div>
         </div>
-        <button>Login</button>
+        <button>Se connecter</button>
       </form>
     </div>
 
     <div class="overlay-conteneur">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
-          <h1 class="title">Hello <br> friends</h1>
-          <p>if Yout have an account, login here and have fun</p>
-          <button class="ghost" id="login">Login
+          <h1 class="title">Bienvenue</h1>
+          <p>Si vous avez déjà un compte, connectez-vous pour continuer.</p>
+          <button class="ghost" id="login">Se connecter
             <i class="lni lni-arrow-left login"></i>
           </button>
         </div>
         <div class="overlay-panel overlay-right">
-          <h1 class="title">Start yout <br> journy now</h1>
-          <p>if you don't have an account yet, join us and start your journey.</p>
-          <button class="ghost" id="register">Register
+          <h1 class="title">Démarrez votre voyage</h1>
+          <p>Si vous n'avez pas de compte, inscrivez-vous pour continuer.</p>
+          <button class="ghost" id="register">S'inscrire
             <i class="lni lni-arrow-right register"></i>
           </button>
         </div>
       </div>
+    </div>
+
+    <div class="switch-mobile">
+      <button class="ghost ghost-mobile ghost-mobile-login" id="login-mobile">Se connecter
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+      <button class="ghost ghost-mobile ghost-mobile-register" id="register-mobile">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        </svg>S'inscrire
+      </button>
     </div>
 
   </div>
@@ -194,10 +203,11 @@
       letter-spacing: 1px;
       text-transform: capitalize;
       transition: 0.3s ease-in-out;
+      cursor: pointer;
     }
 
     button:hover {
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
 
     button:active {
@@ -212,6 +222,30 @@
       background-color: rgba(225, 225, 225, 0.2);
       border: 2px solid #fff;
       color: #fff;
+    }
+
+    button.ghost-mobile {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      z-index: 100000;
+      background-color: transparent;
+      border: none;
+      color: black;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button.ghost-mobile-register {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+    }
+
+    button.ghost-mobile-login {
+      opacity: 0;
+      position: absolute;
+      top: 15px;
+      right: 15px;
     }
 
     button.ghost i {
@@ -254,7 +288,7 @@
       background-color: #eee;
       border-radius: 7px;
       border: none;
-      padding: 8px 15px;
+      padding: 10px 15px !important;
       margin: 8px 0;
       width: 100%;
       outline: none;
@@ -348,6 +382,10 @@
       z-index: 100;
     }
 
+    .switch-mobile {
+      display: none;
+    }
+
     .conteneur.right-panel-active .overlay-conteneur {
       transform: translate(-100%);
     }
@@ -433,20 +471,93 @@
     .social-conteneur a:hover {
       border: 1px solid #4bb6b7;
     }
+
+    @media screen and (max-width: 768px) {
+      .conteneur.right-panel-active .register-conteneur {
+        animation: show-mobile 0.6s !important;
+      }
+
+      @keyframes show-mobile {
+
+        0%,
+        49.99% {
+          opacity: 0;
+          z-index: 1;
+        }
+
+        100% {
+          opacity: 1;
+          z-index: 5;
+        }
+      }
+
+      form {
+        padding: 0 20px;
+      }
+
+      .conteneur.right-panel-active .login-conteneur {
+        transform: translateX(150%);
+      }
+
+      .switch-mobile {
+        display: block;
+      }
+
+      .form-conteneur {
+        width: 100%;
+        transition: all 0.6s ease-in-out;
+      }
+
+      .overlay-conteneur {
+        display: none;
+      }
+
+      .overlay-conteneur-mobile {
+        display: block;
+        position: absolute;
+        top: 85%;
+        left: 0;
+        width: 100%;
+        height: 15%;
+        overflow: hidden;
+        transition: transform 0.6s ease-in-out;
+        z-index: 100;
+      }
+
+      .conteneur.right-panel-active .register-conteneur {
+        transform: translateX(0%);
+        opacity: 1;
+        z-index: 5;
+        animation: show 0.6s;
+      }
+    }
   </style>
 
   <script>
     const registerButton = document.getElementById("register");
+    const registerButtonMobile = document.getElementById("register-mobile");
     const loginButton = document.getElementById("login");
+    const loginButtonMobile = document.getElementById("login-mobile");
     const conteneur = document.getElementById("conteneur");
 
     registerButton.addEventListener("click", () => {
       conteneur.classList.add("right-panel-active");
+    });
 
+    registerButtonMobile.addEventListener("click", () => {
+      conteneur.classList.add("right-panel-active");
+      registerButtonMobile.style.opacity = 0;
+      loginButtonMobile.style.opacity = 1;
     });
 
     loginButton.addEventListener("click", () => {
       conteneur.classList.remove("right-panel-active");
+    });
+
+    loginButtonMobile.addEventListener("click", () => {
+      conteneur.classList.remove("right-panel-active");
+      registerButtonMobile.style.opacity = 1;
+      loginButtonMobile.style.opacity = 0;
     });
   </script>
 
