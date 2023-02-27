@@ -38,10 +38,10 @@ for (let i = 0; i < buttonsChoix.length; i++) {
             <h2>${finalQuestions[i].question}</h2>
         </div>
         <div class="question-answers">
-          <div class="answer-choice"><p>A :${finalQuestions[i].choiceA} ${finalQuestions[i].answer[0] == "A" ? check : ''}</p></div>
-          <div class="answer-choice"><p>B :${finalQuestions[i].choiceB}${finalQuestions[i].answer[0] == "B" ? check : ''}</p></div>
-            ${finalQuestions[i].choiceC != null ? `<div class="answer-choice"><p>C :${finalQuestions[i].choiceC}${finalQuestions[i].answer[0] == "C" ? check : ''}</p></div>` : ''}
-            ${finalQuestions[i].choiceD != null ? `<div class="answer-choice"><p>D :${finalQuestions[i].choiceD}${finalQuestions[i].answer[0] == "D" ? check : ''}</p></div>` : ''}
+          <div class="answer-choice ${finalQuestions[i].answer[0] == "A" ? 'correct' : null}"><p>A :${finalQuestions[i].choiceA}</p></div>
+          <div class="answer-choice ${finalQuestions[i].answer[0] == "B" ? 'correct' : null}"><p>B :${finalQuestions[i].choiceB}</p></div>
+            ${finalQuestions[i].choiceC != null ? `<div class="answer-choice ${finalQuestions[i].answer[0] == "C" ? 'correct' : null}"><p>C :${finalQuestions[i].choiceC}</p></div>` : ''}
+            ${finalQuestions[i].choiceD != null ? `<div class="answer-choice ${finalQuestions[i].answer[0] == "D" ? 'correct' : null}"><p>D :${finalQuestions[i].choiceD}</p></div>` : ''}
         </div>
         <div class="question-explanation">
             <p>${finalQuestions[i].explication}</p>
@@ -55,10 +55,10 @@ for (let i = 0; i < buttonsChoix.length; i++) {
                 <h2>${finalQuestions[i].subQuestion}</h2>
             </div>
             <div class="subQuestion-answers">
-            <div class="subAnswer-choice"><p>A :${finalQuestions[i].subChoixA} ${finalQuestions[i].subAnswer[0] == "A" ? check : ''}</p></div>
-            <div class="subAnswer-choice"><p>B :${finalQuestions[i].subChoixB}${finalQuestions[i].subAnswer[0] == "B" ? check : ''}</p></div>
-            ${finalQuestions[i].subChoixC != null ? `<div class="subAnswer-choice"><p>C :${finalQuestions[i].subChoixC}${finalQuestions[i].subAnswer[0] == "C" ? check : ''}</p></div>` : ''}
-            ${finalQuestions[i].subChoixD != null ? `<div class="subAnswer-choice"><p>D :${finalQuestions[i].subChoixD}${finalQuestions[i].subAnswer[0] == "D" ? check : ''}</p></div>` : ''}
+            <div class="subAnswer-choice ${finalQuestions[i].subAnswer[0] == "A" ? 'correct' : null}"><p>A :${finalQuestions[i].subChoixA}</p></div>
+            <div class="subAnswer-choice ${finalQuestions[i].subAnswer[0] == "B" ? 'correct' : null}"><p>B :${finalQuestions[i].subChoixB}</p></div>
+            ${finalQuestions[i].subChoixC != null ? `<div class="subAnswer-choice ${finalQuestions[i].subAnswer[0] == "C" ? 'correct' : null}"><p>C :${finalQuestions[i].subChoixC}</p></div>` : ''}
+            ${finalQuestions[i].subChoixD != null ? `<div class="subAnswer-choice ${finalQuestions[i].subAnswer[0] == "D" ? 'correct' : null}"><p>D :${finalQuestions[i].subChoixD}</p></div>` : ''}
         </div>
             <div class="subQuestion-explanation">
                 <p>${finalQuestions[i].subExplication}</p>

@@ -115,7 +115,7 @@ class Modele
             );
             $select = $this->unPDO->prepare($requete);
             $select->execute($donnees);
-            $unUser = $select->fetch();
+            $unUser = $select->fetchAll();
             return $unUser;
         } else {
             return null;
@@ -265,7 +265,7 @@ class Modele
         }
     }
 
-    public function addFormuleToUser($id_e, $typeFormule, $prix_f, $typeBoite)
+    public function addFormuleToUser($id_u, $typeFormule, $prix_f, $typeBoite)
     {
         if ($this->unPDO != null) {
 
@@ -302,9 +302,9 @@ class Modele
             $select->execute($donnees);
             $idFormule = $select->fetch(); //On récupère l'id de la formule que l'utilisateur a choisi
 
-            $requete = "update eleve set id_formation = :idFormule where id_e = :id_e;"; //On ajoute l'id de la formule à l'utilisateur
+            $requete = "update eleve set id_formation = :idFormule where id_u = :id_u;"; //On ajoute l'id de la formule à l'utilisateur
             $donnees = array(
-                ":id_e" => $id_e,
+                ":id_u" => $id_u,
                 ":idFormule" => $idFormule['id_f']
             );
             $insert = $this->unPDO->prepare($requete);

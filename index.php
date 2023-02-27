@@ -84,19 +84,19 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
                 "security_answer" => $_POST['security_answer']
             );
 
-            // //Hachage avec un grain de sel
-            // $unControleur->setTable("grainSel");
-            // $resultat = $unControleur->selectAll();
-            // $nb = $resultat[0]['nb'];
-            // $mdp = sha1($mdp . $nb);
-
-
-
+            //si l'email est déja utilisé
+            $resultat = $unControleur->selectWhere("user", "email_u", $tab['email']);
+            if ($resultat != null) {
+                echo "<div class='col-md-3 alert alert-danger'>Email déja utilisé<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+            <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+            </svg> </span> </div>";
+            } else {
             $unUser = $unControleur->Register($tab);
             if ($unUser == null) {
-                echo "<div class='col-md-3 alert alert-danger'>Erreur technique veuillez réessayer plus tard<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
-            <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
-          </svg> </span> </div>";
+                    echo
+                    "<div class='col-md-3 alert alert-danger'>Erreur technique veuillez réessayer plus tard<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+                        <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+                    </svg> </span> </div>";
             } else {
                 $_SESSION['User'] = $unUser;
                 $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];
@@ -110,6 +110,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
                     header("Location: index.php?page=0");
                 }
             }
+            }
         }
     }
 
@@ -121,7 +122,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         $page = 0;
     }
     if (isset($_SESSION['Moniteur']) && $page != 10) {
-        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == "ValAuto123") {
+        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == sha1("ValAuto123")) {
             $page = "MoniteurMDP";
         }
     }

@@ -1,6 +1,3 @@
-<?php
-var_dump($_SESSION['total_FinalQuestions']);
-?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -12,7 +12,7 @@
   <div class="conteneur" id="conteneur">
 
     <div class="form-conteneur register-conteneur">
-      <form action="#">
+      <form action="" method="POST">
         <h1>Inscrivez vous</h1>
         <div class="rowInputs">
           <input type="text" placeholder="Nom" name="nom">
@@ -50,16 +50,16 @@
     </div>
 
     <div class="form-conteneur login-conteneur">
-      <form action="#">
+      <form action="" method="POST">
         <h1>Connectez vous</h1>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="mdp" placeholder="Mot de passe">
         <div class="content">
           <div class="pass-link">
             <a href="#">Mot de passe oublié ?</a>
           </div>
         </div>
-        <button>Se connecter</button>
+        <button type="submit" name="SeConnecter" value="SeConnecter">Se connecter</button>
       </form>
     </div>
 
@@ -69,14 +69,12 @@
           <h1 class="title">Bienvenue</h1>
           <p>Si vous avez déjà un compte, connectez-vous pour continuer.</p>
           <button class="ghost" id="login">Se connecter
-            <i class="lni lni-arrow-left login"></i>
           </button>
         </div>
         <div class="overlay-panel overlay-right">
           <h1 class="title">Démarrez votre voyage</h1>
           <p>Si vous n'avez pas de compte, inscrivez-vous pour continuer.</p>
           <button class="ghost" id="register">S'inscrire
-            <i class="lni lni-arrow-right register"></i>
           </button>
         </div>
       </div>
@@ -145,11 +143,6 @@
       letter-spacing: 0.5px;
       margin: 20px 0 30px;
       text-shadow: 0 0 10px rgba(16, 64, 74, 0.5);
-    }
-
-    span {
-      font-size: 14px;
-      margin-top: 25px;
     }
 
     a {
@@ -559,6 +552,10 @@
       registerButtonMobile.style.opacity = 1;
       loginButtonMobile.style.opacity = 0;
     });
+
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
   </script>
 
 </body>

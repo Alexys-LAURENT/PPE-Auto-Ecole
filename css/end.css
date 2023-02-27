@@ -1,3 +1,6 @@
+* {
+    font-family: 'Karla', sans-serif;
+}
 .hud {
     display: flex;
     width: 100%;
@@ -70,15 +73,15 @@
 }
 
 .question-answers {
-    /* background-color: red; */
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
     width: 80%;
+    gap: 24px;
+        grid-template-columns: repeat(2, 1fr);
 }
 
 .question-explanation {
     width: 80%;
+    font-size: 17.5px;
 }
 
 .answer-choice {
@@ -113,15 +116,15 @@
 }
 
 .subQuestion-answers {
-    /* background-color: red; */
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
     width: 80%;
+    gap: 24px;
+        grid-template-columns: repeat(2, 1fr);
 }
 
 .subQuestion-explanation {
     width: 80%;
+    font-size: 17.5px;
 }
 
 .subAnswer-choice {
@@ -138,4 +141,8 @@
 
 .subAnswer-choice svg {
     margin-left: 15px;
+}
+.correct {
+    background-color: #2b8C52;
+    color: white;
 }

@@ -46,7 +46,7 @@ if (isset($_POST['userPasswordReset'])) {
             </svg> </span> </div>";
     } else {
         $unControleur->setTable("user");
-        $old_password = $_POST['old_password'];
+        $old_password = sha1($_POST['old_password']);
         $new_password = $_POST['new_password'];
         if (!empty($_SESSION['User'])) {
             $currentPassword = $_SESSION['User']['mdp_u'];
@@ -71,16 +71,16 @@ if (isset($_POST['userPasswordReset'])) {
             // $unControleur->update($tab, 'id_u', isset($_SESSION['User']) ? $_SESSION['User']['id_u'] : (isset($_SESSION['Moniteur']) ? $_SESSION['Moniteur']['id_u'] : (isset($_SESSION['Admin']) ? $_SESSION['Admin']['id_u'] : null)));
             // $_SESSION['User'] = $unControleur->verifConnection($_SESSION['User']['email_e'], $new_password);
             if (!empty($_SESSION['User'])) {
-                $_SESSION['User'] = $unControleur->verifConnection($_SESSION['User']['email_u'], $new_password);
+                $_SESSION['User'] = $unControleur->verifConnection($_SESSION['User']['email_u'], sha1($new_password));
                 $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];
                 $_SESSION['User']['dateinscription_u'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['dateinscription'];
                 $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
                 $_SESSION['formation'] = $formation;
             } elseif (!empty($_SESSION['Moniteur'])) {
-                $_SESSION['Moniteur'] = $unControleur->verifConnection($_SESSION['Moniteur']['email_u'], $new_password);
+                $_SESSION['Moniteur'] = $unControleur->verifConnection($_SESSION['Moniteur']['email_u'], sha1($new_password));
                 $_SESSION['Moniteur']['dateembauche_u'] = $unControleur->selectWhere("moniteur", "id_u", $_SESSION['Moniteur']['id_u'])['dateembauche'];
             } elseif (!empty($_SESSION['Admin'])) {
-                $_SESSION['Admin'] = $unControleur->verifConnection($_SESSION['Admin']['email_u'], $new_password);
+                $_SESSION['Admin'] = $unControleur->verifConnection($_SESSION['Admin']['email_u'], sha1($new_password));
             }
             echo "<div class='col-md-3 alert alert-success'>Votre mot de passe a été modifié avec succes !<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
                 <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
@@ -95,7 +95,7 @@ if (isset($_POST['MonitInfosChange'])) {
             <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
             </svg> </span> </div>";
     } else {
-        $old_password = $_POST['old_password'];
+        $old_password = sha1($_POST['old_password']);
         $new_password = $_POST['new_password'];
         if (!empty($_SESSION['User'])) {
             $currentPassword = $_SESSION['User']['mdp_u'];
@@ -112,16 +112,17 @@ if (isset($_POST['MonitInfosChange'])) {
             $unControleur->setTable("user");
             $tab = array("mdp_u" => $_POST['new_password'], "security_question" => $_POST['security_question'], "security_answer" => $_POST['security_answer']);
             $unControleur->update($tab, 'id_u', $_SESSION['Moniteur']['id_u']);
-            $_SESSION['Moniteur'] = $unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']['id_u']);
+            $_SESSION['Moniteur'] = $unControleur->verifConnection($_SESSION['Moniteur']['email_u'], $_POST['new_password']);
             $_SESSION['Moniteur']['dateembauche_u'] = $unControleur->selectWhere("moniteur", "id_u", $_SESSION['Moniteur']['id_u'])['dateembauche'];
-            echo "<div class='col-md-3 alert alert-success'>Vos informations ont été modifiées avec succes !<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
-        <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
-        </svg> </span> </div>";
+            echo
+            "<div class='col-md-3 alert alert-success'>Vos informations ont été modifiées avec succes !<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+                    <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+                    </svg> </span> </div>";
         }
     }
 } else {
     if (isset($_SESSION['Moniteur'])) {
-        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == "ValAuto123") {
+        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == sha1("ValAuto123")) {
             echo "<div class='col-md-3 alert alert-danger'>Veuillez modifier votre mot de passe et vos questions de sécurité<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
                 <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
               </svg> </span> </div>";
@@ -171,7 +172,7 @@ $date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtoti
                     ?>
                     <?php
                     if (isset($_SESSION['Moniteur'])) {
-                        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == "ValAuto123") {
+                        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == sha1("ValAuto123")) {
                             echo '<button class="btn-reset-password" data-bs-toggle="modal" data-bs-target="#modalInfosMonit">Changer mes informations</button>';
                         } else {
                             echo '<button class="btn-reset-password" data-bs-toggle="modal" data-bs-target="#exampleModal">Changer mon mot de passe</button>';
@@ -243,7 +244,7 @@ $date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtoti
 
     <?php
     if (isset($_SESSION['Moniteur'])) {
-        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == "ValAuto123") {
+        if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == sha1("ValAuto123")) {
             require_once("views/_modalInfosMonit.php");
         } else {
             require_once("views/_modalResetPassword.php");
@@ -258,5 +259,10 @@ $date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtoti
     ?>
 </body>
 <script src="./Js/profil.js"></script>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
 
 </html>
