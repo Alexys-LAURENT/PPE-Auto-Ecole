@@ -148,7 +148,7 @@ $heuresEffectuees = floor($heuresEffectuees);
     <main class="py-5 bg-back">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-xl-5 p-3 border rounded-3 text-center text-white my-2 bg-white">
+                <div data-aos="fade-up" class="col-xl-5 p-3 border rounded-3 text-center text-white my-2 bg-white">
                     <div class="row mx-auto my-3">
                         <div class="col-8">
                             <h5 class="text-start text-dark">Ma formation : <?php echo $_SESSION['formation']['nom_f'] ?></h5>
@@ -194,7 +194,7 @@ $heuresEffectuees = floor($heuresEffectuees);
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 p-3 border rounded-3 my-2 bg-white">
+                    <div data-aos="fade-up" class="col-xl-5 p-3 border rounded-3 my-2 bg-white">
                         <div class="row mx-auto">
                             <div class="col-1 my-auto">
                                 <div class="border border-dark rounded text-center pointer" onclick="changeMonth(-1);document.getElementById('filtreMois').submit();">
