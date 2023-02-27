@@ -8,12 +8,12 @@
       </div>
       <div class="modal-body">
         <form id="FormAnnulerHeure" action="" method="POST">
-          <select name="motif" id="" class="form-select pointer">
-            <option value="1">L'élève ne s'est pas présenter</option>
-            <option value="1">Le moniteur ne s'est pas présenter</option>
-            <option value="1">Accident / véhicule déféctueux</option>
-            <option value="1">Autre</option>
-          </select>
+            <select name="motif" id="">
+                <option value="1">L'élève ne s'est pas présenter</option>
+                <option value="1">Le moniteur ne s'est pas présenter</option>
+                <option value="1">Accident / véhicule déféctueux</option>
+                <option value="1">Autre</option>
+            </select>
         </form>
       </div>
       <div class="modal-footer">
@@ -24,10 +24,15 @@
   </div>
 </div>
 
+<style>
+    #inputAutre{
+        display: none;
+    }
+</style>
 
 
 <script>
-  document.getElementById("BtnAnnulerHeure").addEventListener("click", function() {
-    document.getElementById("FormAnnulerHeure").submit();
-  });
+    document.getElementById("BtnAnnulerHeure").addEventListener("click", function(){
+        document.getElementById("FormAnnulerHeure").submit();
+    });
 </script>
