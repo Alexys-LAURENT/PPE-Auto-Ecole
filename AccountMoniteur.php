@@ -67,7 +67,7 @@ if (isset($_POST['ProposerHeure'])) {
     <main class="py-5 bg-back">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-xl-5 p-3 border rounded-3 text-center my-2 bg-white">
+                <div data-aos="fade-up" class="col-xl-5 p-3 border rounded-3 text-center my-2 bg-white">
                     <h5 class="text-center fw-bold text-dark pt-3"> Heures à valider </h5>
                     <?php
                     if ($heuresAValider != null) {
@@ -150,7 +150,7 @@ if (isset($_POST['ProposerHeure'])) {
                     }
                     ?>
                 </div>
-                <div class="col-xl-5 p-3 border rounded-3 my-2 bg-white">
+                <div data-aos="fade-up" class="col-xl-5 p-3 border rounded-3 my-2 bg-white">
                     <div class="row mx-auto">
                         <div class="col-1 my-auto">
                             <div class="border border-dark rounded text-center pointer" onclick="changeMonth(-1);document.getElementById('filtreMois').submit();">
@@ -313,6 +313,7 @@ if (isset($_POST['ProposerHeure'])) {
     </main>
     <?php
     require_once('./views/_modalRefusMonit.php');
+    require_once('./views/_modalAnnulerHeure.php');
     require_once("./views/_footer.php");
     ?>
 
