@@ -56,6 +56,11 @@ class Controleur
         return $this->unModele->selectWhere($table, $colonne, $valeur);
     }
 
+    public function selectAllWhere($table, $colonne, $valeur)
+    {
+        return $this->unModele->selectAllWhere($table, $colonne, $valeur);
+    }
+
     public function selectWhere2($table, $colonne, $valeur, $colonne2, $valeur2)
     {
         return $this->unModele->selectWhere2($table, $colonne, $valeur, $colonne2, $valeur2);

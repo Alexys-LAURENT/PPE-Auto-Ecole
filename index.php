@@ -28,11 +28,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
         } else {
             $email = $_POST['email'];
             $mdp = sha1($_POST['mdp']);
-            // //Hachage avec un grain de sel
-            // $unControleur->setTable("grainSel");
-            // $resultat = $unControleur->selectAll();
-            // $nb = $resultat[0]['nb'];
-            // $mdp = sha1($mdp . $nb);
+
             $_SESSION['User'] = $unControleur->verifConnection($email, $mdp);
             if ($_SESSION['User'] != null && $_SESSION['User']['role_u'] == "eleve") {
                 $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];

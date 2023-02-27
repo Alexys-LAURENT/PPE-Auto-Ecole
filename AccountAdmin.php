@@ -27,7 +27,7 @@
         $unControleur->insert($tab);
     }
 
-    $moniteurs = $unControleur->selectWhere("user", "role_u", "moniteur");
+        $moniteurs = $unControleur->selectAllWhere("user", "role_u", "moniteur");
 
     if (isset($_POST['SuppMoniteur'])) {
         $unControleur->setTable("user");

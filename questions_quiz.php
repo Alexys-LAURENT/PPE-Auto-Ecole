@@ -11,4 +11,8 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
 
 $questions = $unControleur->selectAll("questions_quiz");
 
-echo json_encode($questions);
+foreach ($questions as $key => $value) {
+    var_dump(utf8_encode($unControleur->selectAllWhere("reponses_quiz", "id_question", $value["id_question"])));
+}
+
+// echo utf8_encode(json_encode($questions));
