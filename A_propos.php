@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="row my-5 py-4">
+            <div data-aos="fade-left" class="row my-5 py-4">
                 <div class="col-xl-8 align-self-center">
                     <p>
                         Nous nous efforçons de toujours fournir un service client exceptionnel.
@@ -63,7 +63,7 @@
                     <img src="images/service-client.jpg" alt="" width="500rem" class="img-fluid rounded-3">
                 </div>
             </div>
-            <div  data-aos="fade-up" class="row my-5 py-4">
+            <div data-aos="fade-up" class="row my-5 py-4">
                 <div class="col-md-8 bg-light text-center mx-auto rounded-3 p-3">
                     <p>
                         N'hésitez pas à <a href="mailto:contact@valauto.com" target="_blank">nous contacter</a> pour en savoir plus sur nos services
