@@ -13,7 +13,7 @@
     require_once("./views/_navbar.php");
     ?>
     <div class="banner mb-5 position-relative">
-        <h1 class="slogan my-5 text-center">À propos de nous!</h1>
+        <h1  data-aos="fade-up" class="slogan my-5 text-center">À propos de nous!</h1>
         <div class="voiture position-absolute">
             <img src="images/voiture.avif" alt="" width="100px" height="100px" class="position-relative voiture-img">
         </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-grey">
+        <div data-aos="fade-right" class="bg-grey">
             <div class="container">
                 <div class="row my-5 py-4">
                     <div class="col-4 text-center align-self-center">
@@ -63,7 +63,7 @@
                     <img src="images/service-client.jpg" alt="" width="500rem" class="img-fluid rounded-3">
                 </div>
             </div>
-            <div class="row my-5 py-4">
+            <div  data-aos="fade-up" class="row my-5 py-4">
                 <div class="col-md-8 bg-light text-center mx-auto rounded-3 p-3">
                     <p>
                         N'hésitez pas à <a href="mailto:contact@valauto.com" target="_blank">nous contacter</a> pour en savoir plus sur nos services
@@ -74,7 +74,6 @@
             </div>
         </div>
     </main>
-    <div class="">
 
 
 

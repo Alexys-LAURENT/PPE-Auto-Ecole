@@ -145,9 +145,6 @@ LOCK TABLES `eleve` WRITE;
 
 ;
 
-INSERT INTO `eleve`
-VALUES (10, 2, '2023-02-10'), (18, NULL, '2023-02-16');
-
 /*!40000 ALTER TABLE `eleve` ENABLE KEYS */
 
 ;
@@ -196,183 +193,6 @@ LOCK TABLES `formule` WRITE;
 
 ;
 
-INSERT INTO `formule`
-VALUES (
-        1,
-        'Code de la route',
-        9.99,
-        NULL,
-        NULL
-    ), (
-        2,
-        'Permis B',
-        599.00,
-        20.00,
-        'Manuelle'
-    ), (
-        3,
-        'Pack 5h conduite',
-        200.00,
-        NULL,
-        NULL
-    ), (
-        4,
-        'Pack 10h conduite',
-        350.00,
-        NULL,
-        NULL
-    ), (
-        5,
-        'Pack 20h conduite',
-        600.00,
-        NULL,
-        NULL
-    ), (
-        6,
-        '1h ?valuation',
-        35.00,
-        NULL,
-        NULL
-    ), (
-        7,
-        'Conduite accompagn?',
-        999.00,
-        NULL,
-        NULL
-    ), (
-        8,
-        'Code R?ussite',
-        29.99,
-        NULL,
-        NULL
-    ), (
-        9,
-        'Permis B',
-        749.00,
-        25.00,
-        'Manuelle'
-    ), (
-        10,
-        'Permis B',
-        1059.00,
-        30.00,
-        'Manuelle'
-    ), (
-        11,
-        'Permis A1',
-        560.00,
-        20.00,
-        NULL
-    ), (
-        12,
-        'Permis A2',
-        560.00,
-        20.00,
-        NULL
-    ), (
-        13,
-        'Passerelle A2 vers A',
-        225.00,
-        7.00,
-        NULL
-    ), (
-        14,
-        'Permis AM / BSR',
-        243.00,
-        8.00,
-        NULL
-    ), (
-        15,
-        'Permis B',
-        899.00,
-        20.00,
-        'Automatique'
-    ), (
-        16,
-        'Permis B',
-        1049.00,
-        25.00,
-        'Automatique'
-    ), (
-        17,
-        'Permis B',
-        1359.00,
-        30.00,
-        'Automatique'
-    ), (
-        18,
-        'Permis B accompagn?',
-        739.00,
-        20.00,
-        'Manuelle'
-    ), (
-        19,
-        'Permis B accompagn?',
-        889.00,
-        25.00,
-        'Manuelle'
-    ), (
-        20,
-        'Permis B accompagn?',
-        1199.00,
-        30.00,
-        'Manuelle'
-    ), (
-        21,
-        'Permis B accompagn?',
-        1039.00,
-        20.00,
-        'Automatique'
-    ), (
-        22,
-        'Permis B accompagn?',
-        1189.00,
-        25.00,
-        'Automatique'
-    ), (
-        23,
-        'Permis B accompagn?',
-        1499.00,
-        30.00,
-        'Automatique'
-    ), (
-        24,
-        'Permis B accel?r?',
-        899.00,
-        20.00,
-        'Manuelle'
-    ), (
-        25,
-        'Permis B accel?r?',
-        1049.00,
-        25.00,
-        'Manuelle'
-    ), (
-        26,
-        'Permis B accel?r?',
-        1359.00,
-        30.00,
-        'Manuelle'
-    ), (
-        27,
-        'Permis B accel?r?',
-        1199.00,
-        20.00,
-        'Automatique'
-    ), (
-        28,
-        'Permis B accel?r?',
-        1349.00,
-        25.00,
-        'Automatique'
-    ), (
-        29,
-        'Permis B accel?r?',
-        1659.00,
-        30.00,
-        'Automatique'
-    );
-
 /*!40000 ALTER TABLE `formule` ENABLE KEYS */
 
 ;
@@ -418,9 +238,6 @@ LOCK TABLES `moniteur` WRITE;
 /*!40000 ALTER TABLE `moniteur` DISABLE KEYS */
 
 ;
-
-INSERT INTO `moniteur`
-VALUES (15, '2021-02-10', '2020-01-01'), (21, '2023-01-04', '2021-02-11'), (24, '2020-01-01', '2019-01-01');
 
 /*!40000 ALTER TABLE `moniteur` ENABLE KEYS */
 
@@ -637,6 +454,456 @@ LOCK TABLES `questions_quiz` WRITE;
 /*!40000 ALTER TABLE `questions_quiz` DISABLE KEYS */
 
 ;
+
+/*!40000 ALTER TABLE `questions_quiz` ENABLE KEYS */
+
+;
+
+UNLOCK TABLES;
+
+--
+
+-- Table structure for table `roule`
+
+--
+
+DROP TABLE IF EXISTS `roule`;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+
+;
+
+/*!40101 SET character_set_client = utf8 */
+
+;
+
+CREATE TABLE
+    `roule` (
+        `id_v` int(11) NOT NULL,
+        `annee_mois` year(4) NOT NULL,
+        `nb_km_mois` float(8, 2) DEFAULT NULL,
+        PRIMARY KEY (`id_v`),
+        CONSTRAINT `roule_ibfk_1` FOREIGN KEY (`id_v`) REFERENCES `vehicule` (`id_v`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+/*!40101 SET character_set_client = @saved_cs_client */
+
+;
+
+--
+
+-- Dumping data for table `roule`
+
+--
+
+LOCK TABLES `roule` WRITE;
+
+/*!40000 ALTER TABLE `roule` DISABLE KEYS */
+
+;
+
+/*!40000 ALTER TABLE `roule` ENABLE KEYS */
+
+;
+
+UNLOCK TABLES;
+
+--
+
+-- Table structure for table `user`
+
+--
+
+DROP TABLE IF EXISTS `user`;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+
+;
+
+/*!40101 SET character_set_client = utf8 */
+
+;
+
+CREATE TABLE
+    `user` (
+        `id_u` int(11) NOT NULL AUTO_INCREMENT,
+        `nom_u` varchar(255) NOT NULL,
+        `prenom_u` varchar(255) NOT NULL,
+        `datenaissance_u` date NOT NULL,
+        `email_u` varchar(255) NOT NULL,
+        `tel_u` char(10) NOT NULL,
+        `adresse_u` varchar(255) NOT NULL,
+        `ville_u` varchar(255) NOT NULL,
+        `codepos_u` varchar(5) NOT NULL,
+        `sexe_u` char(1) DEFAULT NULL,
+        `role_u` enum('eleve', 'moniteur', 'admin') NOT NULL,
+        `mdp_u` varchar(255) NOT NULL,
+        `security_question` varchar(255) NOT NULL,
+        `security_answer` varchar(255) NOT NULL,
+        PRIMARY KEY (`id_u`),
+        UNIQUE KEY `UNIQUE_EMAIL` (`email_u`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 25 DEFAULT CHARSET = latin1;
+
+/*!40101 SET character_set_client = @saved_cs_client */
+
+;
+
+--
+
+-- Dumping data for table `user`
+
+--
+
+LOCK TABLES `user` WRITE;
+
+/*!40000 ALTER TABLE `user` DISABLE KEYS */
+
+;
+
+/*!40000 ALTER TABLE `user` ENABLE KEYS */
+
+;
+
+UNLOCK TABLES;
+
+--
+
+-- Table structure for table `vehicule`
+
+--
+
+DROP TABLE IF EXISTS `vehicule`;
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+
+;
+
+/*!40101 SET character_set_client = utf8 */
+
+;
+
+CREATE TABLE
+    `vehicule` (
+        `id_v` int(11) NOT NULL AUTO_INCREMENT,
+        `type_v` varchar(20) NOT NULL,
+        `model_v` varchar(20) NOT NULL,
+        `marque_v` varchar(15) NOT NULL,
+        `annneimmatri_v` year(4) NOT NULL,
+        `anneachat_v` year(4) NOT NULL,
+        PRIMARY KEY (`id_v`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4;
+
+/*!40101 SET character_set_client = @saved_cs_client */
+
+;
+
+--
+
+-- Dumping data for table `vehicule`
+
+--
+
+LOCK TABLES `vehicule` WRITE;
+
+/*!40000 ALTER TABLE `vehicule` DISABLE KEYS */
+
+;
+
+/*!40000 ALTER TABLE `vehicule` ENABLE KEYS */
+
+;
+
+UNLOCK TABLES;
+
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */
+
+;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */
+
+;
+
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */
+
+;
+
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */
+
+;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
+
+;
+
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
+
+;
+
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
+
+;
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */
+
+DROP TRIGGER IF EXISTS HASH_PASSWORD;
+
+DELIMITER //
+
+CREATE TRIGGER HASH_PASSWORD BEFORE INSERT ON USER 
+FOR EACH ROW BEGIN 
+	SET NEW.mdp_u = SHA1(NEW.mdp_u);
+	END // 
+
+
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS HASH_PASSWORD_UPDATE;
+
+DELIMITER //
+
+CREATE TRIGGER HASH_PASSWORD_UPDATE BEFORE UPDATE ON 
+USER FOR EACH ROW BEGIN 
+	SET NEW.mdp_u = SHA1(NEW.mdp_u);
+	END // 
+
+
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS INSERT_ELEVE;
+
+DELIMITER //
+
+CREATE TRIGGER INSERT_ELEVE AFTER INSERT ON USER FOR 
+EACH ROW BEGIN 
+	IF NEW.role_u = 'eleve' THEN
+	INSERT INTO eleve
+	VALUES (NEW.id_u, null, curdate());
+	END IF;
+	END // 
+
+
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS AFFECTATION_MONITEUR;
+
+DELIMITER //
+
+-- si l'élève a déja une heure dans la table planning , on affecte le moniteur à la nouvelle heure
+
+CREATE TRIGGER AFFECTATION_MONITEUR BEFORE INSERT ON 
+PLANNING FOR EACH ROW BEGIN 
+	DECLARE id_moniteur INT;
+	IF (
+	    SELECT COUNT(*)
+	    FROM planning
+	    WHERE
+	        id_e = NEW.id_e
+	) != 0 THEN
+	SET id_moniteur = (
+	        SELECT id_m
+	        FROM planning
+	        WHERE id_e = NEW.id_e
+	    );
+	ELSE -- selectionne un moniteur au hasard
+	SET id_moniteur = (
+	        SELECT id_u
+	        FROM USER
+	        WHERE
+	            role_u = 'moniteur'
+	        ORDER BY RAND()
+	        LIMIT 1
+	    );
+	END IF;
+	SET NEW.id_m = id_moniteur;
+	END // 
+
+
+DELIMITER ;
+
+;
+
+INSERT INTO `eleve`
+VALUES (10, 2, '2023-02-10'), (18, NULL, '2023-02-16');
+
+INSERT INTO `formule`
+VALUES (
+        1,
+        'Code de la route',
+        9.99,
+        NULL,
+        NULL
+    ), (
+        2,
+        'Permis B',
+        599.00,
+        20.00,
+        'Manuelle'
+    ), (
+        3,
+        'Pack 5h conduite',
+        200.00,
+        NULL,
+        NULL
+    ), (
+        4,
+        'Pack 10h conduite',
+        350.00,
+        NULL,
+        NULL
+    ), (
+        5,
+        'Pack 20h conduite',
+        600.00,
+        NULL,
+        NULL
+    ), (
+        6,
+        '1h ?valuation',
+        35.00,
+        NULL,
+        NULL
+    ), (
+        7,
+        'Conduite accompagn?',
+        999.00,
+        NULL,
+        NULL
+    ), (
+        8,
+        'Code R?ussite',
+        29.99,
+        NULL,
+        NULL
+    ), (
+        9,
+        'Permis B',
+        749.00,
+        25.00,
+        'Manuelle'
+    ), (
+        10,
+        'Permis B',
+        1059.00,
+        30.00,
+        'Manuelle'
+    ), (
+        11,
+        'Permis A1',
+        560.00,
+        20.00,
+        NULL
+    ), (
+        12,
+        'Permis A2',
+        560.00,
+        20.00,
+        NULL
+    ), (
+        13,
+        'Passerelle A2 vers A',
+        225.00,
+        7.00,
+        NULL
+    ), (
+        14,
+        'Permis AM / BSR',
+        243.00,
+        8.00,
+        NULL
+    ), (
+        15,
+        'Permis B',
+        899.00,
+        20.00,
+        'Automatique'
+    ), (
+        16,
+        'Permis B',
+        1049.00,
+        25.00,
+        'Automatique'
+    ), (
+        17,
+        'Permis B',
+        1359.00,
+        30.00,
+        'Automatique'
+    ), (
+        18,
+        'Permis B accompagn?',
+        739.00,
+        20.00,
+        'Manuelle'
+    ), (
+        19,
+        'Permis B accompagn?',
+        889.00,
+        25.00,
+        'Manuelle'
+    ), (
+        20,
+        'Permis B accompagn?',
+        1199.00,
+        30.00,
+        'Manuelle'
+    ), (
+        21,
+        'Permis B accompagn?',
+        1039.00,
+        20.00,
+        'Automatique'
+    ), (
+        22,
+        'Permis B accompagn?',
+        1189.00,
+        25.00,
+        'Automatique'
+    ), (
+        23,
+        'Permis B accompagn?',
+        1499.00,
+        30.00,
+        'Automatique'
+    ), (
+        24,
+        'Permis B accel?r?',
+        899.00,
+        20.00,
+        'Manuelle'
+    ), (
+        25,
+        'Permis B accel?r?',
+        1049.00,
+        25.00,
+        'Manuelle'
+    ), (
+        26,
+        'Permis B accel?r?',
+        1359.00,
+        30.00,
+        'Manuelle'
+    ), (
+        27,
+        'Permis B accel?r?',
+        1199.00,
+        20.00,
+        'Automatique'
+    ), (
+        28,
+        'Permis B accel?r?',
+        1349.00,
+        25.00,
+        'Automatique'
+    ), (
+        29,
+        'Permis B accel?r?',
+        1659.00,
+        30.00,
+        'Automatique'
+    );
+
+INSERT INTO `moniteur`
+VALUES (15, '2021-02-10', '2020-01-01'), (21, '2023-01-04', '2021-02-11'), (24, '2020-01-01', '2019-01-01');
 
 INSERT INTO `questions_quiz`
 VALUES (
@@ -1158,111 +1425,6 @@ VALUES (
         'Je ne pourrais pas conduire dans le cadre de mon activite professionnelle.'
     );
 
-/*!40000 ALTER TABLE `questions_quiz` ENABLE KEYS */
-
-;
-
-UNLOCK TABLES;
-
---
-
--- Table structure for table `roule`
-
---
-
-DROP TABLE IF EXISTS `roule`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-
-;
-
-/*!40101 SET character_set_client = utf8 */
-
-;
-
-CREATE TABLE
-    `roule` (
-        `id_v` int(11) NOT NULL,
-        `annee_mois` year(4) NOT NULL,
-        `nb_km_mois` float(8, 2) DEFAULT NULL,
-        PRIMARY KEY (`id_v`),
-        CONSTRAINT `roule_ibfk_1` FOREIGN KEY (`id_v`) REFERENCES `vehicule` (`id_v`)
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
-
-/*!40101 SET character_set_client = @saved_cs_client */
-
-;
-
---
-
--- Dumping data for table `roule`
-
---
-
-LOCK TABLES `roule` WRITE;
-
-/*!40000 ALTER TABLE `roule` DISABLE KEYS */
-
-;
-
-/*!40000 ALTER TABLE `roule` ENABLE KEYS */
-
-;
-
-UNLOCK TABLES;
-
---
-
--- Table structure for table `user`
-
---
-
-DROP TABLE IF EXISTS `user`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-
-;
-
-/*!40101 SET character_set_client = utf8 */
-
-;
-
-CREATE TABLE
-    `user` (
-        `id_u` int(11) NOT NULL AUTO_INCREMENT,
-        `nom_u` varchar(255) NOT NULL,
-        `prenom_u` varchar(255) NOT NULL,
-        `datenaissance_u` date NOT NULL,
-        `email_u` varchar(255) NOT NULL,
-        `tel_u` char(10) NOT NULL,
-        `adresse_u` varchar(255) NOT NULL,
-        `ville_u` varchar(255) NOT NULL,
-        `codepos_u` varchar(5) NOT NULL,
-        `sexe_u` char(1) DEFAULT NULL,
-        `role_u` enum('eleve', 'moniteur', 'admin') NOT NULL,
-        `mdp_u` varchar(255) NOT NULL,
-        `security_question` varchar(255) NOT NULL,
-        `security_answer` varchar(255) NOT NULL,
-        PRIMARY KEY (`id_u`),
-        UNIQUE KEY `UNIQUE_EMAIL` (`email_u`)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 25 DEFAULT CHARSET = latin1;
-
-/*!40101 SET character_set_client = @saved_cs_client */
-
-;
-
---
-
--- Dumping data for table `user`
-
---
-
-LOCK TABLES `user` WRITE;
-
-/*!40000 ALTER TABLE `user` DISABLE KEYS */
-
-;
-
 INSERT INTO `user`
 VALUES (
         10,
@@ -1356,55 +1518,6 @@ VALUES (
         'reponse'
     );
 
-/*!40000 ALTER TABLE `user` ENABLE KEYS */
-
-;
-
-UNLOCK TABLES;
-
---
-
--- Table structure for table `vehicule`
-
---
-
-DROP TABLE IF EXISTS `vehicule`;
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */
-
-;
-
-/*!40101 SET character_set_client = utf8 */
-
-;
-
-CREATE TABLE
-    `vehicule` (
-        `id_v` int(11) NOT NULL AUTO_INCREMENT,
-        `type_v` varchar(20) NOT NULL,
-        `model_v` varchar(20) NOT NULL,
-        `marque_v` varchar(15) NOT NULL,
-        `annneimmatri_v` year(4) NOT NULL,
-        `anneachat_v` year(4) NOT NULL,
-        PRIMARY KEY (`id_v`)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4;
-
-/*!40101 SET character_set_client = @saved_cs_client */
-
-;
-
---
-
--- Dumping data for table `vehicule`
-
---
-
-LOCK TABLES `vehicule` WRITE;
-
-/*!40000 ALTER TABLE `vehicule` DISABLE KEYS */
-
-;
-
 INSERT INTO `vehicule`
 VALUES (
         1,
@@ -1436,116 +1549,4 @@ VALUES (
         2020
     );
 
-/*!40000 ALTER TABLE `vehicule` ENABLE KEYS */
-
-;
-
-UNLOCK TABLES;
-
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */
-
-;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */
-
-;
-
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */
-
-;
-
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */
-
-;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
-
-;
-
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
-
-;
-
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
-
-;
-
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */
-
-;
-
 -- Dump completed on 2023-02-24 10:25:01
-
-DROP TRIGGER IF EXISTS HASH_PASSWORD;
-
-DELIMITER //
-
-CREATE TRIGGER HASH_PASSWORD BEFORE INSERT ON USER 
-FOR EACH ROW BEGIN 
-	SET NEW.mdp_u = SHA1(NEW.mdp_u);
-	END // 
-
-
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS HASH_PASSWORD_UPDATE;
-
-DELIMITER //
-
-CREATE TRIGGER HASH_PASSWORD_UPDATE BEFORE UPDATE ON 
-USER FOR EACH ROW BEGIN 
-	SET NEW.mdp_u = SHA1(NEW.mdp_u);
-	END // 
-
-
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS INSERT_ELEVE;
-
-DELIMITER //
-
-CREATE TRIGGER INSERT_ELEVE AFTER INSERT ON USER FOR 
-EACH ROW BEGIN 
-	IF NEW.role_u = 'eleve' THEN
-	INSERT INTO eleve
-	VALUES (NEW.id_u, null, curdate());
-	END IF;
-	END // 
-
-
-DELIMITER ;
-DROP TRIGGER IF EXISTS AFFECTATION_MONITEUR;
-
-DELIMITER //
-
--- si l'élève a déja une heure dans la table planning , on affecte le moniteur à la nouvelle heure
-
-CREATE TRIGGER AFFECTATION_MONITEUR BEFORE INSERT ON 
-PLANNING FOR EACH ROW BEGIN 
-	DECLARE id_moniteur INT;
-	IF (
-	    SELECT COUNT(*)
-	    FROM planning
-	    WHERE
-	        id_e = NEW.id_e
-	) != 0 THEN
-	SET id_moniteur = (
-	        SELECT id_m
-	        FROM planning
-	        WHERE id_e = NEW.id_e
-	    );
-	ELSE -- selectionne un moniteur au hasard
-	SET id_moniteur = (
-	        SELECT id_u
-	        FROM USER
-	        WHERE
-	            role_u = 'moniteur'
-	        ORDER BY RAND()
-	        LIMIT 1
-	    );
-	END IF;
-	SET NEW.id_m = id_moniteur;
-	END // 
-
-
-DELIMITER ;

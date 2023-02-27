@@ -155,7 +155,7 @@ $date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtoti
     ?>
     <div class="body d-flex justify-content-center">
         <div class="main">
-            <div class="profil-container mt-5">
+            <div data-aos="fade-up" class="profil-container mt-5">
                 <div class="profil-img">
                     <img class="rounded-circle" src="<?php echo $grav_url; ?>" alt="">
                 </div>
@@ -184,7 +184,7 @@ $date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtoti
                 </div>
             </div>
 
-            <div class="infos-container mt-5">
+            <div data-aos="fade-up" class="infos-container mt-5">
                 <div class="ligne">
                     <div class="label">
                         <p>Nom Complet</p>

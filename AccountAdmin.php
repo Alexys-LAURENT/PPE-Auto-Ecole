@@ -51,7 +51,7 @@
 
         <main class="py-5 bg-back">
             <div class="container">
-                <div class="col-12 p-3 border rounded-3 my-2 bg-white">
+                <div data-aos="fade-up" class="col-12 p-3 border rounded-3 my-2 bg-white">
                     <h5 class="text-center fw-bold text-dark py-3"> Insertion d'un moniteur </h5>
                     <form method="post">
                         <div class="col-10 mx-auto">
@@ -133,7 +133,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-12 p-3 border rounded-3 my-2 bg-white">
+                <div data-aos="fade-up" class="col-12 p-3 border rounded-3 my-2 bg-white">
                     <h5 class="text-center fw-bold text-dark py-3"> Suppression d'un moniteur </h5>
                     <form method="post">
                         <div class="col-10 mx-auto">
