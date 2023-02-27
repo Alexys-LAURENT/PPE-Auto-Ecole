@@ -12,6 +12,7 @@ if (isset($_SESSION['Moniteur'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <title>Accueil</title>
 </head>
@@ -38,8 +39,8 @@ if (isset($_SESSION['Moniteur'])) {
 
     <div class="banner mb-5">
         <div class="container-xs">
-            <h1 class="slogan py-5 text-center">Du permis voiture à moto!</h1>
-            <div class="mt-5 row text-center justify-content-around">
+            <h1 data-aos="fade-up" class="slogan py-5 text-center">Du permis voiture à moto!</h1>
+            <div data-aos="fade-up" class="mt-5 row text-center justify-content-around">
                 <div class="card-top col-md-5 py-4">
                     <h3 class="fw-bold">Formation Permis B</h3>
                     <small class="text-muted">à partir de 599€</small><br>
@@ -73,7 +74,7 @@ if (isset($_SESSION['Moniteur'])) {
             </div>
         </div>
 
-        <div class="bg-grey">
+        <div data-aos="fade-right" class="bg-grey">
             <div class="container-xxl">
                 <div class="col-md-12">
                     <h2 class="title text-center pt-4">Pourquoi choisir Val’auto ?</h2>
@@ -133,7 +134,7 @@ if (isset($_SESSION['Moniteur'])) {
             </div>
         </div>
 
-        <div class="bg-grey">
+        <div data-aos="fade-right" class="bg-grey">
             <div class="container-xxl">
                 <div class="col-md-12">
                     <h2 class="title text-center pt-4">Des offres allant du code de la route <br> au permis B et A !</h2>
