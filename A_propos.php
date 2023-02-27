@@ -12,13 +12,13 @@
     <?php
     require_once("./views/_navbar.php");
     ?>
-    <div class="banner mb-5 position-relative">
-        <h1  data-aos="fade-up" class="slogan my-5 text-center">À propos de nous!</h1>
+    <div class="banner mb-5 position-relative fs-5">
+        <h1 class="slogan my-5 text-center">À propos de nous!</h1>
         <div class="voiture position-absolute">
             <img src="images/voiture.avif" alt="" width="100px" height="100px" class="position-relative voiture-img">
         </div>
     </div>
-    <main>
+    <main class="fs-5">
         <div class="container">
             <div class="row my-5 py-4">
                 <div class="col-8 align-self-center">
@@ -78,9 +78,9 @@
 
 
 
-        <?php
-        require_once("./views/_footer.php");
-        ?>
+    <?php
+    require_once("./views/_footer.php");
+    ?>
 </body>
 
 </html>
@@ -92,7 +92,6 @@
         font-family: 'Karla';
         overflow-x: hidden;
     }
-
 
 
     #A-Propos {
@@ -232,16 +231,6 @@
 
         100% {
             transform: scale(0);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
         }
     }
 

@@ -66,12 +66,14 @@
     <div class="overlay-conteneur">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
+          <img src="./images/logo.png" alt="logo" width="125px" height="125px" class="img-fluid mb-5">
           <h1 class="title">Bienvenue</h1>
           <p>Si vous avez déjà un compte, connectez-vous pour continuer.</p>
           <button class="ghost" id="login">Se connecter
           </button>
         </div>
         <div class="overlay-panel overlay-right">
+          <img src="./images/logo.png" alt="logo" width="125px" height="125px" class="img-fluid mb-5">
           <h1 class="title">Démarrez votre voyage</h1>
           <p>Si vous n'avez pas de compte, inscrivez-vous pour continuer.</p>
           <button class="ghost" id="register">S'inscrire
@@ -465,7 +467,7 @@
       border: 1px solid #4bb6b7;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1100px) {
       .conteneur.right-panel-active .register-conteneur {
         animation: show-mobile 0.6s !important;
       }
