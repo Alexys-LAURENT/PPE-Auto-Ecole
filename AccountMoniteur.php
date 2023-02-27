@@ -273,9 +273,9 @@ if (isset($_POST['ProposerHeure'])) {
                                     echo "<div class='d-flex align-items-center'>";
 
                                     //si la date_diff() est > 7 jours
-                                    if (date_diff(date_create(date("Y-m-d")), date_create($heure['datehf']))->format("%a") <= 7) {
+                                    if (date_diff(date_create(date("Y-m-d")), date_create($heure['datehf']))->format("%a") <= 15) {
                                         echo '
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAnnulerHeure">
+                                        <button type="button" class="btn btn-link text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalAnnulerHeure">
                                             Annuler
                                         </button>';
                                     }
