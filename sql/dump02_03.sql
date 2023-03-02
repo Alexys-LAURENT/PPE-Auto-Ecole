@@ -444,6 +444,31 @@ LOCK TABLES `vehicule` WRITE;
 INSERT INTO `vehicule` VALUES (1,'4 roue diesel','206','renault',2019,2020),(2,'4 roue diesel','Civic','Honda',2020,2021),(3,'hybride','308','peugeot',2019,2021),(4,'4 roue diesel','C4','citro?n',2018,2020);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'autoecole'
+--
+/*!50106 SET @save_time_zone= @@TIME_ZONE */ ;
+/*!50106 DROP EVENT IF EXISTS `mettre_a_jour_etat` */;
+DELIMITER ;;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;;
+/*!50003 SET character_set_client  = cp850 */ ;;
+/*!50003 SET character_set_results = cp850 */ ;;
+/*!50003 SET collation_connection  = cp850_general_ci */ ;;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;;
+/*!50003 SET @saved_time_zone      = @@time_zone */ ;;
+/*!50003 SET time_zone             = 'SYSTEM' */ ;;
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `mettre_a_jour_etat` ON SCHEDULE EVERY 1 MINUTE STARTS '2023-03-01 17:24:02' ON COMPLETION NOT PRESERVE ENABLE DO CALL verifier_et_mettre_a_jour_etat() */ ;;
+/*!50003 SET time_zone             = @saved_time_zone */ ;;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;;
+/*!50003 SET character_set_results = @saved_cs_results */ ;;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;;
+DELIMITER ;
+/*!50106 SET TIME_ZONE= @save_time_zone */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -454,4 +479,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-02  8:13:11
+-- Dump completed on 2023-03-02  8:16:02

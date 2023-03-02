@@ -24,6 +24,7 @@
         display: flex;
         font-family: 'Karla', sans-serif;
         color: white;
+        z-index: 999;
     }
 
     .gauche {
