@@ -469,6 +469,33 @@ DELIMITER ;;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;;
 DELIMITER ;
 /*!50106 SET TIME_ZONE= @save_time_zone */ ;
+
+--
+-- Dumping routines for database 'autoecole'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `verifier_et_mettre_a_jour_etat` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = cp850 */ ;
+/*!50003 SET character_set_results = cp850 */ ;
+/*!50003 SET collation_connection  = cp850_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_et_mettre_a_jour_etat`()
+BEGIN
+  UPDATE planning SET etat = 'Effectuer'
+  WHERE datehf < NOW() AND etat = 'Valider';
+
+  UPDATE planning SET etat = 'Annuler', motifAnnulation = 'Date de validation d‚pass‚e'
+  WHERE datehf < NOW() AND etat IN ('En attente user', 'En attente moniteur');
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -479,4 +506,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-02  8:16:02
+-- Dump completed on 2023-03-02  8:20:09
