@@ -134,7 +134,7 @@ if (isset($_SESSION['Moniteur'])) {
             </div>
         </div>
 
-        <div data-aos="fade-right" class="bg-grey">
+        <div data-aos="fade-left" class="bg-grey">
             <div class="container-xxl">
                 <div class="col-md-12">
                     <h2 class="title text-center pt-4">Des offres allant du code de la route <br> au permis B et A !</h2>
@@ -196,6 +196,7 @@ if (isset($_SESSION['Moniteur'])) {
     html,
     body {
         font-family: 'Karla';
+        overflow-x: hidden;
     }
 
     #Accueil {

@@ -18,7 +18,7 @@
           <input type="text" placeholder="Nom" name="nom">
           <input type="text" placeholder="Prénom" name="prenom">
         </div>
-        <select name="sexe" id="">
+        <select name="sexe" id="sexe">
           <option value="">Sexe</option>
           <option value="M">Homme</option>
           <option value="F">Femme</option>
@@ -30,12 +30,13 @@
         </div>
         <div class="rowInputs">
           <input type="text" placeholder="Téléphone" name="tel" maxlength="10">
-          <input type="date" placeholder="" name="date">
+          <!-- <input type="date" placeholder="" name="date"> -->
+          <input type="text" name="date" id="date-input" placeholder="Date de naissance" onfocus="(this.type='date')" onblur="(this.value === '' ? this.type='text' : null)" onchange="(this.value != '' ? this.setAttribute('data-placeholder', this.value) : this.setAttribute('placeholder', 'Date de naissance'))">
         </div>
         <input type="email" placeholder="Email" name="email">
         <input type="password" placeholder="Mot de passe" name="mdp">
         <div class="rowInputs">
-          <select name="security_question" id="">
+          <select name="security_question" id="security_question">
             <option value="">Question de sécurité</option>
             <option value="Quelle est votre couleur préférée ?">Quel est votre couleur préférée ?</option>
             <option value="Quel est votre genre de film préféré ?">Quel est votre genre de film préféré ?</option>
@@ -526,6 +527,10 @@
         animation: show 0.6s;
       }
     }
+
+    .error {
+      outline: 1.5px solid red;
+    }
   </style>
 
   <script>
@@ -558,6 +563,80 @@
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
+
+    var dateInput = document.getElementById('date-input');
+    if (dateInput.getAttribute('data-placeholder')) {
+      dateInput.type = 'date';
+      dateInput.value = dateInput.getAttribute('data-placeholder');
+    }
+
+    //get all buttons type submit
+    var buttonsSubmit = document.querySelectorAll('button[type="submit"]');
+    //loop through buttons
+    buttonsSubmit.forEach(e => {
+      e.addEventListener('click', function(event) {
+        //get form
+        var form = e.closest('form');
+        //get all inputs
+        var inputs = form.querySelectorAll('input');
+        //loop through inputs
+        inputs.forEach(e => {
+          //check if input is empty
+          if (e.value == '') {
+            //add class error
+            e.classList.add('error');
+          } else {
+            //remove class error
+            e.classList.remove('error');
+          }
+
+          //add blur event
+          e.addEventListener('blur', function() {
+            //check if input is empty
+            if (e.value == '') {
+              //add class error
+              e.classList.add('error');
+            } else {
+              //remove class error
+              e.classList.remove('error');
+            }
+          });
+        });
+
+        //get all selects
+        var selects = form.querySelectorAll('select');
+        //loop through selects
+        selects.forEach(e => {
+          //check if select is empty
+          if (e.value == '') {
+            //add class error
+            e.classList.add('error');
+          } else {
+            //remove class error
+            e.classList.remove('error');
+          }
+
+          //add change event
+          e.addEventListener('change', function() {
+            //check if select is empty
+            if (e.value == '') {
+              //add class error
+              e.classList.add('error');
+            } else {
+              //remove class error
+              e.classList.remove('error');
+            }
+          });
+        });
+
+
+        // if no error on inputs and select submit form
+        if (form.querySelectorAll('.error').length != 0) {
+          //prevent default action
+          event.preventDefault();
+        }
+      });
+    });
   </script>
 
 </body>

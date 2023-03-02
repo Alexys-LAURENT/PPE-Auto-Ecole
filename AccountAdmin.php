@@ -27,7 +27,7 @@
         $unControleur->insert($tab);
     }
 
-        $moniteurs = $unControleur->selectAllWhere("user", "role_u", "moniteur");
+    $moniteurs = $unControleur->selectAllWhere("user", "role_u", "moniteur");
 
     if (isset($_POST['SuppMoniteur'])) {
         $unControleur->setTable("user");
@@ -55,51 +55,51 @@
                     <h5 class="text-center fw-bold text-dark py-3"> Insertion d'un moniteur </h5>
                     <form method="post">
                         <div class="col-10 mx-auto">
-                            <div class="row justify-content-center my-2">
-                                <div class="col-xxl-3">
+                            <div class="row justify-content-center">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="nom">Nom</label>
                                     <input id="nom" type="text" class="form-control" name="nom" required>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="prenom">Prénom</label>
                                     <input id="prenom" type="text" class="form-control" name="prenom" required>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="email">Email</label>
                                     <input id="email" type="email" class="form-control" name="email" required>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="datenaissance">Date de naissance</label>
                                     <input id="datenaissance" type="date" class="form-control" name="datenaissance" required>
                                 </div>
                             </div>
-                            <div class="row justify-content-center my-2">
-                                <div class="col-xxl-3">
+                            <div class="row justify-content-center">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="telephone">Téléphone</label>
                                     <input id="telephone" type="tel" class="form-control" name="telephone" required>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="adresse">Adresse</label>
                                     <input id="adresse" type="text" class="form-control" name="adresse" required>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="codepostal">Code postal</label>
                                     <input id="codepostal" type="text" class="form-control" name="codepostal" required>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="ville">Ville</label>
                                     <input id="ville" type="text" class="form-control" name="ville" required>
                                 </div>
                             </div>
-                            <div class="row justify-content-center my-2">
-                                <div class="col-xxl-3">
+                            <div class="row justify-content-center">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="sexe">Sexe</label>
                                     <select id="sexe" class="form-select pointer" name="sexe" required>
                                         <option value="M">Homme</option>
                                         <option value="F">Femme</option>
                                     </select>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="motdepasse">Mot de passe temporaire</label>
                                     <div class="input-group">
                                         <input class="form-control" id="password" type="password" value="ValAuto123" readonly disabled>
@@ -118,11 +118,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="dateembauche">Date d'embauche</label>
                                     <input id="dateembauche" type="date" class="form-control" name="dateembauche" required>
                                 </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-3 mb-3">
                                     <label for="dateobtentionbafm">Date d'obtention du BAFM</label>
                                     <input id="dateobtentionbafm" type="date" class="form-control" name="dateobtentionbafm" required>
                                 </div>

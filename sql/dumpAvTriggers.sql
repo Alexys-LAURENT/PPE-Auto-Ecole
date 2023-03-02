@@ -693,29 +693,45 @@ DELIMITER //
 CREATE TRIGGER AFFECTATION_MONITEUR BEFORE INSERT ON 
 PLANNING FOR EACH ROW BEGIN 
 	DECLARE id_moniteur INT;
-	IF (
-	    SELECT COUNT(*)
-	    FROM planning
-	    WHERE
-	        id_e = NEW.id_e
-	) != 0 THEN
-	SET id_moniteur = (
-	        SELECT id_m
-	        FROM planning
-	        WHERE id_e = NEW.id_e
-	    );
-	ELSE -- selectionne un moniteur au hasard
-	SET id_moniteur = (
-	        SELECT id_u
-	        FROM USER
-	        WHERE
-	            role_u = 'moniteur'
-	        ORDER BY RAND()
-	        LIMIT 1
-	    );
+-- Si l'élève a déjà une heure dans la table planning, on affecte le même moniteur
+
+SELECT id_m INTO id_moniteur
+FROM planning
+WHERE id_e = NEW.id_e
+LIMIT 1;
+
+-- Si l'élève n'a pas encore de cours dans la table planning, on choisit un moniteur qui n'a pas encore d'heures
+
+IF id_moniteur IS NULL THEN
+SELECT id_u INTO id_moniteur
+FROM USER
+WHERE role_u = 'moniteur'
+AND id_u NOT IN (
+    SELECT id_m
+    FROM planning
+)
+LIMIT 1;
+
+END IF;
+
+-- Si on n'a pas trouvé de moniteur qui n'a pas d'heures, on choisit celui qui a le moins d'heures en tout
+
+IF id_moniteur IS NULL THEN
+SELECT id_m INTO id_moniteur
+FROM (
+        SELECT
+            id_m,
+            COUNT(*) AS nb_heures
+        FROM planning
+        GROUP BY id_m
+        ORDER BY
+            nb_heures ASC
+    ) AS t
+LIMIT 1;
 	END IF;
 	SET NEW.id_m = id_moniteur;
 	END // 
+
 
 
 DELIMITER ;
