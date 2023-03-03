@@ -88,25 +88,25 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
             </svg> </span> </div>";
             } else {
-            $unUser = $unControleur->Register($tab);
-            if ($unUser == null) {
+                $unUser = $unControleur->Register($tab);
+                if ($unUser == null) {
                     echo
                     "<div class='col-md-3 alert alert-danger'>Erreur technique veuillez réessayer plus tard<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
                         <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
                     </svg> </span> </div>";
-            } else {
-                $_SESSION['User'] = $unUser;
-                $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];
-                $_SESSION['User']['dateinscription_u'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['dateinscription'];
-                $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
-                $_SESSION['formation'] = $formation;
-                if (isset($_SESSION['redirection'])) {
-                    header("Location:" . $_SESSION['redirection']);
-                    unset($_SESSION['redirection']);
                 } else {
-                    header("Location: index.php?page=0");
+                    $_SESSION['User'] = $unUser;
+                    $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];
+                    $_SESSION['User']['dateinscription_u'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['dateinscription'];
+                    $formation = $unControleur->selectWhere("formule", "id_f", $_SESSION['User']['id_formation']);
+                    $_SESSION['formation'] = $formation;
+                    if (isset($_SESSION['redirection'])) {
+                        header("Location:" . $_SESSION['redirection']);
+                        unset($_SESSION['redirection']);
+                    } else {
+                        header("Location: index.php?page=0");
+                    }
                 }
-            }
             }
         }
     }
@@ -116,7 +116,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
     } else {
-        $page = 0;
+        $page = '0';
     }
     if (isset($_SESSION['Moniteur']) && $page != 10) {
         if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == sha1("ValAuto123")) {
@@ -125,7 +125,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
     }
     switch ($page) {
         case 'MoniteurMDP':
-            require_once("Profil.php");
+            require_once("profil.php");
             break;
         case '0':
             require_once("Accueil.php");
@@ -176,7 +176,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             unset($_SESSION);
             header("location: index.php?page=0");
             break;
-        case'66':
+        case '66':
             require_once("Login2.php");
             break;
         case '99':
@@ -206,7 +206,7 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
 <script src="./Js/index.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- AOS -->
 <script>
-  AOS.init();
+    AOS.init();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
