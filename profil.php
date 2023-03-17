@@ -1,4 +1,45 @@
 <?php
+if(isset($_POST["modifier_information"])) {
+    
+    $nom = $_POST['nom_u'];
+    $prenom = $_POST['prenom_u'];
+    $email = $_POST['email_u'];
+    $tel = $_POST['tel_u'];
+    $adresse = $_POST['adresse_u'];
+    $ville = $_POST['ville_u'];
+    $codepostal = $_POST['codepos_u'];
+
+    $role = $_SESSION['User']['role_u'];
+
+
+    if ($role == "eleve" || $role == "moniteur" || $role == "admin") {
+        $unControleur->setTable("user");
+        $tab = array("nom_u" => $nom, "prenom_u" => $prenom, "email_u" => $email, "tel_u" => $tel, "adresse_u" => $adresse, "ville_u" => $ville, "codepos_u" => $codepostal);
+        $unControleur->update($tab, "id_u", $_SESSION['User']['id_u']);
+        
+        echo "<div class='col-md-3 alert alert-success'>Vos informations ont été modifiées avec succes !<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+                    <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+                    </svg> </span> </div>";
+
+        $email = $_SESSION['User']['email_u'];
+        $mdp = $_SESSION['User']['mdp_u'];
+        
+        $_SESSION['User'] = $unControleur->verifConnection($email, $mdp);
+        if ($_SESSION['User'] != null && $_SESSION['User']['role_u'] == "eleve") {
+            $_SESSION['User']['id_formation'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['id_formation'];
+            $_SESSION['User']['dateinscription_u'] = $unControleur->selectWhere("eleve", "id_u", $_SESSION['User']['id_u'])['dateinscription'];
+    } elseif ($_SESSION['User'] != null && $_SESSION['User']['role_u'] == "moniteur") {
+        $_SESSION['Moniteur'] = $_SESSION['User'];
+        unset($_SESSION['User']);
+        $_SESSION['Moniteur']['dateembauche_u'] = $unControleur->selectWhere("moniteur", "id_u", $_SESSION['Moniteur']['id_u'])['dateembauche'];
+    } elseif ($_SESSION['User'] != null && $_SESSION['User']['role_u'] == "admin") {
+        $_SESSION['Admin'] = $_SESSION['User'];
+        unset($_SESSION['User']);
+    }
+    header("Location: index.php?page=6");
+}
+}
+
 if (!empty($_SESSION['User'])) {
     $profil = array(
         "nom" => $_SESSION['User']['nom_u'],
@@ -242,6 +283,46 @@ $date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtoti
         </div>
     </div>
 
+
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form-modification-modal">
+  Modifier le profil
+</button>
+
+
+
+<div class="modal fade" id="form-modification-modal" tabindex="-1" aria-labelledby="form-modification-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="form-modification-modal-label">Modifier le profil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST">
+            <strong>Nom:</strong>
+            <input type="text" class="form-control" name="nom_u" placeholder="Nom" value="<?php echo $profil['nom']; ?>"><br>
+            <strong>Prénom:</strong>
+            <input type="text" class="form-control" name="prenom_u" placeholder="Prénom" value="<?php echo $profil['prenom']; ?>"><br>
+            <strong>Email:</strong>
+            <input type="email" class="form-control" name="email_u" placeholder="Email" value="<?php echo $profil['email']; ?>"><br>
+            <strong>Numéro de téléphone:</strong>
+            <input type="text" class="form-control" name="tel_u" placeholder="Téléphone" value="<?php echo $profil['tel']; ?>"><br>
+            <strong>Addresse</strong>
+            <input type="text" class="form-control" name="adresse_u" placeholder="Adresse" value="<?php echo $profil['adresse']; ?>"><br>
+            <strong>Ville:</strong>
+            <input type="text" class="form-control" name="ville_u" placeholder="Ville" value="<?php echo $profil['ville']; ?>"><br>
+            <strong>Code Postal:</strong>
+            <input type="text" class="form-control" name="codepos_u" placeholder="Code Postal" value="<?php echo $profil['codepostal']; ?>"><br>
+            <button type="submit" name="modifier_information" class="btn btn-primary mt-3">Enregistrer les modifications</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
     <?php
     if (isset($_SESSION['Moniteur'])) {
         if ($unControleur->selectWhere("user", "id_u", $_SESSION['Moniteur']["id_u"])["mdp_u"] == sha1("ValAuto123")) {
@@ -258,6 +339,25 @@ $date = !empty($profil['dateprofil']) ? utf8_encode(strftime("%d %b %Y", strtoti
     require_once("views/_footer.php");
     ?>
 </body>
+<script>
+    var btnModifier = document.getElementById('btn-modifier');
+  var formModification = document.getElementById('form-modification');
+  var isEditing = false;
+
+  btnModifier.addEventListener('click', function() {
+    if (!isEditing) {
+      // Afficher le formulaire de modification et masquer les informations personnelles
+      formModification.style.display = 'block';
+      btnModifier.innerHTML = 'Annuler';
+      isEditing = true;
+    } else {
+      // Masquer le formulaire de modification et afficher les informations personnelles
+      formModification.style.display = 'none';
+      btnModifier.innerHTML = 'Modifier';
+      isEditing = false;
+    }
+  });
+</script>
 <script src="./Js/profil.js"></script>
 <script>
     if (window.history.replaceState) {
