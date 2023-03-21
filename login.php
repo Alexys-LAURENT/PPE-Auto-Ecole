@@ -167,65 +167,31 @@
     <?php
 
 if (isset($_POST['btnResetPassword'])) {
+  $email = $_POST['email_reset'];
+  $questionSecrete = $unControleur->selectWhere("user", "email_u", $email)['security_question'];
+  $reponseSecrete = $unControleur->selectWhere("user", "email_u", $email)['security_answer'];
 
- 
 
-    $questionSecrete = $unControleur->selectWhere("user", "email_u", $_POST['email_reset'])['security_question'];
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Adresse email invalide";
+    exit;
+  }
 
-    $reponseSecrete = $unControleur->selectWhere("user", "email_u", $_POST['email_reset'])['security_answer'];
 
- 
+  if ($_POST['security_answer'] !== $reponseSecrete) {
+    echo "Réponse de sécurité incorrecte";
+    exit;
+  }
 
-    if ($questionSecrete == $_POST['Reset_security_question']) {
 
-        if ($reponseSecrete == $_POST['Reset_security_answer']) {
+  $nouveauMotDePasse = $_POST['new_password'];
+  $unControleur->setTable("user");
+  $tab = array("mdp_u" => $nouveauMotDePasse);
+  $unControleur->update($tab, "email_u", $email);
 
-            if (!empty($_POST['new_password']) && !empty($_POST['confirm_password'])) {
-
-                $unControleur->setTable("user");
-
-                $new_password = $_POST['new_password'];
-
-                $confirm_password = $_POST['confirm_password'];
-
-               
-
-                if ($new_password == $confirm_password) {
-
-                    $tab = array("mdp_u" => $new_password);
-
-                    $unControleur->update($tab, "id_u", $_SESSION['User']['id_u']);
-
-                } else {
-
-                    echo "<div class='alert alert-danger'>Les deux mots de passe ne correspondent pas!</div>";
-
-                }
-
-            } else {
-
-                echo "<div class='alert alert-danger'>Veuillez remplir tous les champs!</div>";
-
-            }
-
-        } else {
-
-            echo "<div class='alert alert-danger'>La réponse à la question de sécurité est incorrecte!</div>";
-
-        }
-
-    } else {
-
-        echo "<div class='alert alert-danger'>La question de sécurité est incorrecte!</div>";
-
-    }
-
+  echo "Mot de passe mis à jour avec succès";
 }
-
 ?>
-
-     
-
  
 
   <!-- Modal -->
