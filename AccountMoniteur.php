@@ -1,5 +1,6 @@
 <?php
 
+//par défaut on met le mois et l'année actuel pour les boutons du calendrier
 if (isset($_POST['mois'])) {
     $mois = $_POST['mois'];
 } else {
@@ -54,7 +55,27 @@ if (isset($_POST["AnnulerHeure"])) {
         "etat" => "Annuler",
         "motifAnnulation" => $_POST["motifAutre"] != "" ? $_POST["motifAutre"] : $_POST["motif"]
     );
+
+    $id_v = $unControleur->selectWhere("cours_conduite", "id_cc", $_POST["id_cc"])["id_v"];
+
+    // $tab2 = array(
+    //     "id_v" => $id_v,
+    //     "annee_mois" = date()
+
+    // );
+
+   
     $unControleur->update($tab, 'id_cc', $_POST['id-cc']);
+
+    header("location: index.php?page=2");
+}
+
+if(isset($_POST['btnSubmitNbkm'])){
+    $unControleur->setTable("planning");
+    $tab = array(
+        "NbkmStatus" => 1
+    );
+    $unControleur->update($tab, 'id_cc', $_POST['id_cc']);
 
     header("location: index.php?page=2");
 }
@@ -324,6 +345,78 @@ if (isset($_POST["AnnulerHeure"])) {
                         ?>
 
                     </div>
+                </div>
+                <div data-aos="fade-up" class="p-3 border rounded-3 my-2 bg-white">
+                <?php
+                        $first = true;
+                        $toutesLesHeuresSansNbmk = array_filter($toutesLesHeures, function($heure) {
+                            return $heure['NbkmStatus'] == 0;
+                        });
+                        if(empty($toutesLesHeuresSansNbmk)){
+                            echo "
+                            <div class='col-12 text-center mt-1'>
+                            <h5> Aucune heure de conduite à completer 😪 </h5>
+                            </div>
+                            ";
+                        }else{
+                        foreach ($toutesLesHeuresSansNbmk as $heure) {
+                            if($heure['NbkmStatus'] == 0){
+                            $eleve = $unControleur->selectWhere("user", "id_u", $heure['id_e']);
+                            $date = date("d-m-Y", strtotime($heure['datehd']));
+
+
+                                //transforme la date en lettres et en français en majuscules
+                                setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                                $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
+                                $jour_chiffres = substr($date, 0, 2);
+                                $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));
+                                // strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
+
+                                $dureeHeure = floor((strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 3600);
+                                $dureeMinute = (strtotime($heure['datehf']) - strtotime($heure['datehd'])) / 60;
+                                $dureeMinute = $dureeMinute - ($dureeHeure * 60);
+
+
+                                echo "
+                            <div class='col-12 p-3'>
+                                <div class='row'>
+                                    <div class='col-2'>
+                                        <div class='col-auto text-center";
+                                echo ($first) ? " bg-green " : " bg-light-grey ";
+                                echo "rounded-4 d-flex flex-column justify-content-center'>
+                                            <p class='p-0 m-0";
+                                echo ($first) ? " text-white " : "";
+                                echo "'><small> $jour </small></p>
+                                            <p class='p-0 m-0";
+                                echo ($first) ? " text-white " : "";
+                                echo "'> $jour_chiffres </p>
+                                            <p class='p-0 m-0";
+                                echo ($first) ? " text-white " : "";
+                                echo "'> $moisHeure </p>
+                                        </div>
+                                    </div>
+                                    <div class='col-10 my-auto'>
+                                        <div class='row'>
+                                            <div class='col-12 bg-grey rounded d-flex justify-content-between align-items-center'>
+                                                <div>
+                                                    <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite <span class='fw-normal'>(Élève : $eleve[nom_u] $eleve[prenom_u])</span></h5>
+                                                    <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
+                                                </div>
+                                                <form class='d-flex col-4' method='POST'>
+                                                    <input type='number' name='nbkm' id='nbkm' class=' form-control' placeholder='Nombre de km effectués'>
+                                                    <input type='hidden' name='id_cc' id='id_cc' value='$heure[id_cc]'>
+                                                    <button type='submit' class='btn btn-success ms-3' name='btnSubmitNbkm'>Valider</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>";
+                            $first = false;
+                            }
+                        }
+                    }
+                        ?>
                 </div>
             </div>
         </div>
