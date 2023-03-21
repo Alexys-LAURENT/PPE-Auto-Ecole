@@ -350,7 +350,7 @@ if(isset($_POST['btnSubmitNbkm'])){
                 <?php
                         $first = true;
                         $toutesLesHeuresSansNbmk = array_filter($toutesLesHeures, function($heure) {
-                            return $heure['NbkmStatus'] == 0;
+                            return $heure['NbkmStatus'] == 0 && $heure['etat'] == "Effectuer";
                         });
                         if(empty($toutesLesHeuresSansNbmk)){
                             echo "
