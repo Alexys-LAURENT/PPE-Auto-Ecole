@@ -169,15 +169,12 @@ $unControleur = new Controleur($serveur, $bdd, $user, $mdp);
             require_once('CPF.php');
             break;
         case '9':
-            require_once("login.php");
+            require_once("Login2.php");
             break;
         case '10':
             session_destroy();
             unset($_SESSION);
             header("location: index.php?page=0");
-            break;
-        case '66':
-            require_once("Login2.php");
             break;
         case '99':
             require_once("purchase.php");
