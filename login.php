@@ -1,4 +1,5 @@
 <?php
+var_dump($_POST);
 
 if (isset($_POST['btnResetPassword'])) {
   $email = $_POST['email_reset'];
@@ -12,7 +13,7 @@ if (isset($_POST['btnResetPassword'])) {
   }
 
 
-  if ($_POST['security_answer'] !== $reponseSecrete) {
+  if ($_POST['Reset_security_answer'] !== $reponseSecrete) {
     echo "Réponse de sécurité incorrecte";
     exit;
   }

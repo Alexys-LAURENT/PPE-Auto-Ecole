@@ -1,3 +1,31 @@
+<?php
+if (isset($_POST['btnResetPassword'])) {
+  $email = $_POST['email_reset'];
+  $questionSecrete = $unControleur->selectWhere("user", "email_u", $email)['security_question'];
+  $reponseSecrete = $unControleur->selectWhere("user", "email_u", $email)['security_answer'];
+
+
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Adresse email invalide";
+    exit;
+  }
+
+
+  if ($_POST['Reset_security_answer'] !== $reponseSecrete) {
+    echo "Réponse de sécurité incorrecte";
+    exit;
+  }
+
+
+  $nouveauMotDePasse = $_POST['new_password'];
+  $unControleur->setTable("user");
+  $tab = array("mdp_u" => $nouveauMotDePasse);
+  $unControleur->update($tab, "email_u", $email);
+
+  echo "Mot de passe mis à jour avec succès";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
