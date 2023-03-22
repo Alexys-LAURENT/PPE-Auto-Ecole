@@ -1,3 +1,54 @@
+<?php
+
+if (isset($_POST['btnResetPassword'])) {
+
+
+
+  $questionSecrete = $unControleur->selectWhere("user", "email_u", $_POST['email_reset'])['security_question'];
+
+  $reponseSecrete = $unControleur->selectWhere("user", "email_u", $_POST['email_reset'])['security_answer'];
+
+
+
+  if ($questionSecrete == $_POST['Reset_security_question']) {
+
+    if ($reponseSecrete == $_POST['Reset_security_answer']) {
+
+      if (!empty($_POST['new_password']) && !empty($_POST['confirm_password'])) {
+
+        $unControleur->setTable("user");
+
+        $new_password = $_POST['new_password'];
+
+        $confirm_password = $_POST['confirm_password'];
+
+
+
+        if ($new_password == $confirm_password) {
+
+          $tab = array("mdp_u" => $new_password);
+
+          $unControleur->update($tab, "id_u", $_SESSION['User']['id_u']);
+        } else {
+
+          echo "<div class='alert alert-danger'>Les deux mots de passe ne correspondent pas!</div>";
+        }
+      } else {
+
+        echo "<div class='alert alert-danger'>Veuillez remplir tous les champs!</div>";
+      }
+    } else {
+
+      echo "<div class='alert alert-danger'>La réponse à la question de sécurité est incorrecte!</div>";
+    }
+  } else {
+
+    echo "<div class='alert alert-danger'>La question de sécurité est incorrecte!</div>";
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,119 +149,119 @@
 
   </div>
 
-   <!-- Modal -->
+  <!-- Modal -->
 
-   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-<div class="modal-dialog">
+    <div class="modal-dialog">
 
-  <div class="modal-content">
+      <div class="modal-content">
 
-    <div class="modal-header">
+        <div class="modal-header">
 
-      <h1 class="modal-title fs-5" id="exampleModalLabel" data-bs-toggle="modal" data-bs-target="#exampleModal">Mot de passe oublié ?</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel" data-bs-toggle="modal" data-bs-target="#exampleModal">Mot de passe oublié ?</h1>
 
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-    </div>
-
-    <div class="modal-body">
-
-      <form action="" method="post" id="formPasswordReset">
-
-      <input type="hidden" name="currentStep" id="currentStep" value="1">
-
-
-
-        <div id="step1">
-
-          <p><strong>Veuillez entrer votre adresse email pour réinitialiser votre mot de passe :</strong></p>
-
-          <div class="form-group">
-
-            <label for="email">Email :</label>
-
-            <input type="email" class="form-email-control" id="email_reset" name="email_reset">
-
-          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
         </div>
 
+        <div class="modal-body">
+
+          <form action="" method="post" id="formPasswordReset">
+
+            <input type="hidden" name="currentStep" id="currentStep" value="1">
 
 
-        <div id="step2" style="display: none;">
 
-          <p>Veuillez répondre à votre question de sécurité :</p>
+            <div id="step1">
 
-          <div class="form-group">
+              <p><strong>Veuillez entrer votre adresse email pour réinitialiser votre mot de passe :</strong></p>
 
-            <label for="security_answer">Question :</label>
+              <div class="form-group">
 
-            <select name="Reset_security_question" id="Reset_security_question">
+                <label for="email">Email :</label>
 
-                    <option value="Quelle est votre couleur préférée ?">Quel est votre couleur préférée ?</option>
+                <input type="email" class="form-email-control" id="email_reset" name="email_reset">
 
-                    <option value="Quel est votre genre de film préféré ?">Quel est votre genre de film préféré ?</option>
+              </div>
 
-                    <option value="Quel est votre livre préféré?">Quel est votre livre préféré?</option>
+            </div>
 
-                    <option value="Dans quelle ville êtes-vous né ?">Dans quelle ville êtes-vous né ?</option>
 
-                    <option value="Quelle était ta nourriture préférée étant enfant ?">Quelle était votre nourriture préférée étant enfant ?</option>
+
+            <div id="step2" style="display: none;">
+
+              <p>Veuillez répondre à votre question de sécurité :</p>
+
+              <div class="form-group">
+
+                <label for="security_answer">Question :</label>
+
+                <select name="Reset_security_question" id="Reset_security_question">
+
+                  <option value="Quelle est votre couleur préférée ?">Quel est votre couleur préférée ?</option>
+
+                  <option value="Quel est votre genre de film préféré ?">Quel est votre genre de film préféré ?</option>
+
+                  <option value="Quel est votre livre préféré?">Quel est votre livre préféré?</option>
+
+                  <option value="Dans quelle ville êtes-vous né ?">Dans quelle ville êtes-vous né ?</option>
+
+                  <option value="Quelle était ta nourriture préférée étant enfant ?">Quelle était votre nourriture préférée étant enfant ?</option>
 
                 </select>
 
-            <input type="text" class="form-answer-control" id="Reset_security_answer" name="Reset_security_answer">
+                <input type="text" class="form-answer-control" id="Reset_security_answer" name="Reset_security_answer">
 
-          </div>
+              </div>
+
+            </div>
+
+
+
+            <div id="step3" style="display: none;">
+
+              <p>Veuillez choisir un nouveau mot de passe :</p>
+
+              <div class="form-group">
+
+                <label for="new_password">Nouveau mot de passe :</label>
+
+                <input type="password" class="form-mdp-control" id="new_password" name="new_password">
+
+              </div>
+
+              <div class="form-group">
+
+                <label for="confirm_password">Confirmer le nouveau mot de passe :</label>
+
+                <input type="password" class="form-mdp-control" id="confirm_password" name="confirm_password">
+
+              </div>
+
+            </div>
+
+
+
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+
+              <button type="button" class="btn btn-primary" id="btnNextStep" name="btnNextStep">Suivant</button>
+
+              <button type="submit" class="btn btn-primary" id="btnResetPassword" name="btnResetPassword" style="display: none;">Réinitialiser</button>
+
+            </div>
+
+          </form>
 
         </div>
 
-
-
-        <div id="step3" style="display: none;">
-
-          <p>Veuillez choisir un nouveau mot de passe :</p>
-
-          <div class="form-group">
-
-            <label for="new_password">Nouveau mot de passe :</label>
-
-            <input type="password" class="form-mdp-control" id="new_password" name="new_password">
-
-          </div>
-
-          <div class="form-group">
-
-            <label for="confirm_password">Confirmer le nouveau mot de passe :</label>
-
-            <input type="password" class="form-mdp-control" id="confirm_password" name="confirm_password">
-
-          </div>
-
-        </div>
-
-       
-
-        <div class="modal-footer">
-
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-
-          <button type="button" class="btn btn-primary" id="btnNextStep" name="btnNextStep">Suivant</button>
-
-          <button type="submit" class="btn btn-primary" id="btnResetPassword" name="btnResetPassword" style="display: none;">Réinitialiser</button>
-
-        </div>
-
-      </form>
+      </div>
 
     </div>
 
   </div>
-
-</div>
-
-</div>
 
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins");
