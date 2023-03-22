@@ -1,54 +1,3 @@
-<?php
-
-if (isset($_POST['btnResetPassword'])) {
-
-
-
-  $questionSecrete = $unControleur->selectWhere("user", "email_u", $_POST['email_reset'])['security_question'];
-
-  $reponseSecrete = $unControleur->selectWhere("user", "email_u", $_POST['email_reset'])['security_answer'];
-
-
-
-  if ($questionSecrete == $_POST['Reset_security_question']) {
-
-    if ($reponseSecrete == $_POST['Reset_security_answer']) {
-
-      if (!empty($_POST['new_password']) && !empty($_POST['confirm_password'])) {
-
-        $unControleur->setTable("user");
-
-        $new_password = $_POST['new_password'];
-
-        $confirm_password = $_POST['confirm_password'];
-
-
-
-        if ($new_password == $confirm_password) {
-
-          $tab = array("mdp_u" => $new_password);
-
-          $unControleur->update($tab, "id_u", $_SESSION['User']['id_u']);
-        } else {
-
-          echo "<div class='alert alert-danger'>Les deux mots de passe ne correspondent pas!</div>";
-        }
-      } else {
-
-        echo "<div class='alert alert-danger'>Veuillez remplir tous les champs!</div>";
-      }
-    } else {
-
-      echo "<div class='alert alert-danger'>La réponse à la question de sécurité est incorrecte!</div>";
-    }
-  } else {
-
-    echo "<div class='alert alert-danger'>La question de sécurité est incorrecte!</div>";
-  }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -149,38 +98,6 @@ if (isset($_POST['btnResetPassword'])) {
 
   </div>
 
-
-  <?php
-
-  if (isset($_POST['btnResetPassword'])) {
-    $email = $_POST['email_reset'];
-    $questionSecrete = $unControleur->selectWhere("user", "email_u", $email)['security_question'];
-    $reponseSecrete = $unControleur->selectWhere("user", "email_u", $email)['security_answer'];
-
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      echo "Adresse email invalide";
-      exit;
-    }
-
-
-    if ($_POST['security_answer'] !== $reponseSecrete) {
-      echo "Réponse de sécurité incorrecte";
-      exit;
-    }
-
-
-    $nouveauMotDePasse = $_POST['new_password'];
-    $unControleur->setTable("user");
-    $tab = array("mdp_u" => $nouveauMotDePasse);
-    $unControleur->update($tab, "email_u", $email);
-
-    echo "<div class='col-md-3 alert alert-success'>Votre mot de passe à été modifié avec succes !<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
-    <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
-    </svg> </span> </div>";
-  }
-  ?>
-
   <!-- Modal -->
 
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -243,10 +160,7 @@ if (isset($_POST['btnResetPassword'])) {
 
                 </select>
 
-                <<<<<<< HEAD <input type="text" class="form-answer-control" id="Reset_security_answer" name="Reset_security_answer">
-                  =======
-                  <input type="text" class="form-answer-control" id="Reset_security_answer" name="security_answer">
-                  >>>>>>> 158e486d386229ed95bf3e9e55ffbc69199c321b
+                <input type="text" class="form-answer-control" id="Reset_security_answer" name="Reset_security_answer">
 
               </div>
 
