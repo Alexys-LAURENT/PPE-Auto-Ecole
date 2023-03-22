@@ -144,7 +144,7 @@ if (isset($_POST['btnResetPassword'])) {
 
         <div class="modal-body">
 
-          <form action="" method="post" id="formPasswordReset">
+          <form action="" method="post" id="formPasswordReset" class="p-0">
 
             <input type="hidden" name="currentStep" id="currentStep" value="1">
 

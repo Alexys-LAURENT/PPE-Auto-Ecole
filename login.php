@@ -1,6 +1,4 @@
 <?php
-var_dump($_POST);
-
 if (isset($_POST['btnResetPassword'])) {
   $email = $_POST['email_reset'];
   $questionSecrete = $unControleur->selectWhere("user", "email_u", $email)['security_question'];

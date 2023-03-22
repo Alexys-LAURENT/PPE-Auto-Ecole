@@ -100,7 +100,8 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
             "datehd" => $datehd,
             "datehf" => $datehf,
             "etat" => "En attente user",
-            "motifAnnulation" => null
+            "motifAnnulation" => null,
+            "NbkmStatus" => null
         );
         $unControleur->insert($tab);
         header("Location: index.php?page=2");

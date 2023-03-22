@@ -1,15 +1,18 @@
-DROP TRIGGER IF EXISTS AFFECTATION_VEHICULE ;
+DROP TRIGGER IF EXISTS AFFECTATION_VEHICULE ; 
 
 DELIMITER $
 
 CREATE TRIGGER AFFECTATION_VEHICULE AFTER INSERT ON 
 PLANNING FOR EACH ROW BEGIN 
-	declare idvehicule, x int;
+	declare idvehicule,
+	x int;
+	
 	select count(*) into x
 	from planning
 	where
 	    id_e = new.id_e
 	    and id_cc != new.id_cc;
+	
 	if x > 0 then
 	select id_v into idvehicule
 	from
@@ -24,12 +27,15 @@ PLANNING FOR EACH ROW BEGIN
 	            id_e = new.id_e
 	            and id_cc != new.id_cc
 	    );
+	
 	ELSE
 	select id_v into idvehicule
 	from vehicule
 	order by RAND()
 	limit 1;
+	
 	END IF;
+	
 	IF idvehicule in (
 	    select id_v
 	    from
@@ -66,27 +72,32 @@ PLANNING FOR EACH ROW BEGIN
 	    order by RAND()
 	    limit 1
 	);
+	
 	END IF;
+	
 	update cours_conduite
 	set id_v = idvehicule
 	where id_cc = new.id_cc;
-	END 
+	
+	END
 $ 
 
 DELIMITER ;
 
-DROP TRIGGER IF EXISTS AFFECTATION_MONITEUR ;
+DROP TRIGGER IF EXISTS AFFECTATION_MONITEUR ; 
 
 DELIMITER $
 
 CREATE TRIGGER AFFECTATION_MONITEUR BEFORE INSERT ON 
 PLANNING FOR EACH ROW BEGIN 
 	DECLARE id_moniteur INT;
+	
 	SELECT id_m INTO id_moniteur
 	FROM planning
 	WHERE id_e = NEW.id_e
 	ORDER BY datehd ASC
 	LIMIT 1;
+	
 	IF id_moniteur IS NULL THEN
 	SELECT id_u INTO id_moniteur
 	FROM USER
@@ -97,7 +108,9 @@ PLANNING FOR EACH ROW BEGIN
 	        FROM planning
 	    )
 	LIMIT 1;
+	
 	END IF;
+	
 	IF id_moniteur IS NULL THEN
 	SELECT id_m INTO id_moniteur
 	FROM (
@@ -110,9 +123,12 @@ PLANNING FOR EACH ROW BEGIN
 	            nb_heures ASC
 	    ) AS t
 	LIMIT 1;
+	
 	END IF;
+	
 	SET NEW.id_m = id_moniteur;
-	END 
+	
+	END
 $ 
 
 DELIMITER ;
