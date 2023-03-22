@@ -29,23 +29,23 @@ const step3confirmPassword = document.getElementById('confirm_password');
 btnStep.addEventListener('click', formPasswordReset);
 
 function formPasswordReset() {
-    if (currentStep.value === "1") {
+    if (currentStep.value === 1) {
         if (step1Email.value != "") {
             step1.style.display = "none";
             step2.style.display = "block";
             step3.style.display = "none";
-            currentStep.value = "2";
+            currentStep.value = 2;
         }
-    } else if (currentStep.value === "2") {
+    } else if (currentStep.value === 2) {
         if (step2question.value != "" && step2SecurityQuestion.value != "") {
             step1.style.display = "none";
             step2.style.display = "none";
             step3.style.display = "block";
             document.getElementById("btnResetPassword").style.display = "block";
-            currentStep.value = "3";
+            currentStep.value = 3;
             btnStep.innerText = "Réinitialiser";
         }
-    } else if (currentStep.value === "3") {
+    } else if (currentStep.value === 3) {
         if (step3newPassword.value != "" && step3confirmPassword.value != "") {
             document.getElementById("btnResetPassword").click();
         }
