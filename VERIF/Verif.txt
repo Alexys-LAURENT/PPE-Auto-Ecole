@@ -22,3 +22,5 @@ avec la commande : show triggers\G
 -Valider
 -Effectuer
 -Refuser
+
+mysqldump --events --routines --triggers -u root autoecole > fichier.sql
