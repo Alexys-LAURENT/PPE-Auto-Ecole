@@ -74,10 +74,9 @@
                 <h1 class="slogan my-5 text-center">Nos formations!</h1>
 
 
-                <div class="bouttons-container py-5">
+                <div class="bouttons-container py-5 mx-auto">
                     <div id="btn-PermisB" class="boutton rounded-2 boutton-active" onclick="Display_PermisB()">Permis B</div>
                     <div id="btn-PermisA" class="boutton rounded-2" onclick="Display_PermisA()">Permis A</div>
-                    <div id="btn-Code" class="boutton rounded-2" onclick="Display_Code()">Code</div>
                 </div>
             </div>
         </div>
@@ -276,49 +275,7 @@
 
 
 
-            <!-- CODE -->
-            <div class="form" id="form-Code">
-                <form action="" method="POST">
 
-                    <div class="form-title">
-                        <h1>Le code de la route</h1>
-                    </div>
-                    <div class="d-flex">
-                        <div class="form-total">
-                            <div class="d-flex input-form-gauche">
-                                <input class="form-check-input" id="Code" type="radio" name="Code" value="10" required>
-                                <div class="d-flex">
-                                    <label for="Code">Code</label>
-                                    <div title="Accès à une interface pour réviser le code sur Ornikar" class="infos">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex input-form-gauche">
-                                <input class="form-check-input" id="CodeR" type="radio" name="Code" value="30" required>
-                                <div class="d-flex">
-                                    <label for="CodeR">Code Réussite</label>
-                                    <div title="Accès à une interface pour réviser le code sur Ornikar + une session pour passer l'examen" class="infos">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-            <div class="btn-sinscrire" id="validate-Code">
-                <p id="Montant-Display3"></p>
-                <button id="validate-form-forfaits" name="Submit-Code">S'inscrire</button>
-            </div>
-
-            </form>
 
 
 
@@ -350,10 +307,6 @@
 
     if (isset($_GET['type']) && $_GET['type'] == "A") {
         echo "<script>Display_PermisA()</script>";
-    }
-
-    if (isset($_GET['type']) && $_GET['type'] == "code") {
-        echo "<script>Display_Code()</script>";
     }
 
     ?>

@@ -23,9 +23,10 @@ $toutesLesHeures = $unControleur->selectAllHeuresMonit("planning", $_SESSION['Mo
 if (isset($_POST['AccepterHeure'])) {
     $unControleur->setTable("planning");
     $tab = array(
-        "etat" => "Valider"
+        "etat" => "Valider",
     );
-    $unControleur->update($tab, 'id_cc', $_POST['AccepterHeure']);
+    $tab += explode(",", $_POST['AccepterHeure']);
+    $unControleur->accepterHeureEleve($tab);
 
     header("location: index.php?page=2");
 }
@@ -40,11 +41,13 @@ if (isset($_POST['ProposerHeure'])) {
 
     $unControleur->setTable("planning");
     $tab = array(
-        "datehd" => $dateDebut->format('Y-m-d H:i:s'),
-        "datehf" => $dateFin->format('Y-m-d H:i:s'),
-        "etat" => "En attente moniteur"
+        "newdatehd" => $dateDebut->format('Y-m-d H:i:s'),
+        "newdatehf" => $dateFin->format('Y-m-d H:i:s'),
+        "etat" => "En attente moniteur",
     );
-    $unControleur->update($tab, 'id_cc', $_POST['idhd']);
+    $tab += explode(",", $_POST['ids']);
+    $unControleur->proposerHeureEleve($tab);
+
 
     header("location: index.php?page=2");
 }
@@ -55,29 +58,42 @@ if (isset($_POST["AnnulerHeure"])) {
         "etat" => "Annuler",
         "motifAnnulation" => $_POST["motifAutre"] != "" ? $_POST["motifAutre"] : $_POST["motif"]
     );
+    $tab += explode(",", $_POST['ids']);
 
-    $id_v = $unControleur->selectWhere("cours_conduite", "id_cc", $_POST["id_cc"])["id_v"];
 
-    // $tab2 = array(
-    //     "id_v" => $id_v,
-    //     "annee_mois" = date()
 
-    // );
-
-   
-    $unControleur->update($tab, 'id_cc', $_POST['id-cc']);
+    $unControleur->annulerHeureMoniteur($tab);
 
     header("location: index.php?page=2");
 }
 
-if(isset($_POST['btnSubmitNbkm'])){
-    $unControleur->setTable("planning");
-    $tab = array(
-        "NbkmStatus" => 1
-    );
-    $unControleur->update($tab, 'id_cc', $_POST['id_cc']);
+if (isset($_POST['btnSubmitNbkm'])) {
+    if ($_POST['compteRendu'] == "" || $_POST['nbkm'] == "") {
+        echo "<div class='col-md-3 alert alert-danger'>Veuillez remplir toutes les informations.<span onclick='closeAlertDanger()'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+            <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/>
+          </svg> </span> </div>";
+    } else {
+        $unControleur->setTable("planning");
+        $tab = array(
+            "NbkmStatus" => 1,
+            "compteRendu" => $_POST['compteRendu'],
+        );
+        $tab += explode(",", $_POST['ids']);
+        $unControleur->renseignerInfosPostHeure($tab);
 
-    header("location: index.php?page=2");
+        $unControleur->setTable("roule");
+        $tabids = explode(",", $_POST['ids']);
+        $tab2 = array(
+            "matricule" => $tabids[2],
+            // "annee_mois" => date("Y-m"),
+            "annee_mois" => date("Y-m-01", strtotime($tabids[3])),
+            "nb_km_mois" => $_POST['nbkm']
+        );
+        $unControleur->insert($tab2);
+
+
+        header("location: index.php?page=2");
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -100,25 +116,26 @@ if(isset($_POST['btnSubmitNbkm'])){
             <div class="row justify-content-between">
                 <div data-aos="fade-up" class="col-xl-5 p-3 border rounded-3 text-center my-2 bg-white">
                     <h5 class="text-center fw-bold text-dark pt-3"> Heures à valider </h5>
-                    <?php
-                    if ($heuresAValider != null) {
-                        $first = true;
-                        foreach ($heuresAValider as $uneHeure) {
-                            $eleve = $unControleur->selectWhere("user", "id_u", $uneHeure['id_e']);
+                    <div class='row mx-auto max-height overflow-auto'>
+                        <?php
+                        if ($heuresAValider != null) {
+                            $first = true;
+                            foreach ($heuresAValider as $uneHeure) {
+                                $eleve = $unControleur->selectWhere("user", "id_u", $uneHeure['id_e']);
 
-                            $date = date("d-m-Y", strtotime($uneHeure['datehd']));
-                            $dateInput = date("Y-m-d", strtotime($uneHeure['datehd']));
+                                $date = date("d-m-Y", strtotime($uneHeure['datehd']));
+                                $dateInput = date("Y-m-d", strtotime($uneHeure['datehd']));
 
-                            //transforme la date en lettres et en français en majuscules
-                            setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-                            $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
-                            $jour_chiffres = substr($date, 0, 2);
-                            $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));
-                            // strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
+                                //transforme la date en lettres et en français en majuscules
+                                setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
+                                $jour = substr(strtoupper(strftime("%A", strtotime($date))), 0, 3) . ".";
+                                $jour_chiffres = substr($date, 0, 2);
+                                $moisHeure = utf8_encode(strtoupper(strftime("%b", strtotime($date))));
+                                // strlen($moisHeure) > 4 ? $moisHeure = substr($moisHeure, 0, 4) . "." : $moisHeure = $moisHeure;
 
-                            $dureeHeure = floor((strtotime($uneHeure['datehf']) - strtotime($uneHeure['datehd'])) / 3600);
-                            $dureeMinute = (strtotime($uneHeure['datehf']) - strtotime($uneHeure['datehd'])) / 60;
-                            $dureeMinute = $dureeMinute - ($dureeHeure * 60);
+                                $dureeHeure = floor((strtotime($uneHeure['datehf']) - strtotime($uneHeure['datehd'])) / 3600);
+                                $dureeMinute = (strtotime($uneHeure['datehf']) - strtotime($uneHeure['datehd'])) / 60;
+                                $dureeMinute = $dureeMinute - ($dureeHeure * 60);
                                 echo
                                 "
                             <div class='col-12 p-3'>
@@ -148,14 +165,14 @@ if(isset($_POST['btnSubmitNbkm'])){
                                                 <div class='align-self-center ms-auto d-flex'>
                                             <form method='POST'>
                                                 <label class='pointer scale-label'>
-                                                <input type='submit' name='AccepterHeure' class='d-none' value='$uneHeure[id_cc]'>
+                                                <input type='submit' name='AccepterHeure' class='d-none' value='" . $uneHeure['id_e'] . "," . $uneHeure['id_m'] . "," . $uneHeure['matricule'] . "," . $uneHeure['datehd'] . "'>
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='green' class='bi bi-check' viewBox='0 0 16 16'>
                                                     <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/>
                                                     </svg>
                                                 </label>
                                             </form>
                                                 <label class='pointer scale-label'>
-                                                <button class='d-none Proposition' data-bs-toggle='modal' data-bs-target='#modalRefusMonit' data-idhd='$uneHeure[id_cc]' data-datehd='$dateInput'>
+                                                <button class='d-none Proposition' data-bs-toggle='modal' data-bs-target='#modalRefusMonit' data-ids=" . $uneHeure['id_e'] . "," . $uneHeure['id_m'] . "," . $uneHeure['matricule'] . "," . date('Y-m-d\TH:i:s', strtotime($uneHeure['datehd'])) . " data-datehd='$dateInput'>
                                                     Demander une heure
                                                 </button>
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='red' class='bi bi-x' viewBox='0 0 16 16'>
@@ -168,16 +185,17 @@ if(isset($_POST['btnSubmitNbkm'])){
                                     </div>  
                                 </div>
                             </div>";
-                            $first = false;
-                        }
-                    } else {
-                        echo "
+                                $first = false;
+                            }
+                        } else {
+                            echo "
                         <div class='col-12 p-3 mt-5 text-center'>
                         <h5> Aucune heure à valider 😪 </h5>
                         </div>
                         ";
-                    }
-                    ?>
+                        }
+                        ?>
+                    </div>
                 </div>
                 <div data-aos="fade-up" class="col-xl-5 p-3 border rounded-3 my-2 bg-white">
                     <div class="row mx-auto">
@@ -300,7 +318,8 @@ if(isset($_POST['btnSubmitNbkm'])){
                                             <path d='M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z'/>
                                           </svg></div>";
                                 } elseif ($heure['etat'] == "Annuler") {
-                                    echo "<div title='Annulée, $heure[motifAnnulation]'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='red' class='bi bi-x' viewBox='0 0 16 16'>
+                                    // htmlspecialchars($heure['motifAnnulation'], ENT_QUOTES) sert à ne pas couper le 
+                                    echo "<div title='Annulée, " . htmlspecialchars($heure['motifAnnulation'], ENT_QUOTES) . "'><svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='red' class='bi bi-x' viewBox='0 0 16 16'> 
                                                 <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>
                                             </svg></div>";
                                 } elseif ($heure['etat'] == "Effectuer") {
@@ -310,7 +329,7 @@ if(isset($_POST['btnSubmitNbkm'])){
                                     if (date_diff(date_create(date("Y-m-d")), date_create($heure['datehf']))->format("%a") <= 15) {
                                         echo
                                         "
-                                        <button type='button' class='btn btn-link text-danger text-decoration-none Annuler' data-bs-toggle='modal' data-id_cc='$heure[id_cc]' data-bs-target='#modalAnnulerHeure'>
+                                        <button type='button' class='btn btn-link text-danger text-decoration-none Annuler' data-bs-toggle='modal' data-ids=" . $heure['id_e'] . "," . $heure['id_m'] . "," . $heure['matricule'] . "," . date('Y-m-d\TH:i:s', strtotime($heure['datehd'])) . " data-bs-target='#modalAnnulerHeure'>
                                             Annuler
                                         </button>";
                                     }
@@ -320,7 +339,7 @@ if(isset($_POST['btnSubmitNbkm'])){
                                     </svg></div>
                                     </div>";
                                 } elseif ($heure['etat'] == "En attente moniteur") {
-                                    echo "<div title='En attente réponse moniteur'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='orange' class='bi bi-hourglass-split' viewBox='0 0 16 16'>
+                                    echo "<div title='En attente réponse élève'><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='orange' class='bi bi-hourglass-split' viewBox='0 0 16 16'>
                                                                 <path d='M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z'/>
                                                                 </svg></div>";
                                 }
@@ -347,22 +366,22 @@ if(isset($_POST['btnSubmitNbkm'])){
                     </div>
                 </div>
                 <div data-aos="fade-up" class="p-3 border rounded-3 my-2 bg-white">
-                <?php
-                        $first = true;
-                        $toutesLesHeuresSansNbmk = array_filter($toutesLesHeures, function($heure) {
-                            return $heure['NbkmStatus'] == 0 && $heure['etat'] == "Effectuer";
-                        });
-                        if(empty($toutesLesHeuresSansNbmk)){
-                            echo "
+                    <?php
+                    $first = true;
+                    $toutesLesHeuresSansNbmk = array_filter($toutesLesHeures, function ($heure) {
+                        return $heure['NbkmStatus'] == 0 && $heure['etat'] == "Effectuer";
+                    });
+                    if (empty($toutesLesHeuresSansNbmk)) {
+                        echo "
                             <div class='col-12 text-center mt-1'>
                             <h5> Aucune heure de conduite à completer 😪 </h5>
                             </div>
                             ";
-                        }else{
+                    } else {
                         foreach ($toutesLesHeuresSansNbmk as $heure) {
-                            if($heure['NbkmStatus'] == 0){
-                            $eleve = $unControleur->selectWhere("user", "id_u", $heure['id_e']);
-                            $date = date("d-m-Y", strtotime($heure['datehd']));
+                            if ($heure['NbkmStatus'] == 0) {
+                                $eleve = $unControleur->selectWhere("user", "id_u", $heure['id_e']);
+                                $date = date("d-m-Y", strtotime($heure['datehd']));
 
 
                                 //transforme la date en lettres et en français en majuscules
@@ -396,27 +415,26 @@ if(isset($_POST['btnSubmitNbkm'])){
                                         </div>
                                     </div>
                                     <div class='col-10 my-auto'>
-                                        <div class='row'>
-                                            <div class='col-12 bg-grey rounded d-flex justify-content-between align-items-center'>
-                                                <div>
+                                            <div class='row bg-grey rounded d-flex justify-content-between align-items-center'>
+                                                <div class='col-xl-5'>
                                                     <h5 class='text-start fs-6 fw-bold text-dark pt-1'> Session de conduite <span class='fw-normal'>(Élève : $eleve[nom_u] $eleve[prenom_u])</span></h5>
                                                     <h6 class='text-start fw-bold text-dark'> $dureeHeure.$dureeMinute" . "h (" . date("H:i", strtotime($heure['datehd'])) . " - " . date("H:i", strtotime($heure['datehf'])) . ")</h6>
                                                 </div>
-                                                <form class='d-flex col-4' method='POST'>
+                                                <form class='d-flex col-xl-7' method='POST'>
+                                                    <input type='text' name='compteRendu' id='compteRendu' class=' form-control' placeholder='Compte rendu'>
                                                     <input type='number' name='nbkm' id='nbkm' class=' form-control' placeholder='Nombre de km effectués'>
-                                                    <input type='hidden' name='id_cc' id='id_cc' value='$heure[id_cc]'>
+                                                    <input type='hidden' name='ids' id='ids' value='" . $heure['id_e'] . "," . $heure['id_m'] . "," . $heure['matricule'] . "," . $heure['datehd'] . "'>
                                                     <button type='submit' class='btn btn-success ms-3' name='btnSubmitNbkm'>Valider</button>
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>  
                                 </div>
                             </div>";
-                            $first = false;
+                                $first = false;
                             }
                         }
                     }
-                        ?>
+                    ?>
                 </div>
             </div>
         </div>
@@ -490,10 +508,10 @@ if(isset($_POST['btnSubmitNbkm'])){
 <script>
     // listener click sur tous les boutons ayant la classe Proposition (croix rouge dans la liste des heures à valider)
     $(document).on("click", ".Proposition", function() {
-        // récupère la valeur de data-idhd dan le boutton
-        var id = $(this).data('idhd');
-        // met la valeur de id dans le champ idhd du modal (champ caché nécessaire pour le update)
-        $(".modal-body #idhd").val(id);
+        // récupère la valeur de data-ids dans le boutton
+        var id = $(this).data('ids');
+        // met la valeur de id dans le champ ids du modal (champ caché nécessaire pour le update)
+        $(".modal-body #ids").val(id);
 
         // récupère la valeur de data-datehd dans le boutton
         var date = $(this).data('datehd');
@@ -503,9 +521,9 @@ if(isset($_POST['btnSubmitNbkm'])){
 
     // listener click sur tous les boutons ayant la classe Annuler (croix rouge dans la liste des heures à valider)
     $(document).on("click", ".Annuler", function() {
-        // récupère la valeur de data-idhd dan le boutton
-        var id = $(this).data('id_cc');
-        // met la valeur de id dans le champ idhd du modal (champ caché nécessaire pour le update)
-        $(".modal-body-refus #id-cc").val(id);
+        // récupère la valeur de data-ids dan le boutton
+        var id = $(this).data('ids');
+        // met la valeur de id dans le champ ids du modal (champ caché nécessaire pour le update)
+        $(".modal-body-refus #ids").val(id);
     });
 </script>

@@ -106,6 +106,89 @@ class Modele
         }
     }
 
+    public function accepterHeureEleve($tab)
+    {
+        if ($this->unPDO != null) {
+            $requete = "update " . $this->table . " set etat =:etat where id_e =:id_e and id_m =:id_m and matricule =:matricule and datehd =:datehd;";
+            $donnees = array(
+                ":etat" => $tab['etat'],
+                ":id_e" => $tab[0],
+                ":id_m" => $tab[1],
+                ":matricule" => $tab[2],
+                ":datehd" => $tab[3]
+            );
+            $update = $this->unPDO->prepare($requete);
+            $update->execute($donnees);
+        }
+    }
+
+    public function proposerHeureEleve($tab)
+    {
+        if ($this->unPDO != null) {
+            $requete = "update " . $this->table . " set datehd =:newdatehd, datehf =:newdatehf, etat =:etat where id_e =:id_e and id_m =:id_m and matricule =:matricule and datehd =:olddatehd;";
+            $donnees = array(
+                ":newdatehd" => $tab['newdatehd'],
+                ":newdatehf" => $tab['newdatehf'],
+                ":etat" => $tab['etat'],
+                ":id_e" => $tab[0],
+                ":id_m" => $tab[1],
+                ":matricule" => $tab[2],
+                ":olddatehd" => $tab[3]
+            );
+            $update = $this->unPDO->prepare($requete);
+            $update->execute($donnees);
+        }
+    }
+
+    public function annulerHeureMoniteur($tab)
+    {
+        if ($this->unPDO != null) {
+            $requete = "update " . $this->table . " set etat =:etat, motifAnnulation =:motifAnnulation where id_e =:id_e and id_m =:id_m and matricule =:matricule and datehd =:datehd;";
+            $donnees = array(
+                ":etat" => $tab['etat'],
+                ":motifAnnulation" => $tab['motifAnnulation'],
+                ":id_e" => $tab[0],
+                ":id_m" => $tab[1],
+                ":matricule" => $tab[2],
+                ":datehd" => $tab[3]
+            );
+            $update = $this->unPDO->prepare($requete);
+            $update->execute($donnees);
+        }
+    }
+
+    public function annulerHeureEleve($tab)
+    {
+        if ($this->unPDO != null) {
+            $requete = "delete from " . $this->table . " where id_e =:id_e and id_m =:id_m and matricule =:matricule and datehd =:datehd;";
+            $donnees = array(
+                ":id_e" => $tab[0],
+                ":id_m" => $tab[1],
+                ":matricule" => $tab[2],
+                ":datehd" => $tab[3]
+            );
+            $delete = $this->unPDO->prepare($requete);
+            $delete->execute($donnees);
+        }
+    }
+
+    public function renseignerInfosPostHeure($tab)
+    {
+        if ($this->unPDO != null) {
+            $requete = "update " . $this->table . " set NbkmStatus =:NbkmStatus, compteRendu =:compteRendu where id_e =:id_e and id_m =:id_m and matricule =:matricule and datehd =:datehd;";
+            $donnees = array(
+                ":NbkmStatus" => $tab['NbkmStatus'],
+                ":compteRendu" => $tab['compteRendu'],
+                ":id_e" => $tab[0],
+                ":id_m" => $tab[1],
+                ":matricule" => $tab[2],
+                ":datehd" => $tab[3]
+            );
+            $update = $this->unPDO->prepare($requete);
+            $update->execute($donnees);
+        }
+    }
+
     public function lastInsertId()
     {
         return $this->unPDO->lastInsertId();

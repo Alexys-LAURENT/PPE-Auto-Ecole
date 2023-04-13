@@ -21,7 +21,7 @@
                             <?php
                             $noheures = false;
                             foreach ($toutesLesHeures as $heure) {
-                                if ($heure['datehd'] > date("Y-m-d H:i:s")) {
+                                if ($heure['datehd'] > date("Y-m-d H:i:s") && $heure['etat'] == 'En attente user') {
                                     $dateSup = date("d/m/Y", strtotime($heure['datehd']));
                                     $heureDebSup = date("H:i", strtotime($heure['datehd']));
                                     $heureFinSup = date("H:i", strtotime($heure['datehf']));
@@ -29,7 +29,7 @@
                                     echo "<td>" . $dateSup . "</td>";
                                     echo "<td>" . $heureDebSup . "</td>";
                                     echo "<td>" . $heureFinSup . "</td>";
-                                    echo "<td><input class='form-check-input pointer' type='checkbox' name='heureSupp[]' value='" . $heure['id_cc'] . "'></td>";
+                                    echo "<td><input class='form-check-input pointer' type='checkbox' name='heureSupp[]' value='" . $heure['id_e'] . "," . $heure['id_m'] . "," . $heure['matricule'] . "," . $heure['datehd'] . "'></td> ";
                                     echo "</tr>";
                                     $noheures = true;
                                 }

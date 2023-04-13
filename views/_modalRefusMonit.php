@@ -9,7 +9,7 @@
             <div class="modal-body">
                 <!-- get data-id parameter from button -->
                 <form id="ProposerHeure" method="post">
-                    <input type="hidden" id="idhd" name="idhd" value="">
+                    <input type="hidden" id="ids" name="ids" value="">
                     <div class="row">
                         <div class="col-12 my-2">
                             <label for="datehd">Date</label>

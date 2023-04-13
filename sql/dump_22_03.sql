@@ -16,36 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cours_conduite`
---
-
-DROP TABLE IF EXISTS `cours_conduite`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cours_conduite` (
-  `id_cc` int(11) NOT NULL AUTO_INCREMENT,
-  `prixseance_cc` decimal(8,2) NOT NULL,
-  `id_v` int(11) NOT NULL,
-  `id_f` int(11) NOT NULL,
-  PRIMARY KEY (`id_cc`),
-  KEY `id_v` (`id_v`),
-  KEY `id_f` (`id_f`),
-  CONSTRAINT `cours_conduite_ibfk_1` FOREIGN KEY (`id_v`) REFERENCES `vehicule` (`id_v`),
-  CONSTRAINT `cours_conduite_ibfk_2` FOREIGN KEY (`id_f`) REFERENCES `formule` (`id_f`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cours_conduite`
---
-
-LOCK TABLES `cours_conduite` WRITE;
-/*!40000 ALTER TABLE `cours_conduite` DISABLE KEYS */;
-INSERT INTO `cours_conduite` VALUES (89,50.00,1,9),(90,50.00,1,9),(91,50.00,1,9),(93,50.00,3,29);
-/*!40000 ALTER TABLE `cours_conduite` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `eleve`
 --
 
@@ -123,66 +93,6 @@ INSERT INTO `moniteur` VALUES (15,'2021-02-10','2020-01-01'),(21,'2023-01-04','2
 UNLOCK TABLES;
 
 --
--- Table structure for table `paiement`
---
-
-DROP TABLE IF EXISTS `paiement`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `paiement` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_f` int(11) NOT NULL,
-  `payment_id` varchar(255) NOT NULL,
-  `payment_status` text NOT NULL,
-  `payment_amount` text NOT NULL,
-  `payment_currency` text NOT NULL,
-  `payment_date` datetime NOT NULL,
-  `payer_email` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_f` (`id_f`),
-  CONSTRAINT `paiement_ibfk_1` FOREIGN KEY (`id_f`) REFERENCES `formule` (`id_f`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `paiement`
---
-
-LOCK TABLES `paiement` WRITE;
-/*!40000 ALTER TABLE `paiement` DISABLE KEYS */;
-/*!40000 ALTER TABLE `paiement` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `photoeleve`
---
-
-DROP TABLE IF EXISTS `photoeleve`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `photoeleve` (
-  `id_photo` int(11) NOT NULL AUTO_INCREMENT,
-  `type_photo` varchar(25) NOT NULL,
-  `desc_photo` varchar(100) DEFAULT NULL,
-  `taille_photo` varchar(25) NOT NULL,
-  `nom_photo` varchar(50) NOT NULL,
-  `id_eleve` int(11) NOT NULL,
-  PRIMARY KEY (`id_photo`),
-  KEY `id_eleve` (`id_eleve`),
-  CONSTRAINT `photoeleve_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve2` (`id_e`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `photoeleve`
---
-
-LOCK TABLES `photoeleve` WRITE;
-/*!40000 ALTER TABLE `photoeleve` DISABLE KEYS */;
-/*!40000 ALTER TABLE `photoeleve` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `planning`
 --
 
@@ -190,32 +100,25 @@ DROP TABLE IF EXISTS `planning`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `planning` (
-  `id_cc` int(11) NOT NULL,
   `id_e` int(11) NOT NULL,
   `id_m` int(11) NOT NULL,
+  `id_v` int(11) NOT NULL,
   `datehd` datetime NOT NULL,
   `datehf` datetime DEFAULT NULL,
   `etat` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
   `motifAnnulation` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `NbkmStatus` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`id_cc`,`id_e`,`id_m`,`datehd`),
+  `compteRendu` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  PRIMARY KEY (`id_e`,`id_m`,`id_v`,`datehd`),
   KEY `id_e` (`id_e`),
-  KEY `id_m` (`id_m`),
+  KEY `id_m` (`id_m`),  
   CONSTRAINT `planning_ibfk_1` FOREIGN KEY (`id_e`) REFERENCES `user` (`id_u`),
   CONSTRAINT `planning_ibfk_2` FOREIGN KEY (`id_m`) REFERENCES `user` (`id_u`),
-  CONSTRAINT `planning_ibfk_3` FOREIGN KEY (`id_cc`) REFERENCES `cours_conduite` (`id_cc`)
+  CONSTRAINT `planning_ibfk_3` FOREIGN KEY (`id_v`) REFERENCES `vehicule` (`id_v`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `planning`
---
 
-LOCK TABLES `planning` WRITE;
-/*!40000 ALTER TABLE `planning` DISABLE KEYS */;
-INSERT INTO `planning` VALUES (89,27,15,'2023-03-30 09:00:00','2023-03-30 10:00:00','Valider',NULL,0),(90,27,15,'2023-03-30 16:30:00','2023-03-30 17:30:00','En attente user',NULL,0),(91,27,15,'2023-03-31 11:00:00','2023-03-31 12:00:00','En attente user',NULL,0),(93,10,15,'2023-03-30 09:00:00','2023-03-30 10:00:00','En attente user',NULL,0);
-/*!40000 ALTER TABLE `planning` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -391,7 +294,7 @@ CREATE TABLE `roule` (
   `id_v` int(11) NOT NULL,
   `annee_mois` year(4) NOT NULL,
   `nb_km_mois` float(8,2) DEFAULT NULL,
-  PRIMARY KEY (`id_v`),
+  PRIMARY KEY (`id_v`,`annee_mois`),
   CONSTRAINT `roule_ibfk_1` FOREIGN KEY (`id_v`) REFERENCES `vehicule` (`id_v`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;

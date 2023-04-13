@@ -40,6 +40,31 @@ class Controleur
         return $this->unModele->selectAll($table);
     }
 
+    public function accepterHeureEleve($tab)
+    {
+        $this->unModele->accepterHeureEleve($tab);
+    }
+
+    public function proposerHeureEleve($tab)
+    {
+        $this->unModele->proposerHeureEleve($tab);
+    }
+
+    public function annulerHeureMoniteur($tab)
+    {
+        $this->unModele->annulerHeureMoniteur($tab);
+    }
+
+    public function annulerHeureEleve($tab)
+    {
+        $this->unModele->annulerHeureEleve($tab);
+    }
+
+    public function renseignerInfosPostHeure($tab)
+    {
+        $this->unModele->renseignerInfosPostHeure($tab);
+    }
+
     /****************************LES USERS****************************/
     public function verifConnection($email, $mdp)
     {

@@ -37,15 +37,11 @@ $toutesLesHeures = $unControleur->selectAllHeuresAll("planning", $_SESSION['User
 if (isset($_POST['RetirerHeure'])) {
     foreach ($_POST['heureSupp'] as $uneHeure) {
         $unControleur->setTable("planning");
-        $tab = array(
-            "id_cc" => $uneHeure
-        );
-        $unControleur->delete($tab);
+        // convertir la chaine de caractère en tableau
+        $tab = explode(",", $uneHeure);
 
-        $unControleur->setTable("cours_conduite");
-        $unControleur->delete($tab);
+        $unControleur->annulerHeureEleve($tab);
     }
-
     header("Location: index.php?page=2");
 }
 
@@ -69,17 +65,6 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
     }
 
     if (!isset($erreur)) {
-        $unControleur->setTable("cours_conduite");
-        $tab = array(
-            "id_cc" => null,
-            "prixseance_cc" => 50,
-            "id_v" => 4,
-            "id_f" => $_SESSION['formation']['id_f']
-        );
-
-        $unControleur->insert($tab);
-
-
         $unControleur->setTable("planning");
 
         $datehd = new DateTime($_POST['datehd'] . " " . $_POST['heurehd']);
@@ -94,14 +79,15 @@ if (isset($_POST['ValiderHeure']) && isset($_POST['datehd']) && isset($_POST['he
         $datehf = $datehf->format('Y-m-d H:i:s');
 
         $tab = array(
-            "id_cc" => $unControleur->lastInsertId(),
             "id_e" => $_SESSION['User']['id_u'],
             "id_m" => null,
+            "id_v" => null,
             "datehd" => $datehd,
             "datehf" => $datehf,
             "etat" => "En attente user",
             "motifAnnulation" => null,
-            "NbkmStatus" => null
+            "NbkmStatus" => null,
+            "compteRendu" => null
         );
         $unControleur->insert($tab);
         header("Location: index.php?page=2");

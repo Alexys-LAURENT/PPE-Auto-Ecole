@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body modal-body-refus">
         <form id="AnnulerHeure" action="" method="POST">
-          <input type="hidden" id="id-cc" name="id-cc" value="">
+          <input type="hidden" id="ids" name="ids" value="">
           <select name="motif" id="selectMotif" class="form-select">
             <option value="L'élève ne s'est pas présenter">L'élève ne s'est pas présenter</option>
             <option value="Le moniteur ne s'est pas présenter">Le moniteur ne s'est pas présenter</option>

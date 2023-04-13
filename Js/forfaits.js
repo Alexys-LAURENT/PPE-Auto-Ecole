@@ -115,78 +115,29 @@ for (let i = 0; i < typePermisA.length; i++) {
 
 
 
-// CODE
-const Code = document.getElementsByName('Code');
-const Montant_Display3 = document.getElementById("Montant-Display3");
-Montant_Display3.innerHTML = "0€";
-let prix_Code = 0;
-sendDataCode();
-for (let i = 0; i < typePermisA.length; i++) {
-    Code[i].addEventListener('change', function () {
-
-        Code[i].value == 10 ? prix_Code = 10 : null;
-        Code[i].value == 30 ? prix_Code = 30 : null;
-
-        if (i == 0 && Code[i].checked && Code[i].value != 10) {
-            prix_Code = 10;
-        }
-
-        if (i == 1 && Code[i].checked && Code[i].value != 30) {
-            prix_Code = 30;
-        }
-
-        Montant_Display3.innerHTML = prix_Code + " €";
-        sendDataCode();
-    });
-}
-
-
-
-
-
 
 
 
 function Display_PermisB() {
     document.getElementById("form-PermisB").style.display = "flex";
     document.getElementById("form-PermisA").style.display = "none";
-    document.getElementById("form-Code").style.display = "none";
 
     document.getElementById("validate-PermisB").style.display = "flex";
     document.getElementById("validate-PermisA").style.display = "none";
-    document.getElementById("validate-Code").style.display = "none";
 
     document.getElementById("btn-PermisB").classList.add("boutton-active");
     document.getElementById("btn-PermisA").classList.remove("boutton-active");
-    document.getElementById("btn-Code").classList.remove("boutton-active");
 }
 
 function Display_PermisA() {
     document.getElementById("form-PermisB").style.display = "none";
     document.getElementById("form-PermisA").style.display = "flex";
-    document.getElementById("form-Code").style.display = "none";
 
     document.getElementById("validate-PermisB").style.display = "none";
     document.getElementById("validate-PermisA").style.display = "flex";
-    document.getElementById("validate-Code").style.display = "none";
 
     document.getElementById("btn-PermisB").classList.remove("boutton-active");
     document.getElementById("btn-PermisA").classList.add("boutton-active");
-    document.getElementById("btn-Code").classList.remove("boutton-active");
-}
-
-function Display_Code() {
-    document.getElementById("form-PermisB").style.display = "none";
-    document.getElementById("form-PermisA").style.display = "none";
-    document.getElementById("form-Code").style.display = "flex";
-
-    document.getElementById("validate-PermisB").style.display = "none";
-    document.getElementById("validate-PermisA").style.display = "none";
-    document.getElementById("validate-Code").style.display = "flex";
-
-    document.getElementById("btn-PermisB").classList.remove("boutton-active");
-    document.getElementById("btn-PermisA").classList.remove("boutton-active");
-    document.getElementById("btn-Code").classList.add("boutton-active");
 }
 
 
@@ -212,16 +163,4 @@ function sendDataPermisA() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.send("total_PermisA=" + total_PermisA);
-}
-
-function sendDataCode() {
-    var total_Code = prix_Code;
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("POST", "script.php", true);
-
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.send("total_Code=" + total_Code);
 }

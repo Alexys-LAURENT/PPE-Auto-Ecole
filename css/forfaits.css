@@ -24,7 +24,7 @@ body {
 }
 
 .bouttons-container {
-    width: 100%;
+    width: 75%;
     height: 60px;
     display: flex;
     justify-content: space-around;

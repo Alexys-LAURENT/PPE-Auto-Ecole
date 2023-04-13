@@ -1,6 +1,6 @@
 <footer class="mt-auto">
     <div class="gauche">
-        <p>114 rue pompom <br>
+        <p>114 Chemin des Fleurs <br>
             Paris 17ème <br>
             France</p>
     </div>
