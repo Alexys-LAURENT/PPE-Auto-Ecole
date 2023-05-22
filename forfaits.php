@@ -238,7 +238,7 @@
                             <div class="d-flex input-form-gauche">
                                 <input class="form-check-input ms-5" id="BSR" type="radio" name="typePermisA" value="243" required>
                                 <div class="d-flex">
-                                    <label for="BSR">Parmis AM / BSR</label>
+                                    <label for="BSR">Permis AM / BSR</label>
                                     <div title="À partir de 14 ans, il est nécessaire pour conduire un scooter jusqu’à 50cc ou une voiturette." class="infos">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
