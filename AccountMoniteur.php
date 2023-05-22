@@ -86,11 +86,10 @@ if (isset($_POST['btnSubmitNbkm'])) {
         $tab2 = array(
             "matricule" => $tabids[2],
             // "annee_mois" => date("Y-m"),
-            "annee_mois" => date("Y-m-01", strtotime($tabids[3])),
+            "annee_mois" => date("Y-m-d H:i:s", strtotime($tabids[3])),
             "nb_km_mois" => $_POST['nbkm']
         );
         $unControleur->insert($tab2);
-
 
         header("location: index.php?page=2");
     }

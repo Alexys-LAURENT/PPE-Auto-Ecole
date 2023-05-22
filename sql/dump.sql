@@ -866,22 +866,12 @@ DROP TABLE IF EXISTS `roule`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roule` (
   `matricule` varchar(50) CHARACTER SET utf8mb4 NOT NULL, 
-  `annee_mois` year(4) NOT NULL,
+  `annee_mois` datetime NOT NULL,
   `nb_km_mois` float(8,2) DEFAULT NULL,
   PRIMARY KEY (`matricule`,`annee_mois`),
   CONSTRAINT `roule_ibfk_1` FOREIGN KEY (`matricule`) REFERENCES `vehicule` (`matricule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roule`
---
-
-LOCK TABLES `roule` WRITE;
-/*!40000 ALTER TABLE `roule` DISABLE KEYS */;
-INSERT INTO `roule` VALUES ('DK-741-JF','2023-04-01',100.00);
-/*!40000 ALTER TABLE `roule` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -891,16 +881,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER assignation_nbkm before insert on roule
-for each row
-begin
-declare verifDate int;
-select count(*) from roule where Year(annee_mois) = Year(new.annee_mois) and Month(annee_mois) = Month(new.annee_mois) and matricule = new.matricule into verifDate;
-if verifDate > 0 then
-update roule set nb_km_mois = nb_km_mois + new.nb_km_mois where Year(annee_mois) = Year(new.annee_mois) and Month(annee_mois) = Month(new.annee_mois) and matricule = new.matricule;
-set new.matricule = -1;
-set new.annee_mois = '0000-00-00';
-end if;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER assignation_nbkm after
+insert on roule for each row begin
+update vehicule
+set km = km + new.nb_km_mois
+where matricule = new.matricule;
 end */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1019,6 +1004,7 @@ CREATE TABLE `vehicule` (
   `anneimmatri_v` year(4) NOT NULL,
   `anneachat_v` year(4) NOT NULL,
   `type_boite` enum('Manuelle','Automatique') DEFAULT NULL,
+  `km` float DEFAULT 0,
   PRIMARY KEY (`matricule`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1030,12 +1016,12 @@ CREATE TABLE `vehicule` (
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
 INSERT INTO `vehicule` VALUES 
-('DK-785-TF','4 roues','C3','Citroën',2008,2015,'Manuelle'),
-('HT-157-NH','4 roues','C3','Citroën',2011,2014,'Manuelle'),
-('EE-466-BV','4 roues','C3','Citroën',2018,2019,'Automatique'),
-('AU-119-LR','4 roues','C3','Citroën',2015,2017,'Automatique'),
-('AS-424-JY','2 roues','Z650','Yamaha',2014,2015,'Manuelle'),
-('CU-249-IN','2 roues','Z650','Yamaha',2018,2021,'Manuelle');
+('DK-785-TF','4 roues','C3','Citroën',2008,2015,'Manuelle', 0),
+('HT-157-NH','4 roues','C3','Citroën',2011,2014,'Manuelle', 0),
+('EE-466-BV','4 roues','C3','Citroën',2018,2019,'Automatique', 0),
+('AU-119-LR','4 roues','C3','Citroën',2015,2017,'Automatique', 0),
+('AS-424-JY','2 roues','Z650','Yamaha',2014,2015,'Manuelle', 0),
+('CU-249-IN','2 roues','Z650','Yamaha',2018,2021,'Manuelle', 0);
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 
