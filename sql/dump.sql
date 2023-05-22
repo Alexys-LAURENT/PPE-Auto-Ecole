@@ -919,7 +919,7 @@ CREATE TABLE `vehicule` (
   `type_v` enum('4 roues','2 roues') CHARACTER SET utf8mb4 NOT NULL,
   `model_v` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `marque_v` varchar(15) CHARACTER SET utf8mb4 NOT NULL,
-  `annneimmatri_v` year(4) NOT NULL,
+  `anneimmatri_v` year(4) NOT NULL,
   `anneachat_v` year(4) NOT NULL,
   `type_boite` enum('Manuelle','Automatique') DEFAULT NULL,
   PRIMARY KEY (`matricule`)
