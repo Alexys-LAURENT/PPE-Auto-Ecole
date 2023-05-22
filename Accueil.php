@@ -112,23 +112,23 @@ if (isset($_SESSION['Moniteur'])) {
                             <div class="my-3 avis-sm p-3">
                                 <p class="fw-bold">Auto-école supèrbe <br>
                                     Moniteur pationné !</p>
-                                <img class="me-2" src="./images/stars.png" alt="" width="100px">Daniel
+                                <img class="me-2" src="./images/Stars.png" alt="" width="100px">Daniel
                             </div>
                             <div class="my-3 avis-lg p-3">
                                 <p class="fw-bold">J’ai eu mon permis moto en 1 mois ! <br>
                                     Ambiance très agréable je recommande !</p>
-                                <img class="me-2" src="./images/stars.png" alt="" width="100px">Magalie
+                                <img class="me-2" src="./images/Stars.png" alt="" width="100px">Magalie
                             </div>
                             <div class="my-3 avis-md p-3">
                                 <p class="fw-bold">J’ai passé mon code et mon permis <br>
                                     en 1 mois ! Les moniteus sont top et passionnés.</p>
-                                <img class="me-2" src="./images/stars.png" alt="" width="100px">Ahmed
+                                <img class="me-2" src="./images/Stars.png" alt="" width="100px">Ahmed
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 my-auto">
                         <h1 class="title ps-5">Plus de 500 000 retours positifs ! <img src="./images/trust.png" alt="" width="100px"></h1>
-                        <img class="ps-5 img-fluid" src="./images/stars.png" alt="" width="500px">
+                        <img class="ps-5 img-fluid" src="./images/Stars.png" alt="" width="500px">
                     </div>
                 </div>
             </div>
@@ -137,8 +137,8 @@ if (isset($_SESSION['Moniteur'])) {
         <div data-aos="fade-right" class="bg-grey">
             <div class="container-xxl">
                 <div class="col-md-12">
-                    <h2 class="title text-center pt-4">Des offres allant du code de la route <br> au permis B et A !</h2>
-                    <div class="row pt-5 text-center">
+                    <h2 class="title text-center pt-4">Des offres allant du permis B au permis A !</h2>
+                    <div class="row pt-5 text-center justify-content-center">
                         <div class="col-xl-4">
                             <div class="card card-offres mb-5 p-3 shadow pt-5">
                                 <h3 class="title">Formation Permis B</h3>
@@ -156,17 +156,6 @@ if (isset($_SESSION['Moniteur'])) {
                                 <p class="text-muted fs-4">à partir de 243€</p>
                                 <div class="boutton">
                                     <a href="index.php?page=1&type=A">
-                                        <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="card card-offres mb-5 p-3 shadow pt-5">
-                                <h3 class="title">Formation Code</h3>
-                                <p class="text-muted fs-4">à partir de 10€</p>
-                                <div class="boutton">
-                                    <a href="index.php?page=1&type=code">
                                         <button class="title py-3 mt-2 px-3 mx-auto">VOIR LES OFFRES</button>
                                     </a>
                                 </div>

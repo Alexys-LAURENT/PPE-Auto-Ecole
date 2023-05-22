@@ -213,7 +213,7 @@ if (isset($_POST['btnSubmitNbkm'])) {
                                 </svg>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-5">
                             <form id="filtreMois" method="POST">
                                 <h5>
                                     <select name="mois" id="mois" class="form-select pointer">
@@ -232,7 +232,7 @@ if (isset($_POST['btnSubmitNbkm'])) {
                                     </select>
                                 </h5>
                         </div>
-                        <div class="col-3">
+                        <div class="col-5">
                             <h5>
                                 <select name="annee" id="annee" class="form-select pointer">
                                     <option value="2021" <?php if ($annee == 2021) echo "selected" ?>>2021</option>
@@ -248,15 +248,6 @@ if (isset($_POST['btnSubmitNbkm'])) {
                                 </select>
                             </h5>
                             </form>
-                        </div>
-                        <div class="col-4 text-center text-green">
-                            <!-- Button trigger modal -->
-                            <button id="AffTout" type="button" class="rounded border-0 bg-green text-white col-12" data-bs-toggle="modal" data-bs-target="#modalToutesLesHeures">
-                                Afficher tout
-                            </button>
-
-                            <!-- require_once('./views/_modalToutesHeuresMonit.php'); -->
-
                         </div>
                     </div>
                     <div class="row mx-auto max-height overflow-auto">

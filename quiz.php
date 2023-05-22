@@ -90,4 +90,4 @@ if (!isset($_SESSION['User'])) {
 
 </html>
 
-<script src="./js/quiz.js"></script>
+<script src="./Js/quiz.js"></script>

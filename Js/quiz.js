@@ -44,6 +44,7 @@ async function getQuestions() {
           subExplication: loadedQuestion.subExplication != null ? loadedQuestion.subExplication : null
         };
 
+        console.log(formattedQuestion);
 
         availableQuestions.push(formattedQuestion);
       });

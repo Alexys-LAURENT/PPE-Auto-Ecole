@@ -36,7 +36,7 @@ CREATE TABLE `eleve` (
 
 LOCK TABLES `eleve` WRITE;
 /*!40000 ALTER TABLE `eleve` DISABLE KEYS */;
-INSERT INTO `eleve` VALUES (10,29,'2023-02-10'),(18,29,'2023-02-16'),(26,NULL,'2023-02-24'),(27,9,'2023-03-17'),(28,NULL,'2023-03-11');
+INSERT INTO `eleve` VALUES (10,29,'2023-02-10');
 /*!40000 ALTER TABLE `eleve` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +88,7 @@ CREATE TABLE `moniteur` (
 
 LOCK TABLES `moniteur` WRITE;
 /*!40000 ALTER TABLE `moniteur` DISABLE KEYS */;
-INSERT INTO `moniteur` VALUES (15,'2021-02-10','2020-01-01'),(21,'2023-01-04','2021-02-11'),(24,'2020-01-01','2019-01-01');
+INSERT INTO `moniteur` VALUES (15,'2021-02-10','2020-01-01');
 /*!40000 ALTER TABLE `moniteur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +137,7 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER AFFECTATION_MONITEUR BEFORE INSERT ON 
-PLANNING FOR EACH ROW BEGIN 
+planning FOR EACH ROW BEGIN 
 DECLARE id_moniteur INT;
 SELECT id_m INTO id_moniteur
 FROM planning
@@ -146,7 +146,7 @@ ORDER BY datehd ASC
 LIMIT 1;
 IF id_moniteur IS NULL THEN
 SELECT id_u INTO id_moniteur
-FROM USER
+FROM user
 WHERE
     role_u = 'moniteur'
     AND id_u NOT IN (
@@ -185,53 +185,121 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER AFFECTATION_VEHICULE BEFORE INSERT ON 
-PLANNING FOR EACH ROW BEGIN 
-	declare idvehicule, x int;
-	select count(*) into x from planning where id_e = new.id_e;
-	if x > 0 then
-	select matricule into idvehicule
-	from planning p
-	where
-	    p.id_e = new.id_e
-	    and datehf = (
-	        select min(datehf)
-	        from planning
-	        where id_e = new.id_e
-	    );
-	ELSE
-	select matricule into idvehicule
-	from vehicule
-	order by RAND()
-	limit 1;
-	END IF;
-	IF idvehicule in (
-	    select matricule
-	    from planning p
-	    where (
-	            new.datehd >= datehd
-	            and new.datehd <= datehf
-	            or new.datehf >= datehd
-	            and new.datehf <= datehf
-	        )
-	) then (
-	    select
-	        matricule into idvehicule
-	    from vehicule
-	    where matricule not in (
-	            select matricule
-	            from planning p
-	            where (
-	                    new.datehd >= datehd
-	                    and new.datehd <= datehf
-	                    or new.datehf >= datehd
-	                    and new.datehf <= datehf
-	                )
-	        )
-	    order by RAND()
-	    limit 1
-	);
-	END IF;
-	set new.matricule = idvehicule;
+planning FOR EACH ROW BEGIN 
+	DECLARE idvehicule VARCHAR(50);
+
+DECLARE x INT;
+
+SELECT COUNT(*) INTO x
+FROM planning
+WHERE
+    id_e = NEW.id_e
+    AND matricule NOT IN (
+        SELECT matricule
+        FROM planning
+        WHERE (
+                NEW.datehd >= datehd
+                AND NEW.datehd <= datehf
+            )
+            OR (
+                NEW.datehf >= datehd
+                AND NEW.datehf <= datehf
+            )
+    );
+
+IF x > 0 THEN
+SELECT
+    matricule INTO idvehicule
+FROM planning p
+WHERE
+    p.id_e = NEW.id_e
+    AND datehf = (
+        SELECT MIN(datehf)
+        FROM planning
+        WHERE id_e = NEW.id_e
+    );
+
+ELSEIF (
+    SELECT nom_f
+    FROM formule
+    WHERE id_f = (
+            SELECT
+                id_formation
+            FROM eleve
+            WHERE
+                id_u = new.id_e
+        )
+) like '%Permis B%' THEN
+select
+    matricule into idvehicule
+from vehicule v
+where v.type_boite = (
+        SELECT type_boite
+        FROM formule
+        WHERE id_f = (
+                SELECT
+                    id_formation
+                FROM eleve
+                WHERE
+                    id_u = new.id_e
+            )
+    )
+    and type_v = '4 roues'
+    and matricule not in (
+        select matricule
+        from planning p
+        where (
+                new.datehd >= datehd
+                and new.datehd <= datehf
+                or new.datehf >= datehd
+                and new.datehf <= datehf
+            )
+    )
+order by RAND()
+limit 1;
+
+ELSEIF (
+    SELECT nom_f
+    FROM formule
+    WHERE id_f = (
+            SELECT
+                id_formation
+            FROM eleve
+            WHERE
+                id_u = new.id_e
+        )
+) like '%Permis A%'
+or (
+    SELECT nom_f
+    FROM formule
+    WHERE id_f = (
+            SELECT
+                id_formation
+            FROM eleve
+            WHERE
+                id_u = new.id_e
+        )
+) like '%Passerelle A%' THEN
+select
+    matricule into idvehicule
+from vehicule v
+where type_v = '2 roues'
+    and matricule not in (
+        select matricule
+        from planning p
+        where (
+                new.datehd >= datehd
+                and new.datehd <= datehf
+                or new.datehf >= datehd
+                and new.datehf <= datehf
+            )
+    )
+order by RAND()
+limit 1;
+
+END IF;
+
+SET NEW.matricule = idvehicule;
 	END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -811,8 +879,34 @@ CREATE TABLE `roule` (
 
 LOCK TABLES `roule` WRITE;
 /*!40000 ALTER TABLE `roule` DISABLE KEYS */;
+INSERT INTO `roule` VALUES ('DK-741-JF','2023-04-01',100.00);
 /*!40000 ALTER TABLE `roule` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER assignation_nbkm before insert on roule
+for each row
+begin
+declare verifDate int;
+select count(*) from roule where Year(annee_mois) = Year(new.annee_mois) and Month(annee_mois) = Month(new.annee_mois) and matricule = new.matricule into verifDate;
+if verifDate > 0 then
+update roule set nb_km_mois = nb_km_mois + new.nb_km_mois where Year(annee_mois) = Year(new.annee_mois) and Month(annee_mois) = Month(new.annee_mois) and matricule = new.matricule;
+set new.matricule = -1;
+set new.annee_mois = '0000-00-00';
+end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `user`
@@ -847,7 +941,10 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (10,'Tdzdzest','tdzdzest','2023-01-04','a@gmail.com','0612345678','12 rue du portail','Montfermeil','93370','M','eleve','40bd001563085fc35165329ea1ff5c5ecbdbbeef','',''),(15,'285852','485584','2023-01-04','monit@gmail.com','0612345678','12 rue rue','Clivhy','52752','M','moniteur','40bd001563085fc35165329ea1ff5c5ecbdbbeef','',''),(16,'admin','admin','2023-01-04','admin@gmail.com','0612345678','12 rue rue','grgr','52752',NULL,'admin','40bd001563085fc35165329ea1ff5c5ecbdbbeef','rrr','rrr'),(18,'Lamouche','Louis','2023-02-15','louis.lamouche2204@gmail.com','0679564775','53 Avenue des Palmiers','Montfermeil','93370','M','eleve','40bd001563085fc35165329ea1ff5c5ecbdbbeef','Quelle est votre couleur pr?f?r?e ?','rouge'),(21,'test','test','2023-02-08','test@test.fr','test','test','test','test','M','moniteur','51eac6b471a284d3341d8c0c63d0f1a286262a18','Quelle est votre couleur pr?f?r?e ?','rouge'),(24,'zdqz','qdz','2000-01-01','email','tel','adresse','ville','cp','M','moniteur','40bd001563085fc35165329ea1ff5c5ecbdbbeef','question','reponse'),(26,'testeee','testeee','2023-02-15','d@gmail.com','testeee','testeee','testeee','teste','M','eleve','40bd001563085fc35165329ea1ff5c5ecbdbbeef','Quelle est votre couleur pr?f?r?e ?','rouge'),(27,'Lamouche','Louis','2004-04-22','louis.lamouche2@gmail.com','0679564775','53 Avenue des Palmiers','Montfermeil','93370','M','eleve','40bd001563085fc35165329ea1ff5c5ecbdbbeef','Quelle est votre couleur pr?f?r?e ?','rouge');
+INSERT INTO `user` VALUES 
+(10,'Dupont','Paul','1998-09-04','pauldupont@gmail.com','0612345678','12 rue du portail','Paris','75017','M','eleve','40bd001563085fc35165329ea1ff5c5ecbdbbeef','Quelle est votre couleur préférée ?','rouge'),
+(15,'Lagrange','William','1995-12-09','monit@gmail.com','0612345678','12 rue du portail','Paris','75017','M','moniteur','40bd001563085fc35165329ea1ff5c5ecbdbbeef','Quelle est votre couleur préférée ?','rouge'),
+(16,'Rochefort','Germain','1992-04-04 ','admin@gmail.com','0612345678','12 rue du portail','Paris','75017','M','admin','40bd001563085fc35165329ea1ff5c5ecbdbbeef','Quelle est votre couleur préférée ?','rouge' );
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -859,7 +956,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER HASH_PASSWORD BEFORE INSERT ON USER 
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER HASH_PASSWORD BEFORE INSERT ON user 
 FOR EACH ROW BEGIN 
 SET NEW.mdp_u = SHA1(NEW.mdp_u);
 END */;;
@@ -877,7 +974,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER INSERT_ELEVE AFTER INSERT ON USER FOR 
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER INSERT_ELEVE AFTER INSERT ON user FOR 
 EACH ROW BEGIN 
 IF NEW.role_u = 'eleve' THEN
 INSERT INTO eleve
@@ -919,7 +1016,7 @@ CREATE TABLE `vehicule` (
   `type_v` enum('4 roues','2 roues') CHARACTER SET utf8mb4 NOT NULL,
   `model_v` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `marque_v` varchar(15) CHARACTER SET utf8mb4 NOT NULL,
-  `annneimmatri_v` year(4) NOT NULL,
+  `anneimmatri_v` year(4) NOT NULL,
   `anneachat_v` year(4) NOT NULL,
   `type_boite` enum('Manuelle','Automatique') DEFAULT NULL,
   PRIMARY KEY (`matricule`)
@@ -932,7 +1029,13 @@ CREATE TABLE `vehicule` (
 
 LOCK TABLES `vehicule` WRITE;
 /*!40000 ALTER TABLE `vehicule` DISABLE KEYS */;
-INSERT INTO `vehicule` VALUES (1,'4 roues','206','renault',2019,2020,'Manuelle'),(2,'4 roues','Civic','Honda',2020,2021,'Manuelle'),(3,'4 roues','308','peugeot',2019,2021,'Manuelle'),(4,'4 roues','C4','citro?n',2018,2020,'Automatique'),(5,'4 roues','C4','citroën',2017,2020,'Automatique');
+INSERT INTO `vehicule` VALUES 
+('DK-785-TF','4 roues','C3','Citroën',2008,2015,'Manuelle'),
+('HT-157-NH','4 roues','C3','Citroën',2011,2014,'Manuelle'),
+('EE-466-BV','4 roues','C3','Citroën',2018,2019,'Automatique'),
+('AU-119-LR','4 roues','C3','Citroën',2015,2017,'Automatique'),
+('AS-424-JY','2 roues','Z650','Yamaha',2014,2015,'Manuelle'),
+('CU-249-IN','2 roues','Z650','Yamaha',2018,2021,'Manuelle');
 /*!40000 ALTER TABLE `vehicule` ENABLE KEYS */;
 UNLOCK TABLES;
 
