@@ -15,7 +15,7 @@ if ($_SESSION['offre'] == "PermisB") {
     $_SESSION['lePrix'] = intval($_SESSION['total_PermisB'], 10); //On set la variable de session lePrix avec le prix de l'offre choisie par l'utilisateur pour l'utiliser dans le fichier Ajax_purchase.php et l'afficher sur la page juste en dessous
 }
 
-if ($_SESSION['offre'] == "PermisA") {
+if ($_SESSION['offre'] == "PermisA" || $_SESSION['offre'] == "PasserelleA2versA") {
     $_SESSION['lePrix'] = intval($_SESSION['total_PermisA'], 10); //On set la variable de session lePrix avec le prix de l'offre choisie par l'utilisateur pour l'utiliser dans le fichier Ajax_purchase.php et l'afficher sur la page juste en dessous
 }
 
