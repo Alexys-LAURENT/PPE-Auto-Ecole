@@ -32,7 +32,11 @@
               </svg> </span> </div>";
         } else {
             $_SESSION['achat'] = true;
-            header("location: index.php?page=99&offre=PermisA");
+            if($_POST['typePermisA'] == "225"){
+                header("location: index.php?page=99&offre=PasserelleA2versA");
+            }else{
+                header("location: index.php?page=99&offre=PermisA");
+            }
         }
     }
 
@@ -298,6 +302,6 @@
 
     <script>
         if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
+            window.history.replaceState(null, null, window.location.href); //pour pas re submit le form au refresh
         }
     </script>

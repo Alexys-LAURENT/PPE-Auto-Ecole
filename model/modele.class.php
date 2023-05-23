@@ -398,6 +398,12 @@ class Modele
                         ":prix_f" => $prix_f
                     );
                     break;
+                case "PasserelleA2versA":
+                    $requete = "select id_f from formule where nom_f like '%Passerelle A2 vers A%' and prix_f = :prix_f ;";
+                    $donnees = array(
+                        ":prix_f" => $prix_f
+                    );
+                    break;
             }
 
 
